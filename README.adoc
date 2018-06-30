@@ -1,0 +1,120 @@
+// Copyright (c) 2018 IBM Corporation and others.
+// Licensed under Creative Commons Attribution-NoDerivatives
+// 4.0 International (CC BY-ND 4.0)
+//   https://creativecommons.org/licenses/by-nd/4.0/
+//
+// Contributors:
+//     IBM Corporation
+//
+:page-layout: guide
+:projectid: spring-boot-guide
+:page-duration: 30 minutes
+:page-releasedate: 2018-11-17
+// INSTRUCTION: Provide a description for the guide index page.
+:page-description: Learn how to deploy a spring-boot application in Open Liberty.
+// INSTUCTION: Please provide relevant tags, try to avoid inventing new ones, tags where there is 1 guide for the tag isn't useful.
+:page-tags: ['Spring Boot', '', 'Maven']
+// INSTRUCTION: Specify the unique name of the guide that is used in the permalink.  For example below, it is rest-service
+:page-related-guides: ['']
+// INSTRUCTION: Specify the slug in the website. This must be unique.
+:page-permalink: /guides/spring-boot-guide
+// INSTRUCTION: You should have this to source the common page elements, clone git@github.com:OpenLiberty/guides-common.git
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+// INSTRUCTION: You can't have a new line between the attributes and the title.
+// The details of what to fill in for this template are in the comments. So, read the source for this template to see the comments.
+//
+// Example title: Creating a RESTful web service
+= Deploying a Spring Boot Application in Liberty
+
+Learn how to deploy a spring boot application on a Liberty server.
+// Write no more than two sentences, or about fifty words with meaningful information on what the user can accomplish with this guide.
+// Do not start the introduction with "This guide...".
+
+== What you'll learn
+You will learn how to deploy a Spring Boot application in Open Liberty and how to use the Spring boot utility
+ thin task to create a thin jar and indexed library for deploying on a Liberty server in Docker.
+ The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/serving-web-content/[Serving Web Content with Spring MVC] guide (gs-serving-web-content-0.1.0.jar).
+ Please first go through that guide if you are not familiar with Spring Boot or Spring MVC. Note that Java 8 is required to run this project.
+
+// Add this getting started section to your guide if it is applicable. Use the following include to pull in the git clone instructions from the guides-common repo.
+include::{common-includes}/gitclone.adoc[]
+
+== Running the starting application in embedded Tomcat
+You might first want to run the initial Spring Boot application without modifications. Move to the `start` directory to run the sample application in embedded Tomcat:
+
+----
+cd start
+mvn spring-boot:run
+----
+
+Notice that the console output will display that the application is running in Tomcat on port 8080. Now access the application at the following URL:
+
+----
+http://localhost:8080/greeting?name=SpringBootApplication
+----
+
+You'll see from the page output that the `GreetingController` handled the `name` request parameter:
+
+----
+Hello, SpringBootApplication!
+----
+
+=== Configure an Open Liberty server
+From the Liberty install directory go to /bin and issue the command ./server create springBoot. This will create a liberty server under the ${installDir}/usr/servers/springBoot. Next cd to the new server directory and edit the server.xml adding the following features under the featureManager stanza.
+
+----
+        <feature>servlet-3.1</feature>
+        <feature>springBoot-2.0</feature>
+----
+
+=== Install the application
+
+Navigate to the dropins directory (${installDir}/usr/servers/springBoot/dropins) then create a directory named spring.
+Copy the gs-serving-web-content-0.1.0.jar into the spring directory.
+
+=== Test the application
+Now start the Liberty server with the command ${installDir}/bin/server start springBoot. Now access the application at the following URL:
+
+----
+http://localhost:9080/greeting?name=SpringBootApplication
+----
+
+You'll see from the page output that the `GreetingController` handled the `name` request parameter:
+
+----
+Hello, SpringBootApplication!
+----
+
+==== Installing your application in the apps directory
+Due to restrictions on use of the dropins directory you may need to run your application out of the apps directory.
+You can do this by adding the following to your server.xml
+----
+  <springBootApplication location="gs-serving-web-content-0.1.0.jar">
+----
+=== Using the springBootUtility thin task
+The jar generated for a spring boot application contains a large number of supporting artifacts that make the jar
+very large. If you are updating your application frequently in a cloud environment pushing a large jar often will
+take time and use large amounts of resource. The springBootUtility provides a thinning task that splits the supporting
+artifacts and the application from the original jar into seperate artifacts. The application in one jar and the
+supporting artifacts in another jar. The jar with the supporting artifacts will be stored as an index that can be
+referenced by multiple containers leaving now much smaller application jar to be deployed across containers. 
+
+----
+
+----
+
+
+
+== Great work! You're done!
+
+You installed a basic Spring Boot MVC application to run in Open Liberty.
+
+// Briefly summarize what the user achieved in this guide (1-2 sentences).
+
+// OPTIONAL: briefly state what the user could do next now that they've learned the technologies in this guide.
+
+// Include the below from the guides-common repo to tell users how they can contribute to the guide
+include::{common-includes}/finish.adoc[]
+
+// DO NO CREATE ANYMORE SECTIONS AT THIS POINT
+// Related guides will be added in automatically here if you included them in ":page-related-guides"
