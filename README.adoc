@@ -31,73 +31,123 @@ Learn how to deploy a spring boot application on a Liberty server.
 // Do not start the introduction with "This guide...".
 
 == What you'll learn
-You will learn how to deploy a Spring Boot application in Open Liberty and how to use the Spring boot utility
+You will learn how to deploy a Spring Boot application in Open Liberty without modification and how to use the Spring boot utility
  thin task to create a thin jar and indexed library for deploying on a Liberty server in Docker.
- The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/serving-web-content/[Serving Web Content with Spring MVC] guide (gs-serving-web-content-0.1.0.jar).
- Please first go through that guide if you are not familiar with Spring Boot or Spring MVC. Note that Java 8 is required to run this project.
+ The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot] guide.
+ Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
 
 // Add this getting started section to your guide if it is applicable. Use the following include to pull in the git clone instructions from the guides-common repo.
 include::{common-includes}/gitclone.adoc[]
 
-== Running the starting application in embedded Tomcat
-You might first want to run the initial Spring Boot application without modifications. Move to the `start` directory to run the sample application in embedded Tomcat:
+== Building and running the application in embedded Tomcat
+You will first need to build the initial Spring Boot application into an executable jar file. Move to the `start` directory and run the Maven package command.
 
 ----
 cd start
-mvn spring-boot:run
+mvn package
+----
+
+You can now run the application in the embedded Tomcat web-container by executing the newly built jar file.
+----
+java -jar target/gs-spring-boot-0.1.0.jar
 ----
 
 Notice that the console output will display that the application is running in Tomcat on port 8080. Now access the application at the following URL:
 
 ----
-http://localhost:8080/greeting?name=SpringBootApplication
+http://localhost:8080
 ----
 
-You'll see from the page output that the `GreetingController` handled the `name` request parameter:
+You should see the following output displayed in your browser:
 
 ----
-Hello, SpringBootApplication!
+Greetings from Spring Boot!
 ----
 
-=== Configure an Open Liberty server
-From the Liberty install directory go to /bin and issue the command ./server create springBoot. This will create a liberty server under the ${installDir}/usr/servers/springBoot. Next cd to the new server directory and edit the server.xml adding the following features under the featureManager stanza.
+
+
+== Deploying the application to Open Liberty
+
+
+Move to your Liberty `wlp/bin` directory and create a basic Liberty server called `springBoot`.
 
 ----
-        <feature>servlet-3.1</feature>
-        <feature>springBoot-2.0</feature>
+cd wlp/bin
+./server create springBoot.
 ----
 
-=== Install the application
-
-Navigate to the dropins directory (${installDir}/usr/servers/springBoot/dropins) then create a directory named spring.
-Copy the gs-serving-web-content-0.1.0.jar into the spring directory.
-
-=== Test the application
-Now start the Liberty server with the command ${installDir}/bin/server start springBoot. Now access the application at the following URL:
+Next move to the new server directory `wlp/usr/servers/springBoot` and edit the server.xml file by adding the following features under the featureManager stanza.
 
 ----
-http://localhost:9080/greeting?name=SpringBootApplication
+<feature>servlet-3.1</feature>
+<feature>springBoot-2.0</feature>
 ----
 
-You'll see from the page output that the `GreetingController` handled the `name` request parameter:
+=== Quick deploying the application to dropins
+
+You can quickly install the application by simply adding it to the dropins directory. Navigate to `dropins` and create a directory named `spring`.
 
 ----
-Hello, SpringBootApplication!
+cd dropins
+mkdir spring
 ----
 
-==== Installing your application in the apps directory
+Copy the `gs-spring-boot-0.1.0.jar` file created by the Maven package command into the spring directory.
+
+----
+cp <git-rep-root>/start/target/gs-spring-boot-0.1.0.jar ./spring
+----
+
+Move to the `wlp/bin` directory and start the Liberty server.
+
+----
+ ./server start springBoot
+----
+
+Now access the application at the following URL:
+
+----
+http://localhost:9080
+----
+
+You should see the following output displayed in your browser:
+
+----
+Greetings from Spring Boot!
+----
+
+
+=== Installing your application in the apps directory
 Due to restrictions on use of the dropins directory you may need to run your application out of the apps directory.
-You can do this by adding the following to your server.xml
+To do this, navigate to the Open Liberty server directory and move the application from `dropins/spring` to `apps`.
+
 ----
-  <springBootApplication location="gs-serving-web-content-0.1.0.jar">
+mv dropins/spring/gs-spring-boot-0.1.0.jar apps
 ----
-=== Using the springBootUtility thin task
+
+Now add the following to your server.xml
+
+----
+  <springBootApplication location="gs-spring-boot-0.1.0.jar"/>
+----
+
+The change will be detected automatically without restarting the server. Refresh the browser page and make sure the same output is displayed.
+
+----
+Greetings from Spring Boot!
+----
+
+== Deploying the application to Open Liberty using Maven
+
+
+
+== Deploying the application to Docker using the springBootUtility thin task
 The jar generated for a spring boot application contains a large number of supporting artifacts that make the jar
 very large. If you are updating your application frequently in a cloud environment pushing a large jar often will
 take time and use large amounts of resource. The springBootUtility provides a thinning task that splits the supporting
 artifacts and the application from the original jar into seperate artifacts. The application in one jar and the
 supporting artifacts in another jar. The jar with the supporting artifacts will be stored as an index that can be
-referenced by multiple containers leaving now much smaller application jar to be deployed across containers. 
+referenced by multiple containers leaving now much smaller application jar to be deployed across containers.
 
 ----
 
