@@ -68,8 +68,9 @@ Greetings from Spring Boot!
 
 == Deploying the application to Open Liberty
 
+Download and unzip the latest stable release of Open Liberty here: https://developer.ibm.com/wasdev/downloads/download-latest-stable-websphere-liberty-runtime/
 
-Move to your Liberty `wlp/bin` directory and create a basic Liberty server called `springBoot`.
+Move to your Open Liberty `wlp/bin` directory and create a basic Liberty server called `springBoot`.
 
 ----
 cd wlp/bin
@@ -137,34 +138,70 @@ The change will be detected automatically without restarting the server. Refresh
 Greetings from Spring Boot!
 ----
 
-== Deploying the application to Open Liberty using Maven
+== Thinning the application with the springBootUtility thin task
 
+The jar generated for a spring boot application contains various supporting artifacts that can make it very large.
+If you are updating your application frequently in a cloud environment, pushing a large application can be resource intensive.
+You can run the `springBootUtility thin` command to separate the application code from the dependency jars, making the application
+simpler to deploy.
 
-
-== Deploying the application to Docker using the springBootUtility thin task
-The jar generated for a spring boot application contains a large number of supporting artifacts that make the jar
-very large. If you are updating your application frequently in a cloud environment pushing a large jar often will
-take time and use large amounts of resource. The springBootUtility provides a thinning task that splits the supporting
-artifacts and the application from the original jar into seperate artifacts. The application in one jar and the
-supporting artifacts in another jar. The jar with the supporting artifacts will be stored as an index that can be
-referenced by multiple containers leaving now much smaller application jar to be deployed across containers.
+Move to the `wlp/bin` directory and run the following command:
 
 ----
-
+ ./springBootUtility thin --sourceAppPath=../usr/servers/springBoot/apps/gs-spring-boot-0.1.0.jar --targetThinAppPath=../usr/servers/springBoot/apps/gs-spring-boot-0.1.0.thin.jar
 ----
 
+This will create a thinned version of the application and generate a cache directory in `apps` that contains the separated dependency jars.
 
+== Deploying the application to Docker
+
+You can now deploy the thinned application to a Docker container. For more information on using Open Liberty with Docker, see the https://github.com/OpenLiberty/guide-docker[Using Docker containers to develop microservices] guide.
+
+First, navigate to the springBoot server directory `wlp/usr/servers/springBoot` and edit the server.xml to point to the new thinned jar.
+
+----
+  <springBootApplication location="gs-spring-boot-0.1.0.thin.jar"/>
+----
+
+The `start` directory already contains a Dockerfile file that can be used to build and run your docker image. Navigate to `start` and build the image.
+
+----
+docker build -t ol-runtime .
+----
+
+Execute the Docker `run` command to run your Spring Boot application.
+
+----
+docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 -v <absolute path to Liberty installation>/wlp/usr/servers:/servers ol-runtime springBoot
+----
+
+Before you access your application from the browser, run the docker ps command from the command line to make sure that your container is running and didn’t crash:
+
+----
+docker ps
+----
+
+You should see an entry like the following:
+
+----
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
+582bc1638335        ol-runtime          "/opt/ol/wlp/bin/ser…"   17 seconds ago      Up 15 seconds       0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
+----
+
+Now access the application at the following URL:
+
+----
+http://localhost:9080
+----
+
+You should again see the following output displayed in your browser:
+
+----
+Greetings from Spring Boot!
+----
 
 == Great work! You're done!
 
-You installed a basic Spring Boot MVC application to run in Open Liberty.
+You installed a basic Spring Boot application to run in Open Liberty.
 
-// Briefly summarize what the user achieved in this guide (1-2 sentences).
-
-// OPTIONAL: briefly state what the user could do next now that they've learned the technologies in this guide.
-
-// Include the below from the guides-common repo to tell users how they can contribute to the guide
 include::{common-includes}/finish.adoc[]
-
-// DO NO CREATE ANYMORE SECTIONS AT THIS POINT
-// Related guides will be added in automatically here if you included them in ":page-related-guides"
