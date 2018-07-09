@@ -1,15 +1,17 @@
-# tag::from[]
-# Start with OL runtime.
-FROM open-liberty
-# end::from[]
+FROM tjwatson/ol:springboot2 as staging
 
-# tag::link[]
-# Symlink servers directory for easier mounts.
-RUN ln -s /opt/ol/wlp/usr/servers /servers
-# end::link[]
+# Stage the fat JAR
+COPY target/gs-spring-boot-*.jar /staging/gs-spring-boot-fat.jar
 
-# tag::default-start[]
-# Run the server script and start the defaultServer by default.
-ENTRYPOINT ["/opt/ol/wlp/bin/server", "run"]
-CMD ["springBoot"]
-# end::default-start[]
+# Thin the fat application; stage the thin app output and the library cache
+RUN springBootUtility thin \
+ --sourceAppPath=/staging/gs-spring-boot-fat.jar \
+ --targetThinAppPath=/staging/gs-spring-boot-thin.jar \
+ --targetLibCachePath=/staging/lib.index.cache
+
+# Final stage, only copying the lib.index.cache and thin application
+FROM tjwatson/ol:springboot2
+
+COPY --from=staging /staging/lib.index.cache /lib.index.cache
+
+COPY --from=staging /staging/gs-spring-boot-thin.jar /config/dropins/spring/gs-spring-boot-thin.jar
