@@ -11,7 +11,7 @@
 :page-duration: 30 minutes
 :page-releasedate: 2018-11-17
 // INSTRUCTION: Provide a description for the guide index page.
-:page-description: Learn how to deploy a spring-boot application in Open Liberty.
+:page-description: Learn how to deploy a Spring Boot application in Open Liberty.
 // INSTUCTION: Please provide relevant tags, try to avoid inventing new ones, tags where there is 1 guide for the tag isn't useful.
 :page-tags: ['Spring Boot', '', 'Maven']
 // INSTRUCTION: Specify the unique name of the guide that is used in the permalink.  For example below, it is rest-service
@@ -24,14 +24,14 @@
 // The details of what to fill in for this template are in the comments. So, read the source for this template to see the comments.
 //
 // Example title: Creating a RESTful web service
-= Deploying a Spring Boot Application in Liberty
+= Deploying a Spring Boot Application
 
-Learn how to deploy a spring boot application on a Liberty server.
+Learn how to deploy a Spring Boot application on a Liberty server.
 // Write no more than two sentences, or about fifty words with meaningful information on what the user can accomplish with this guide.
 // Do not start the introduction with "This guide...".
 
 == What you'll learn
-You will learn how to deploy a Spring Boot application in Open Liberty without modification and how to use the Spring boot utility
+You will learn how to deploy a Spring Boot application in Open Liberty without modification and how to use the Spring Boot utility
  thin task to create a thin jar and indexed library for deploying on a Liberty server in Docker.
  The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot] guide.
  Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
