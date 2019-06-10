@@ -6,7 +6,7 @@
 // Contributors:
 //     IBM Corporation
 //
-:page-layout: guide
+:page-layout: guide-multipane
 :projectid: spring-boot-guide
 :page-duration: 30 minutes
 :page-releasedate: 2018-11-17
@@ -42,28 +42,27 @@ include::{common-includes}/gitclone.adoc[]
 == Building and running the application in embedded Tomcat
 You will first need to build the initial Spring Boot application into an executable jar file. Move to the `start` directory and run the Maven package command.
 
+[role='command']
 ----
 cd start
 mvn package
 ----
 
 You can now run the application in the embedded Tomcat web-container by executing the newly built jar file.
+
+[role='command']
 ----
 java -jar target/gs-spring-boot-0.1.0.jar
 ----
 
-Notice that the console output will display that the application is running in Tomcat on port 8080. Now access the application at the following URL:
+Notice that the console output will display that the application is running in Tomcat on port 8080. Now access the application at the following URL: http://localhost:8080[^].
 
-----
-http://localhost:8080
-----
 
 You should see the following output displayed in your browser:
-
+[role='no_copy']
 ----
 Greetings from Spring Boot!
 ----
-
 
 
 == Deploying the application to Open Liberty
@@ -72,6 +71,7 @@ Download and unzip the latest stable release of Open Liberty here: https://openl
 
 Move to your Open Liberty `wlp/bin` directory and create a basic Liberty server called `springBoot`.
 
+[role='command']
 ----
 cd wlp/bin
 ./server create springBoot.
@@ -87,32 +87,28 @@ Next move to the new server directory `wlp/usr/servers/springBoot` and edit the 
 === Quick deploying the application to dropins
 
 You can quickly install the application by simply adding it to the dropins directory. Navigate to `dropins` and create a directory named `spring`.
-
+[role='command']
 ----
 cd dropins
 mkdir spring
 ----
 
 Copy the `gs-spring-boot-0.1.0.jar` file created by the Maven package command into the spring directory.
-
+[role='command']
 ----
 cp <git-rep-root>/start/target/gs-spring-boot-0.1.0.jar ./spring
 ----
 
 Move to the `wlp/bin` directory and start the Liberty server.
-
+[role='command']
 ----
  ./server start springBoot
 ----
 
-Now access the application at the following URL:
-
-----
-http://localhost:9080
-----
+Now access the application at the following URL http://localhost:9080[^].
 
 You should see the following output displayed in your browser:
-
+[role='no_copy']
 ----
 Greetings from Spring Boot!
 ----
@@ -121,7 +117,7 @@ Greetings from Spring Boot!
 === Installing your application in the apps directory
 Due to restrictions on use of the dropins directory you may need to run your application out of the apps directory.
 To do this, navigate to the Open Liberty server directory and move the application from `dropins/spring` to `apps`.
-
+[role='command']
 ----
 mv dropins/spring/gs-spring-boot-0.1.0.jar apps
 ----
@@ -133,7 +129,7 @@ Now add the following to your server.xml
 ----
 
 The change will be detected automatically without restarting the server. Refresh the browser page and make sure the same output is displayed.
-
+[role='no_copy']
 ----
 Greetings from Spring Boot!
 ----
@@ -145,7 +141,7 @@ If you are updating your application frequently in a cloud environment, pushing 
 You can run the `springBootUtility thin` command to separate the application code from the dependency jars, making it more efficient to deploy new versions of the application.
 
 Move to the `wlp/bin` directory and run the following command:
-
+[role='command']
 ----
 ./springBootUtility thin \
    --sourceAppPath=../usr/servers/springBoot/apps/gs-spring-boot-0.1.0.jar \
@@ -163,16 +159,12 @@ Now, navigate to the springBoot server directory `wlp/usr/servers/springBoot` an
 
 Move back to the `wlp/bin` directory and start the Liberty server with the `--clean` option. This
 will ensure that the `lib.index.cache` from the thin function is used.
-
+[role='command']
 ----
 ./server start springBoot --clean
 ----
 
-As before, you can ensure that the application is running by going to the following URL:
-
-----
-http://localhost:9080
-----
+As before, you can ensure that the application is running by going to the following URL http://localhost:9080[^].
 
 You should see the following output displayed in your browser:
 
@@ -181,7 +173,7 @@ Greetings from Spring Boot!
 ----
 
 Stop the server using the following command:
-
+[role='command']
 ----
 ./server stop springBoot
 ----
@@ -194,19 +186,19 @@ For more information on using Open Liberty with Docker, see the https://github.c
 
 The `start` directory already contains a Dockerfile file that can be used to build and run your docker image. Thinning and deploying the application is done automatically.
 Navigate to `start` and build the image.
-
+[role='command']
 ----
 docker build -t springboot .
 ----
 
 Execute the Docker `run` command to run your Spring Boot application.
-
+[role='command']
 ----
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
 ----
 
 Before you access your application from the browser, run the docker ps command from the command line to make sure that your container is running and didn’t crash:
-
+[role='command']
 ----
 docker ps
 ----
@@ -218,11 +210,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
 ----
 
-Now access the application at the following URL:
-
-----
-http://localhost:9080
-----
+Now access the application at the following URL http://localhost:9080[^].
 
 You should again see the following output displayed in your browser:
 
