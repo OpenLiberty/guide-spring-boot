@@ -32,10 +32,8 @@
           <execution>
             <configuration>
               <tasks>
-                <exec executable="copy" failonerror="true">
-                  <arg line="${sb.project}/target/${sb.app}"/>
-                  <arg line="${wlp.apps}/gs-spring-boot-thin.jar"/>
-                </exec>
+              	<copy file="${sb.project}/target/${sb.app}" 
+              		    tofile="${wlp.apps}/${sb.app}"/>
               </tasks>
             </configuration>
             <phase>package</phase>
