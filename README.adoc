@@ -27,6 +27,7 @@
 = Deploying a Spring Boot Application
 
 Learn how to deploy a Spring Boot application on a Liberty server.
+
 == What you'll learn
 You will learn how to deploy a Spring Boot application in Open Liberty without modification and how to use the Spring Boot utility
  thin task to create a thin jar and indexed library for deploying on a Liberty server in Docker.
@@ -35,7 +36,6 @@ You will learn how to deploy a Spring Boot application in Open Liberty without m
 
 // Add this getting started section to your guide if it is applicable. Use the following include to pull in the git clone instructions from the guides-common repo.
 include::{common-includes}/gitclone.adoc[]
-
 == Building and runinng the Spring Boot app
 You will first need to build the initial Spring Boot application into an executable jar file. Navigate to the `start/springBootApp` directory and run the Maven package command.
 
