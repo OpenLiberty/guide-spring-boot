@@ -15,9 +15,11 @@
   <properties>
     <sb.app>gs-spring-boot-0.1.0.jar</sb.app>
     <sb.project>${project.basedir}/../springbootApp</sb.project>
+    <!-- tag::copy-dest[] -->
     <wlp.path>${project.build.directory}/liberty/wlp</wlp.path>
     <wlp.resources>${wlp.path}/usr/shared/resources</wlp.resources>
     <wlp.apps>${wlp.path}/usr/servers/defaultServer/apps</wlp.apps>
+    <!-- tag::copy-dest[] -->
   </properties>
 
   <build>
@@ -32,8 +34,10 @@
           <execution>
             <configuration>
               <tasks>
+              <!-- tag::copy_file[] -->
               	<copy file="${sb.project}/target/${sb.app}" 
               		    tofile="${wlp.apps}/${sb.app}"/>
+              <!-- end::copy_file[] -->
               </tasks>
             </configuration>
             <phase>package</phase>
@@ -43,9 +47,10 @@
           </execution>
         </executions>
       </plugin>
-      <!-- tag::gs-spring-boot-jar[] -->
+      <!-- end::gs-spring-boot-jar[] -->
       
       <!-- Enable Liberty Maven plugin -->
+      <!-- tag::liberty-maven-plugin[] -->
       <plugin>
         <groupId>net.wasdev.wlp.maven.plugins</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
@@ -70,6 +75,7 @@
           </execution>
         </executions>
       </plugin>
+      <!-- end::liberty-maven-plugin[] -->
 
     </plugins>
   </build>

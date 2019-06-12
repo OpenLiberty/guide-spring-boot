@@ -32,6 +32,7 @@
           <execution>
             <configuration>
               <tasks>
+              <!-- tag::thin[] -->
                 <exec
                   dir="${wlp.path}/bin"
                   executable="${wlp.path}/bin/springBootUtility"
@@ -41,6 +42,7 @@
                   <arg line="--targetLibCachePath=${wlp.resources}/lib.index.cache"/>
                   <arg line="--targetThinAppPath=${wlp.apps}/gs-spring-boot-thin.jar"/>
                 </exec>
+              <!-- end::thin[] -->
               </tasks>
             </configuration>
             <phase>package</phase>

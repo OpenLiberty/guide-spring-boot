@@ -9,7 +9,7 @@
     <httpEndpoint id="defaultHttpEndpoint"
                   httpPort="9080"
                   httpsPort="9443" />
-
+    <!-- tag::sbThin[] -->
     <springBootApplication location="gs-spring-boot-thin.jar"/>
-    
+    <!-- end::sbThin[] -->
 </server>
