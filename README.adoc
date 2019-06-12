@@ -52,7 +52,7 @@ You can now run the application in the embedded Tomcat web-container by executin
 java -jar target/gs-spring-boot-0.1.0.jar
 ----
 
-Notice that the console output will display that the application is running in Tomcat on port 8080. Now access the application at the following URL: http://localhost:8080[^].
+Notice that the console output will display that the application is running in Tomcat on port 8080. Now access the application at the following URL: http://localhost:8080/hello[^].
 
 
 You should see the following output displayed in your browser:
@@ -79,7 +79,7 @@ include::finish/openLiberty/pom.xml[]
 
 The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are configured in the [hotspot file=1]`server.xml`.
 server.xml
-[source, XML, linenums, role='code_column hide_tags=sbThin'] 
+[source, XML, linenums, role='code_column'] 
 ---- 
 include::finish/openLiberty/src/main/liberty/config/server.xml[]
 ---- 
@@ -96,7 +96,7 @@ To run the application, start the server:
 mvn liberty:start-server
 ```
 
-Point your browser to the http://localhost:8080[^] URL to access the application.
+Point your browser to the http://localhost:8080/hello[^] URL to access the application.
 
 When you are finished checking out the application, stop the server:
 [role='command']
@@ -129,13 +129,79 @@ include::finish/openLiberty/pom.xml[]
 `openLiberty/server.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=sbThin file=1]`<springBootApplication />` tag.
+Update the `location` of the Spring Boot application to [hotspot=sbThin file=1]`gs-spring-boot-thin.jar`.
  
 server.xml
 [source, XML, linenums, role='code_column'] 
 ---- 
 include::finish/openLiberty/src/main/liberty/config/server.xml[]
 ---- 
+
+Next, run the following command to rebuild the application and start the server:
+[role='command']
+```
+mvn clean package
+mvn liberty:start-server
+```
+
+Point your browser to the http://localhost:8080/hello[^] URL to access the application.
+
+When you are finished checking out the application, stop the server:
+[role='command']
+```
+mvn liberty:stop-server
+```
+
+== Run the repackaged spring boot application with Liberty
+
+[role='command']
+```
+java -jar target/GSSpringBootApp.jar
+```
+
+Point your browser to the http://localhost:8080/hello[^] URL to access the application.
+
+When you need to stop the application, simply press CTRL+C in the shell session where you ran the application.
+
+== Deploying the application to Docker
+
+Navigate to the `start` directory. 
+
+[role="code_command", subs="quotes"] 
+---- 
+#Create the `Dockerfile`.#
+`Dockerfile`
+---- 
+
+Dockerfile
+[source, Text, linenums, role='code_column'] 
+---- 
+include::finish/Dockerfile[]
+---- 
+
+Next, build the Docker image.
+
+[role='command']
+```
+docker build -t springboot .
+```
+
+To run the Docker image in a container, run the following commands:
+[role='command']
+```
+docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
+```
+
+Point your browser to the http://localhost:8080/hello[^] URL to access the application.
+
+=== Tearing down Docker containers  
+
+To stop and remove your container, run the following command from the command line:
+
+[role='command']
+```
+docker stop springBootContainer
+```
 
 == Deploying the application to Open Liberty (to be removed)
 
