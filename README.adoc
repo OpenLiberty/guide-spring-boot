@@ -36,7 +36,8 @@ You will learn how to deploy a Spring Boot application in Open Liberty without m
 
 // Add this getting started section to your guide if it is applicable. Use the following include to pull in the git clone instructions from the guides-common repo.
 include::{common-includes}/gitclone.adoc[]
-== Building and runinng the Spring Boot app
+
+== Building and running the Spring Boot app
 You will first need to build the initial Spring Boot application into an executable jar file. Navigate to the `start/springBootApp` directory and run the Maven package command.
 
 [role='command']
