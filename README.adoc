@@ -137,7 +137,7 @@ server.xml
 include::finish/openLiberty/src/main/liberty/config/server.xml[]
 ---- 
 
-== Deploying the application to Open Liberty
+== Deploying the application to Open Liberty (to be removed)
 
 Download and unzip the latest stable release of Open Liberty here: https://openliberty.io/downloads/
 
@@ -156,7 +156,7 @@ Next move to the new server directory `wlp/usr/servers/springBoot` and edit the 
 <feature>springBoot-2.0</feature>
 ----
 
-=== Quick deploying the application to dropins
+=== Quick deploying the application to dropins (to be removed)
 
 You can quickly install the application by simply adding it to the dropins directory. Navigate to `dropins` and create a directory named `spring`.
 [role='command']
@@ -186,7 +186,7 @@ Greetings from Spring Boot!
 ----
 
 
-=== Installing your application in the apps directory
+=== Installing your application in the apps directory (to be removed)
 Due to restrictions on use of the dropins directory you may need to run your application out of the apps directory.
 To do this, navigate to the Open Liberty server directory and move the application from `dropins/spring` to `apps`.
 [role='command']
@@ -206,7 +206,7 @@ The change will be detected automatically without restarting the server. Refresh
 Greetings from Spring Boot!
 ----
 
-== Thinning the application with the springBootUtility thin task
+== Thinning the application with the springBootUtility thin task (to be removed)
 
 The jar generated for a spring boot application contains various supporting artifacts that can make it very large.
 If you are updating your application frequently in a cloud environment, pushing a large application can be resource intensive.
@@ -251,7 +251,7 @@ Stop the server using the following command:
 ./server stop springBoot
 ----
 
-== Deploying the application to Docker
+== Deploying the application to Docker (to be removed)
 
 The springBootUtility thin function discussed in the previous section is especially useful when deploying your application to a Docker
 container. Using Docker, you can run this thin function and run your thinned application with a few simple commands.
