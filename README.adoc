@@ -158,7 +158,7 @@ mvn liberty:stop-server
 
 == Run the repackaged spring boot application with Liberty
 
-Next, runt he repacked spring boot application with Liberty.
+Next, run the repacked spring boot application with Liberty.
 
 [role='command']
 ```

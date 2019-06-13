@@ -44,7 +44,7 @@
                   <arg line="--targetLibCachePath=${wlp.resources}/lib.index.cache"/>
                   <!-- tag::targetThinAppPath[] -->
                   <arg line="--targetThinAppPath=${wlp.apps}/gs-spring-boot-thin.jar"/>
-                  <!-- tag::targetThinAppPath[] -->
+                  <!-- end::targetThinAppPath[] -->
                 </exec>
               <!-- end::thin[] -->
               </tasks>
