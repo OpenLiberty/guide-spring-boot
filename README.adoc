@@ -42,7 +42,6 @@ You will first need to build the initial Spring Boot application into an executa
 
 [role='command']
 ----
-cd start
 mvn package
 ----
 
@@ -69,16 +68,17 @@ When you need to stop the application, simply press CTRL+C in the shell session 
 
 Next, navigate to the `start/openLiberty` directory. 
 
-The [hotspot file=0]`pom.xml` has already been created for you in this directory and is configured to copy the Spring Boot application to the Liberty server/
+The [hotspot file=0]`pom.xml` has already been created for you in this directory and is configured to copy the Spring Boot application to the Liberty server.
 The [hotspot=liberty-maven-plugin file=0]`liberty-maven-plugin` in the `pom.xml` downloads  Liberty and the [hotspot=copy_file file=0]`<copy />` tag copies the Spring Boot application to the [hotspot=copy-dest file=0]`<wlp..>` destination path.
 
-pom.xml
+start/openLiberty/pom.xml
 [source, XML, linenums, role='code_column hide_tags=copyright'] 
 ---- 
-include::finish/openLiberty/pom.xml[]
+include::start/openLiberty/pom.xml[]
 ---- 
 
 The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are configured in the [hotspot file=1]`server.xml`.
+
 server.xml
 [source, XML, linenums, role='code_column'] 
 ---- 
@@ -97,7 +97,7 @@ To run the application, start the server:
 mvn liberty:start-server
 ```
 
-Point your browser to the http://localhost:8080/hello[^] URL to access the application.
+Point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
 
 When you are finished checking out the application, stop the server:
@@ -108,7 +108,6 @@ mvn liberty:stop-server
 
 == Thinning the spring boot application on Liberty
 
-The jar generated for a spring boot application contains various supporting artifacts that can make it very large. If you are updating your application frequently in a cloud environment, pushing a large application can be resource intensive. 
 You can update the `pom.xml` and the `server.xml` to to separate the application code from the dependency jars, making it more efficient to deploy new versions of the application.
 
 [role="code_command hotspot=thin file=0", subs="quotes"] 
@@ -124,6 +123,9 @@ pom.xml
 ---- 
 include::finish/openLiberty/pom.xml[]
 ---- 
+
+The [hotspot=thin file=0]`<exec />` tag in  the [hotspot file=0]`pom.xml` executes the `springBootUtility` command to create thin Spring Boot applications and library caches that can be deployed on Liberty.
+The `--targetThinAppPath` option specifies the path used to save the thin application file which we will rename in the `server.xml`.
 
 [role="code_command hotspot=sbThin file=1", subs="quotes"] 
 ---- 
@@ -146,7 +148,7 @@ mvn clean package
 mvn liberty:start-server
 ```
 
-Point your browser to the http://localhost:8080/hello[^] URL to access the application.
+Point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
 When you are finished checking out the application, stop the server:
 [role='command']
@@ -161,7 +163,7 @@ mvn liberty:stop-server
 java -jar target/GSSpringBootApp.jar
 ```
 
-Point your browser to the http://localhost:8080/hello[^] URL to access the application.
+Point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
 When you need to stop the application, simply press CTRL+C in the shell session where you ran the application.
 
@@ -211,7 +213,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
 ----
 
-Point your browser to the http://localhost:8080/hello[^] URL to access the application.
+Point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
 === Tearing down Docker containers  
 
@@ -220,6 +222,7 @@ To stop and remove your container, run the following command from the command li
 [role='command']
 ```
 docker stop springBootContainer
+docker rm springBootContainer
 ```
 
 == Great work! You're done!
