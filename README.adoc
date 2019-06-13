@@ -35,6 +35,7 @@ You will learn how to deploy a Spring Boot application in Open Liberty without m
  Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
 
 // Add this getting started section to your guide if it is applicable. Use the following include to pull in the git clone instructions from the guides-common repo.
+[role='command']
 include::{common-includes}/gitclone.adoc[]
 
 == Building and running the Spring Boot app
@@ -61,7 +62,7 @@ You should see the following output displayed in your browser:
 Greetings from Spring Boot!
 ----
 
-When you need to stop the application, simply press CTRL+C in the shell session where you ran the application.
+When you need to stop the application, simply press `CTRL+C` in the shell session where you ran the application.
 
 
 == Running the spring boot app on Liberty
@@ -108,7 +109,7 @@ mvn liberty:stop-server
 
 == Thinning the spring boot application on Liberty
 
-You can update the `pom.xml` and the `server.xml` to to separate the application code from the dependency jars, making it more efficient to deploy new versions of the application.
+You can update the `pom.xml` and the `server.xml` to separate the application code from the dependency jars, making it more efficient to deploy new versions of the application.
 
 [role="code_command hotspot=thin file=0", subs="quotes"] 
 ---- 
@@ -167,11 +168,11 @@ java -jar target/GSSpringBootApp.jar
 
 Point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
-When you need to stop the application, simply press CTRL+C in the shell session where you ran the application.
+When you need to stop the application, simply press `CTRL+C` in the shell session where you ran the application.
 
 == Deploying the application to Docker
 
-The springBootUtility thin command discussed in the previous section is especially useful when deploying your application to a Docker
+The `springBootUtility` thin command discussed in the previous section is especially useful when deploying your application to a Docker
 container. Using Docker, you can run this thin function and run your thinned application with a few simple commands.
 For more information on using Open Liberty with Docker, see the https://github.com/OpenLiberty/guide-docker[Using Docker containers to develop microservices] guide.
 
@@ -202,14 +203,14 @@ Execute the Docker `run` command to run your Spring Boot application.
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
 ```
 
-Before you access your application from the browser, run the docker ps command from the command line to make sure that your container is running and didn’t crash:
+Before you access your application from the browser, run the `docker ps` command from the command line to make sure that your container is running and didn’t crash:
 [role='command']
 ----
 docker ps
 ----
 
 You should see an entry like the following:
-
+[role='no_copy']
 ----
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
 e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
