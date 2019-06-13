@@ -15,11 +15,9 @@
   <properties>
     <sb.app>gs-spring-boot-0.1.0.jar</sb.app>
     <sb.project>${project.basedir}/../springbootApp</sb.project>
-    <!-- tag::copy-dest[] -->
     <wlp.path>${project.build.directory}/liberty/wlp</wlp.path>
     <wlp.resources>${wlp.path}/usr/shared/resources</wlp.resources>
     <wlp.apps>${wlp.path}/usr/servers/defaultServer/apps</wlp.apps>
-    <!-- end::copy-dest[] -->
   </properties>
 
   <build>
