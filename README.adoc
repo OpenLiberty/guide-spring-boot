@@ -118,13 +118,13 @@ You can update the `pom.xml` and the `server.xml` to to separate the application
 [role="edit_command_text"]
 Remove the  `<copy />` tag and replace it with the [hotspot=thin file=0]`<exec />` tag.
  
-pom.xml
+finish/openLiberty/pom.xml
 [source, XML, linenums, role='code_column hide_tags=copyright'] 
 ---- 
 include::finish/openLiberty/pom.xml[]
 ---- 
 
-The [hotspot=thin file=0]`<exec />` tag in  the [hotspot file=0]`pom.xml` executes the [hotspot=36 file=0]`springBootUtility` command to create thin Spring Boot applications and library caches that can be deployed on Liberty.
+The [hotspot=thin file=0]`<exec />` tag in  the [hotspot file=0]`pom.xml` executes the [hotspot=39 file=0]`springBootUtility` command to create thin Spring Boot applications and library caches that can be deployed on Liberty.
 The [hotspot=targetThinAppPath file=0]`--targetThinAppPath` option specifies the path used to save the thin application file which we will rename in the [hotspot file=1]`server.xml`.
 
 [role="code_command hotspot=sbThin file=1", subs="quotes"] 
