@@ -125,7 +125,7 @@ include::finish/openLiberty/pom.xml[]
 ---- 
 
 The [hotspot=thin file=0]`<exec />` tag in  the [hotspot file=0]`pom.xml` executes the `springBootUtility` command to create thin Spring Boot applications and library caches that can be deployed on Liberty.
-The `--targetThinAppPath` option specifies the path used to save the thin application file which we will rename in the `server.xml`.
+The [hotspot=targetThinAppPath file=0]`--targetThinAppPath` option specifies the path used to save the thin application file which we will rename in the [hotspot file=1]`server.xml`.
 
 [role="code_command hotspot=sbThin file=1", subs="quotes"] 
 ---- 
@@ -158,6 +158,8 @@ mvn liberty:stop-server
 
 == Run the repackaged spring boot application with Liberty
 
+Next, runt he repacked spring boot application with Liberty.
+
 [role='command']
 ```
 java -jar target/GSSpringBootApp.jar
@@ -169,7 +171,7 @@ When you need to stop the application, simply press CTRL+C in the shell session 
 
 == Deploying the application to Docker
 
-The springBootUtility thin function discussed in the previous section is especially useful when deploying your application to a Docker
+The springBootUtility thin command discussed in the previous section is especially useful when deploying your application to a Docker
 container. Using Docker, you can run this thin function and run your thinned application with a few simple commands.
 For more information on using Open Liberty with Docker, see the https://github.com/OpenLiberty/guide-docker[Using Docker containers to develop microservices] guide.
 

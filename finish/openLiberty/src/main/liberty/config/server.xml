@@ -2,8 +2,12 @@
 <server description="new server">
 
     <featureManager>
+    <!-- tag::servlet[] -->
         <feature>servlet-4.0</feature>
+    <!-- end::servlet[] -->
+    <!-- tag::springboot[] -->
         <feature>springBoot-2.0</feature>
+    <!-- end::springboot[] -->
     </featureManager>
 
     <httpEndpoint id="defaultHttpEndpoint"
