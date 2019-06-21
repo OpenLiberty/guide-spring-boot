@@ -1,6 +1,6 @@
 # Stage and thin the application 
 FROM open-liberty:springBoot2 as staging
-COPY --chown=1001:0 springbootApp/target/gs-spring-boot-*.jar \
+COPY --chown=1001:0 target/gs-spring-boot-*.jar \
                     /staging/gs-spring-boot-fat.jar
 RUN springBootUtility thin \
  --sourceAppPath=/staging/gs-spring-boot-fat.jar \
