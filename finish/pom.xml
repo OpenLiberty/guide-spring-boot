@@ -68,10 +68,6 @@
             <type>zip</type>
           </assemblyArtifact>
           <configFile>src/main/liberty/config/server.xml</configFile>
-          <packageFile>
-          	${project.build.directory}/GSSpringBootApp.jar
-          </packageFile>
-          <include>minify,runnable</include>
           <appsDirectory>apps</appsDirectory>
           <installAppPackages>spring-boot-project</installAppPackages>
         </configuration>
@@ -98,6 +94,7 @@
 							<goal>install-apps</goal>
 						</goals>
           </execution>
+          <!-- tag::packageApp -->
           <execution>
             <id>package-server</id>
             <phase>package</phase>
@@ -105,9 +102,14 @@
               <goal>package-server</goal>
             </goals>
             <configuration>
+            	<packageFile>
+                ${project.build.directory}/GSSpringBootApp.jar
+              </packageFile>
+              <include>minify,runnable</include>
               <outputDirectory>target/liberty-alt-output-dir</outputDirectory>
             </configuration>
           </execution>
+          <!-- end::packageApp -->
         </executions>
       </plugin>
       <!-- end::libertyMavenPlugin[] -->

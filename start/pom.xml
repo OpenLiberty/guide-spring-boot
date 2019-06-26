@@ -54,6 +54,9 @@
           </execution>
         </executions>
       </plugin>
+      
+      <!-- Enable Liberty Maven plugin at here -->
+       
     </plugins>
   </build>
 </project>
