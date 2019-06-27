@@ -38,8 +38,8 @@ You will learn how to deploy a Spring Boot application in Open Liberty without m
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
-== Building and running the Spring Boot app
-You will first need to build the initial Spring Boot application into an executable jar file. Navigate to the `start/springBootApp` directory and run the Maven package command.
+== Building and running the Spring Boot application
+You will first need to build the initial Spring Boot application into an executable jar file. Navigate to the `start` directory and run the Maven package command.
 
 [role='command']
 ----
@@ -65,17 +65,16 @@ Greetings from Spring Boot!
 When you need to stop the application, simply press `CTRL+C` in the shell session where you ran the application.
 
 
-== Running the spring boot app on Liberty
+== Running the Spring Boot application on Open Liberty
 
-Next, navigate to the `start/openLiberty` directory. 
+Next, you will run the Spring Boot application on Open Liberty.
 
 The [hotspot file=0]`pom.xml` has already been created for you in this directory and is configured to copy the Spring Boot application to the Liberty server.
-The [hotspot=liberty-maven-plugin file=0]`liberty-maven-plugin` in the `pom.xml` downloads  Liberty and the [hotspot=copy_file file=0]`<copy />` tag copies the Spring Boot application to the [hotspot=copy-dest file=0]`<wlp..>` destination path.
 
-start/openLiberty/pom.xml
+pom.xml
 [source, XML, linenums, role='code_column hide_tags=copyright'] 
 ---- 
-include::start/openLiberty/pom.xml[]
+include::start/pom.xml[]
 ---- 
 
 The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are configured in the [hotspot file=1]`server.xml`.
@@ -107,7 +106,7 @@ When you are finished checking out the application, stop the server:
 mvn liberty:stop-server
 ```
 
-== Thinning the spring boot application on Liberty
+== Package the Spring Boot application embedded with Open Liberty
 
 You can update the `pom.xml` and the `server.xml` to separate the application code from the dependency jars, making it more efficient to deploy new versions of the application.
 
@@ -157,7 +156,7 @@ When you are finished checking out the application, stop the server:
 mvn liberty:stop-server
 ```
 
-== Run the repackaged spring boot application with Liberty
+== Run the repackaged Spring Boot application with Open Liberty
 
 Next, run the repacked spring boot application with Liberty.
 
@@ -233,3 +232,4 @@ docker rm springBootContainer
 You installed a basic Spring Boot application to run in Open Liberty.
 
 include::{common-includes}/finish.adoc[]
+
