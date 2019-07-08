@@ -67,9 +67,17 @@ When you need to stop the application, simply press `CTRL+C` in the shell sessio
 
 == Running the Spring Boot application on Open Liberty
 
-Next, you will run the Spring Boot application on Open Liberty.
+Next, you will run the Spring Boot application on Open Liberty by updating the `pom.xml`.
 
-The [hotspot file=0]`pom.xml` has already been created for you in this directory and is configured to copy the Spring Boot application to the Liberty server.
+The [hotspot file=0]`pom.xml` has already been created for you in this directory. 
+
+[role="code_command hotspot=thin file=0", subs="quotes"] 
+---- 
+#Update the `pom.xml`.#
+`pom.xml`
+---- 
+[role="edit_command_text"]
+Add the `'liberty-maven-plugin`
 
 pom.xml
 [source, XML, linenums, role='code_column hide_tags=copyright'] 
@@ -106,55 +114,6 @@ When you are finished checking out the application, stop the server:
 mvn liberty:stop-server
 ```
 
-== Package the Spring Boot application embedded with Open Liberty
-
-You can update the `pom.xml` and the `server.xml` to separate the application code from the dependency jars, making it more efficient to deploy new versions of the application.
-
-[role="code_command hotspot=thin file=0", subs="quotes"] 
----- 
-#Update the `pom.xml`.#
-`openLiberty/pom.xml`
----- 
-[role="edit_command_text"]
-Remove the  `<copy />` tag and replace it with the [hotspot=thin file=0]`<exec />` tag.
- 
-finish/openLiberty/pom.xml
-[source, XML, linenums, role='code_column hide_tags=copyright'] 
----- 
-include::finish/openLiberty/pom.xml[]
----- 
-
-The [hotspot=thin file=0]`<exec />` tag in  the [hotspot file=0]`pom.xml` executes the [hotspot=40 file=0]`springBootUtility` command to create thin Spring Boot applications and library caches that can be deployed on Liberty.
-The [hotspot=targetThinAppPath file=0]`--targetThinAppPath` option specifies the path used to save the thin application file which we will rename in the [hotspot file=1]`server.xml`.
-
-[role="code_command hotspot=sbThin file=1", subs="quotes"] 
----- 
-#Update the `server.xml`.#
-`openLiberty/server.xml`
----- 
-[role="edit_command_text"]
-Update the `location` of the Spring Boot application to [hotspot=sbThin file=1]`gs-spring-boot-thin.jar`.
- 
-server.xml
-[source, XML, linenums, role='code_column'] 
----- 
-include::finish/openLiberty/src/main/liberty/config/server.xml[]
----- 
-
-Next, run the following command to rebuild the application and start the server:
-[role='command']
-```
-mvn clean package
-mvn liberty:start-server
-```
-
-Point your browser to the http://localhost:9080/hello[^] URL to access the application.
-
-When you are finished checking out the application, stop the server:
-[role='command']
-```
-mvn liberty:stop-server
-```
 
 == Run the repackaged Spring Boot application with Open Liberty
 
