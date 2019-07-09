@@ -82,7 +82,7 @@ Add the [hotspot=libertyMavenPlugin file=0]`liberty-maven-plugin` to the [hotspo
 pom.xml
 [source, XML, linenums, role='code_column hide_tags=copyright'] 
 ---- 
-include::start/pom.xml[]
+include::finish/pom.xml[]
 ---- 
 
 The [hotspot=installAppPackages file=0]`<installAppPackages />` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project` or `all`. The default value being `dependencies`. 
