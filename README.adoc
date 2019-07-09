@@ -86,7 +86,7 @@ include::start/pom.xml[]
 ---- 
 
 The [hotspot=installAppPackages file=0]`<installAppPackages />` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project` or `all`. The default value being `dependencies`. 
-However, in order to run the Spring Boot application the value will be set as `spring-boot-application`. This allows maven to package and copy the `spring-boot-project` to Liberty's runtime's application directory. 
+However, in order to run the Spring Boot application the value will be set as `spring-boot-application`. This allows maven to package and copy the `spring-boot-project` to Liberty's runtime's application directory. This specification also separates the application code from the dependency jars, creating a more efficient "thinned" version of the application.
 
 The [hotspot=configFile file=0]`<configFile />` tag specifies the location of the configuration file, in this case it is the `server.xml` which you will create.
 
@@ -97,6 +97,7 @@ The [hotspot=configFile file=0]`<configFile />` tag specifies the location of th
 ---- 
 
 The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are configured in the [hotspot file=1]`server.xml`.
+Since the  application was thinned, the `<springbootApplication />` location is set to [hotspot=location file=1]`thin-gs-spring-boot-0.1.0.jar`. 
 
 server.xml
 [source, XML, linenums, role='code_column'] 
