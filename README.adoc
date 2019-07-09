@@ -71,13 +71,13 @@ Next, you will run the Spring Boot application on Open Liberty by updating the `
 
 The [hotspot file=0]`pom.xml` has already been created for you in this directory. 
 
-[role="code_command hotspot=thin file=0", subs="quotes"] 
+[role="code_command hotspot file=0", subs="quotes"] 
 ---- 
 #Update the `pom.xml`.#
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the `'liberty-maven-plugin`
+Add the [hotspot=libertyMavenPlugin]`liberty-maven-plugin` to the [hotspot]`pom.xml`.
 
 pom.xml
 [source, XML, linenums, role='code_column hide_tags=copyright'] 
@@ -85,12 +85,14 @@ pom.xml
 include::start/pom.xml[]
 ---- 
 
+The [hotspot=installAppPackages file=0]`<installAppPackages />` tag in the [hotspot file=0]`pom.xml` 
+
 The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are configured in the [hotspot file=1]`server.xml`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
 ---- 
-include::finish/openLiberty/src/main/liberty/config/server.xml[]
+include::finish/src/main/liberty/config/server.xml[]
 ---- 
 
 Next, run the following command to build the application on Liberty:

@@ -69,7 +69,9 @@
           </assemblyArtifact>
           <configFile>src/main/liberty/config/server.xml</configFile>
           <appsDirectory>apps</appsDirectory>
+          <!-- tag::installAppPackages[] -->
           <installAppPackages>spring-boot-project</installAppPackages>
+          <!-- end::installAppPackages[] -->
         </configuration>
         <executions>
           <execution>
