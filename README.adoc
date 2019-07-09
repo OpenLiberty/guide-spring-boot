@@ -77,7 +77,7 @@ The [hotspot file=0]`pom.xml` has already been created for you in this directory
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=libertyMavenPlugin]`liberty-maven-plugin` to the [hotspot]`pom.xml`.
+Add the [hotspot=libertyMavenPlugin file=0]`liberty-maven-plugin` to the [hotspot file=0]`pom.xml`.
 
 pom.xml
 [source, XML, linenums, role='code_column hide_tags=copyright'] 
