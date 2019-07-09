@@ -67,8 +67,12 @@
              <version>RELEASE</version>
             <type>zip</type>
           </assemblyArtifact>
+          <!-- tag::configFile[] -->
           <configFile>src/main/liberty/config/server.xml</configFile>
+          <!-- end::configFile[] -->
+          <!-- tag::appsDirectory[] -->
           <appsDirectory>apps</appsDirectory>
+          <!-- end::appsDirectory[] -->
           <!-- tag::installAppPackages[] -->
           <installAppPackages>spring-boot-project</installAppPackages>
           <!-- end::installAppPackages[] -->
