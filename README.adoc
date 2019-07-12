@@ -7,13 +7,13 @@
 //     IBM Corporation
 //
 :page-layout: guide-multipane
-:projectid: spring-boot-guide
+:projectid: guide-spring-boot
 :page-duration: 30 minutes
 :page-releasedate: 2018-11-17
 // INSTRUCTION: Provide a description for the guide index page.
 :page-description: Learn how to deploy a Spring Boot application in Open Liberty.
 // INSTUCTION: Please provide relevant tags, try to avoid inventing new ones, tags where there is 1 guide for the tag isn't useful.
-:page-tags: ['Spring Boot', 'Maven']
+:page-tags: []
 // INSTRUCTION: Specify the unique name of the guide that is used in the permalink.  For example below, it is rest-service
 :page-related-guides: ['']
 // INSTRUCTION: Specify the slug in the website. This must be unique.
@@ -29,9 +29,9 @@
 Learn how to deploy a Spring Boot application on a Liberty server.
 
 == What you'll learn
-You will learn how to deploy a Spring Boot application in Open Liberty without modification and how to use the Spring Boot utility
- thin task to create a thin jar and indexed library for deploying on a Liberty server in Docker.
- The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot] guide.
+Spring Boot is an open source Java-based framework used to develop microservices. You will learn how to deploy a Spring Boot application in Open Liberty and how to build an Open Liberty Docker image to run the Spring Boot application.
+
+The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot] guide.
  Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
 
 // Add this getting started section to your guide if it is applicable. Use the following include to pull in the git clone instructions from the guides-common repo.
@@ -80,15 +80,15 @@ The [hotspot file=0]`pom.xml` has already been created for you in this directory
 Add the [hotspot=libertyMavenPlugin file=0]`liberty-maven-plugin` to the [hotspot file=0]`pom.xml`.
 
 pom.xml
-[source, XML, linenums, role='code_column hide_tags=copyright'] 
+[source, XML, linenums, role='code_column hide_tags=packageApp'] 
 ---- 
 include::finish/pom.xml[]
 ---- 
 
 The [hotspot=installAppPackages file=0]`<installAppPackages />` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project` or `all`. The default value being `dependencies`. 
-However, in order to run the Spring Boot application the value will be set as `spring-boot-application`. This allows maven to package and copy the `spring-boot-project` to Liberty's runtime's application directory. This specification also separates the application code from the dependency jars, creating a more efficient "thinned" version of the application.
+However, in order to run the Spring Boot application the value should be set as `spring-boot-application`. This allows maven to package, thin, and copy the Spring Boot application `gs-spring-boot-0.1.0.jar` to the Liberty runtime application and shared library directories.
 
-The [hotspot=configFile file=0]`<configFile />` tag specifies the location of the configuration file, in this case it is the `server.xml` which you will create.
+The [hotspot=configFile file=0]`<configFile />` tag specifies the location of the server configuration file.
 
 [role="code_command hotspot file=1", subs="quotes"] 
 ---- 
@@ -96,7 +96,7 @@ The [hotspot=configFile file=0]`<configFile />` tag specifies the location of th
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are configured in the [hotspot file=1]`server.xml`.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.
 Since the  application was thinned, the `<springbootApplication />` location is set to [hotspot=location file=1]`thin-gs-spring-boot-0.1.0.jar`. 
 
 server.xml
@@ -139,14 +139,14 @@ You can update the `pom.xml` and the `server.xml` to package the Spring Boot app
 Add the [hotspot=packageApp file=0]`<execution />` to the `pom.xml`.
  
 finish/pom.xml
-[source, XML, linenums, role='code_column hide_tags=copyright'] 
+[source, XML, linenums, role='code_column'] 
 ---- 
 include::finish/pom.xml[]
 ---- 
 
-The `<include />` tag of this execution is specified to `minify`, `runnable`. The `runnable` value allows the application to be generated as a `jar` file. 
+The [hotspot=include file=0]`<include />` tag of this execution is specified to `minify`, `runnable`. The `runnable` value allows the application to be generated as a `jar` file. 
 
-The `<packageFile />` tag specifies that the application will be generated as `GSSpringBootApp.jar`. 
+The [hotspot=packageFile file=0]`<packageFile />` tag specifies that the application will be generated as `GSSpringBootApp.jar`. 
 
 
 [role="code_command hotspot=sbThin file=1", subs="quotes"] 
@@ -179,7 +179,7 @@ mvn liberty:stop-server
 ```
 
 
-Next, run the repacked spring boot application with Liberty. This jar was defined previously in the [hotspot file=0]`pom.xml`.
+Next, run the repacked Spring Boot application with Liberty. This jar was defined previously in the [hotspot file=0]`pom.xml`.
 
 [role='command']
 ```
