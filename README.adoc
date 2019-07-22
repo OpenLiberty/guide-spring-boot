@@ -15,7 +15,7 @@
 // INSTUCTION: Please provide relevant tags, try to avoid inventing new ones, tags where there is 1 guide for the tag isn't useful.
 :page-tags: []
 // INSTRUCTION: Specify the unique name of the guide that is used in the permalink.  For example below, it is rest-service
-:page-related-guides: ['']
+:page-related-guides: ['rest-intro']
 // INSTRUCTION: Specify the slug in the website. This must be unique.
 :page-permalink: /guides/spring-boot-guide
 // INSTRUCTION: You should have this to source the common page elements, clone git@github.com:OpenLiberty/guides-common.git
@@ -144,7 +144,7 @@ finish/pom.xml
 include::finish/pom.xml[]
 ---- 
 
-The [hotspot=include file=0]`<include />` tag of this execution is specified to `minify`, `runnable`. The `runnable` value allows the application to be generated as a `jar` file. 
+The [hotspot=include file=0]`<include />` tag of this execution is specified to `minify`, `runnable`. The `runnable` value allows the application to be generated as a runnable `jar` file and the `minify` value packages only what you need from your configuration files without bundling the entire `Liberty` install.
 
 The [hotspot=packageFile file=0]`<packageFile />` tag specifies that the application will be generated as `GSSpringBootApp.jar`. 
 
@@ -155,29 +155,13 @@ The [hotspot=packageFile file=0]`<packageFile />` tag specifies that the applica
 `src/main/liberty/config/server.xml`
 ---- 
 [role="edit_command_text"]
-Update the `location` of the Spring Boot application to [hotspot=sbThin file=1]`gs-spring-boot-thin.jar`.
+Update the `location` of the Spring Boot application to [hotspot=location file=1]`thin-gs-spring-boot-thin.jar`.
  
 server.xml
 [source, XML, linenums, role='code_column'] 
 ---- 
 include::finish/src/main/liberty/config/server.xml[]
 ---- 
-
-Next, run the following command to rebuild the application and start the server:
-[role='command']
-```
-mvn clean package
-mvn liberty:start-server
-```
-
-Point your browser to the http://localhost:9080/hello[^] URL to access the application.
-
-When you are finished checking out the application, stop the server:
-[role='command']
-```
-mvn liberty:stop-server
-```
-
 
 Next, run the repacked Spring Boot application with Liberty. This jar was defined previously in the [hotspot file=0]`pom.xml`.
 
@@ -192,8 +176,7 @@ When you need to stop the application, simply press `CTRL+C` in the shell sessio
 
 == Deploying the application to Docker
 
-The `springBootUtility` thin command discussed in the previous section is especially useful when deploying your application to a Docker
-container. Using Docker, you can run this thin function and run your thinned application with a few simple commands.
+Using Docker, you can run your thinned application with a few simple commands.
 For more information on using Open Liberty with Docker, see the https://github.com/OpenLiberty/guide-docker[Using Docker containers to develop microservices] guide.
 
 
@@ -211,13 +194,13 @@ Dockerfile
 include::finish/Dockerfile[]
 ---- 
 
-Next, build the Docker image.
+Next, build the Docker image with the following command.
 [role='command']
 ```
 docker build -t springboot .
 ```
 
-Execute the Docker `run` command to run your Spring Boot application.
+Execute the Docker `run` command to run your Spring Boot application in a Docker container.
 [role='command']
 ```
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
@@ -238,9 +221,9 @@ e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago
 
 Point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
-=== Tearing down Docker containers  
+=== Tearing down Docker container
 
-To stop and remove your container, run the following command from the command line:
+To stop and remove your container, run the following commands from the command line:
 
 [role='command']
 ```
