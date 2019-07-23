@@ -193,10 +193,10 @@ Dockerfile
 include::finish/Dockerfile[]
 ---- 
 
-This Dockerfile is written in two main stages. The first stage copies over the relevant [hotspot=copyJar]`jar` files that have been generated into the [hotspot=OLimage1]`Open Liberty image` and thins the application.
-The `springBootUtility` function is ran with the parameter `thin` to create the thinned Spring Boot application. For more information about this function, you can check out the `official springBootUtility page`[https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html^]
+This Dockerfile is written in two main stages. The first stage copies over the [hotspot=copyJar]`spring boot jar` that was generated into the [hotspot=OLimage1]`Open Liberty image` and thins the application.
+The `springBootUtility` function is ran with the parameter `thin` to create the thinned Spring Boot application. For more information about this function, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^]
 
-The next stage downloads the [hotspot=OLimage2]`Open Liberty image` and copies over the `server` configuration file as well as the [hotspot=libcache]`library cache` and [hotspot=thinjar]`thinned jar` generated from the thinned application created in the previous section. 
+The next stage downloads the [hotspot=OLimage2]`Open Liberty image` and copies over the `server` configuration file as well as the library cache [hotspot=libcache]`lib.index.cache` and thinned jar [hotspot=thinjar]`thin-gs-spring-boot-0.1.0.jar` generated from the thinned application created in the previous section. 
 
 Next, build the Docker image with the following command.
 [role='command']
@@ -214,7 +214,8 @@ docker images
 Your image, `springboot`, should appear in the list of all Docker images:
 [role='no_copy']
 ```
-output
+REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
+springboot    latest    d3ffdaa81854     27 seconds ago    486MB
 ```
 
 Execute the Docker `run` command to run your Spring Boot application in a Docker container.
