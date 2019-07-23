@@ -193,6 +193,11 @@ Dockerfile
 include::finish/Dockerfile[]
 ---- 
 
+This Dockerfile is written in two main stages. The first stage copies over the relevant [hotspot=copyJar]`jar` files that have been generated into the [hotspot=OLimage1]`Open Liberty image` and thins the application.
+The `springBootUtility` function is ran with the parameter `thin` to create the thinned Spring Boot application. For more information about this function, you can check out the `official springBootUtility page`[https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html^]
+
+The next stage downloads the [hotspot=OLimage2]`Open Liberty image` and copies over the `server` configuration file as well as the [hotspot=libcache]`library cache` and [hotspot=thinjar]`thinned jar` generated from the thinned application created in the previous section. 
+
 Next, build the Docker image with the following command.
 [role='command']
 ```
@@ -200,6 +205,7 @@ docker build -t springboot .
 ```
 
 To verify that the images are built, run the `docker images` command to list all local Docker images:
+
 [role='command']
 ```
 docker images
