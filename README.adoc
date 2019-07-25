@@ -186,6 +186,7 @@ include::finish/Dockerfile[]
 
 This Dockerfile is written in two main stages. 
 The first stage copies over the Spring Boot application [hotspot=copyJar]`gs-spring-boot-0.1.0.jar` to a temporary directory [hotspot=4]`/staging`, 
+[hotspot=0]`hotspot 0`, [hotspot=1]`hotspot 1`, [hotspot=2]`hotspot 2`, [hotspot=3]`hotspot 3`, [hotspot=4]`hotspot 4`, [hotspot=5]`hotspot 5`, [hotspot=6]`hotspot 6`, [hotspot=15]`hotspot 15`
 and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
 For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^]
 
