@@ -84,10 +84,11 @@ pom.xml
 ---- 
 include::finish/pom.xml[]
 ---- 
+The `liberty-maven-plugin` will download and install Open Liberty to the `target/liberty` directory.
+The [hotspot=installAppPackages file=0]`<installAppPackages />` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case `spring-boot-application`. The default value being `dependencies`. 
+However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as `spring-boot-application`. This allows maven to package, thin, and copy the Spring Boot application `gs-spring-boot-0.1.0.jar` to the Liberty runtime application and shared library directories.
 
-The [hotspot=installAppPackages file=0]`<installAppPackages />` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project` or `all`. The default value being `dependencies`. 
-However, in order to run the Spring Boot application the value should be set as `spring-boot-application`. This allows maven to package, thin, and copy the Spring Boot application `gs-spring-boot-0.1.0.jar` to the Liberty runtime application and shared library directories.
-
+To get the Spring Boot application running, the Liberty server needs to be correctly configured.
 The [hotspot=configFile file=0]`<configFile />` tag specifies the location of the server configuration file.
 
 [role="code_command hotspot file=1", subs="quotes"] 
@@ -97,7 +98,7 @@ The [hotspot=configFile file=0]`<configFile />` tag specifies the location of th
 ---- 
 
 The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.
-Since the  application was thinned, the `<springbootApplication />` location is set to [hotspot=location file=1]`thin-gs-spring-boot-0.1.0.jar`. 
+Since the  application was thinned, the `<springbootApplication />` location is set to [hotspot=location file=1]`thin-gs-spring-boot-0.1.0.jar`. The application port is also specified as [hotspot=10 file=1]`9080`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
@@ -128,7 +129,7 @@ mvn liberty:stop-server
 
 == Package the Spring Boot application embedded with Open Liberty
 
-You can update the `pom.xml` and the `server.xml` to package the Spring Boot application embedded with Open Liberty.
+You can update the `pom.xml` to package the Spring Boot application embedded with Open Liberty.
 
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
@@ -147,21 +148,11 @@ include::finish/pom.xml[]
 The [hotspot=include file=0]`<include />` tag of this execution is specified to `minify`, `runnable`. The `runnable` value allows the application to be generated as a runnable `jar` file and the `minify` value packages only what you need from your configuration files without bundling the entire `Liberty` install.
 
 The [hotspot=packageFile file=0]`<packageFile />` tag specifies that the application will be generated as `GSSpringBootApp.jar`. 
-
-
-[role="code_command hotspot=sbThin file=1", subs="quotes"] 
----- 
-#Update the `server.xml`.#
-`src/main/liberty/config/server.xml`
----- 
-[role="edit_command_text"]
-Update the `location` of the Spring Boot application to [hotspot=location file=1]`thin-gs-spring-boot-thin.jar`.
- 
-server.xml
-[source, XML, linenums, role='code_column'] 
----- 
-include::finish/src/main/liberty/config/server.xml[]
----- 
+Next, run the Maven package command:
+[role='command']
+```
+mvn package
+```
 
 Next, run the repacked Spring Boot application with Liberty. This jar was defined previously in the [hotspot file=0]`pom.xml`.
 
@@ -176,7 +167,7 @@ When you need to stop the application, simply press `CTRL+C` in the shell sessio
 
 == Deploying the application to Docker
 You will build an Open Liberty Docker image to run the Spring Boot application. Using Docker, you can run your thinned application with a few simple commands.
-For more information on using Open Liberty with Docker, see the https://github.com/OpenLiberty/guide-docker[Using Docker containers to develop microservices] guide.
+For more information on using Open Liberty with Docker, see the https://github.com/OpenLiberty/guide-docker[Using Docker containers to develop microservices^] guide.
 
 
 Navigate to the `start` directory. 
@@ -193,7 +184,13 @@ Dockerfile
 include::finish/Dockerfile[]
 ---- 
 
-This Dockerfile is written in two main stages. The first stage copies over the [hotspot=copyJar]`spring boot jar` that was generated into the [hotspot=OLimage1]`Open Liberty image` and thins the application.
+"The first stage copies over the Spring Boot application gs-spring-boot-0.1.0.jar to a temporary directory /staging, and then use the Open Liberty springBootUtility command to thin the application."
+
+This Dockerfile is written in two main stages. The first stage copies over the Spring Boot application [hotspot=copyJar]`gs-spring-boot-0.1.0.jar` to a temporary directory `/staging`.
+
+
+
+that was generated into the [hotspot=OLimage1]`Open Liberty image` and thins the application.
 The [hotspot=springBootUtility]`springBootUtility` function is ran with the parameter `thin` to create the thinned Spring Boot application. For more information about this function, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^]
 
 The next stage downloads the [hotspot=OLimage2]`Open Liberty image` and copies over the `server` configuration file as well as the library cache [hotspot=libcache]`lib.index.cache` and thinned jar [hotspot=thinjar]`thin-gs-spring-boot-0.1.0.jar` generated from the thinned application created in the previous section. 
