@@ -85,8 +85,8 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 The `liberty-maven-plugin` will download and install Open Liberty to the `target/liberty` directory.
-The [hotspot=installAppPackages file=0]`<installAppPackages />` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case `spring-boot-application`. The default value being `dependencies`. 
-However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as [hotspot=installAppPackages file=0]`spring-boot-application`. This allows maven to package, thin, and copy the Spring Boot application `gs-spring-boot-0.1.0.jar` to the Liberty runtime application and shared library directories.
+The [hotspot=installAppPackages file=0]`<installAppPackages />` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case `spring-boot-project`. The default value being `dependencies`. 
+However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as [hotspot=installAppPackages file=0]`spring-boot-project`. This allows maven to package, thin, and copy the Spring Boot application `gs-spring-boot-0.1.0.jar` to the Liberty runtime application and shared library directories.
 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
 The [hotspot=configFile file=0]`<configFile />` tag specifies the location of the server configuration file.
