@@ -22,6 +22,6 @@ COPY --chown=1001:0 src/main/liberty/config/server.xml /config
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 # end::libcache[]
 # tag::thinjar[]
-COPY --from=staging /staging/thin-gs-spring-boot-0.1.0.jar 
+COPY --from=staging /staging/thin-gs-spring-boot-0.1.0.jar \ 
                     /config/apps/thin-gs-spring-boot-0.1.0.jar
 # end::thinjar[]
