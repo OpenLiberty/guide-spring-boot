@@ -7,7 +7,7 @@
 //     IBM Corporation
 //
 :page-layout: guide-multipane
-:projectid: guide-spring-boot
+:projectid: spring-boot
 :page-duration: 30 minutes
 :page-releasedate: 2018-11-17
 // INSTRUCTION: Provide a description for the guide index page.
