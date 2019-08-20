@@ -19,7 +19,7 @@
 // INSTRUCTION: Specify the slug in the website. This must be unique.
 :page-permalink: /guides/spring-boot-guide
 // INSTRUCTION: You should have this to source the common page elements, clone git@github.com:OpenLiberty/guides-common.git
-:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+:common-includes: ../guides-common/
 // INSTRUCTION: You can't have a new line between the attributes and the title.
 // The details of what to fill in for this template are in the comments. So, read the source for this template to see the comments.
 //
@@ -29,7 +29,8 @@
 Learn how to deploy a Spring Boot application on a Liberty server.
 
 == What you'll learn
-Spring Boot is an open source Java-based framework used to develop microservices. You will learn how to deploy a Spring Boot application in Open Liberty and how to build an Open Liberty Docker image to run the Spring Boot application.
+Spring Boot is an open source Java-based framework used to develop microservices. 
+You will learn how to deploy a Spring Boot application in Open Liberty and how to run the Spring Boot application in a Docker image.
 
 The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot] guide.
  Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
@@ -53,7 +54,7 @@ You can now run the application in the embedded Tomcat web-container by executin
 java -jar target/gs-spring-boot-0.1.0.jar
 ----
 
-Notice that the console output will display that the application is running in Tomcat on port 8080. Now access the application at the following URL: http://localhost:8080/hello[^].
+Notice that the console output displays a message that the application is running in Tomcat on port 8080. Now access the application at the following URL: http://localhost:8080/hello[^].
 
 
 You should see the following output displayed in your browser:
@@ -187,7 +188,7 @@ include::finish/Dockerfile[]
 This Dockerfile is written in two main stages. 
 The first stage copies over the Spring Boot application [hotspot=copyJar]`gs-spring-boot-0.1.0.jar` to a temporary directory [hotspot=7]`/staging`, 
 and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
-For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^]
+For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^].
 
 The next stage downloads the [hotspot=OLimage2]`Open Liberty image`, copies the [hotspot=20]`server` 
 configuration file created in the previous section, and copies the library cache [hotspot=libcache]`lib.index.cache` and 
