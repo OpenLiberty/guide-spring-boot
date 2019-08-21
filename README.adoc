@@ -33,14 +33,17 @@ Spring Boot is an open source Java-based framework used to develop microservices
 You will learn how to deploy a Spring Boot application in Open Liberty and how to run the Spring Boot application in a Docker image.
 
 The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot] guide.
- Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
+Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
+You will first learn how to take the finished application from that guide and execute it in a jar. Then, using that jar you will learn how to containerize and deploy the application using an Open Liberty image.
+Next, you will learn about running the Spring Boot application in Open Liberty locally and also how to package the  application embedded with Open Liberty into a jar. 
 
-// Add this getting started section to your guide if it is applicable. Use the following include to pull in the git clone instructions from the guides-common repo.
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
+
 == Building and running the Spring Boot application
-You will first need to build the initial Spring Boot application into an executable jar file. Navigate to the `start` directory and run the Maven package command.
+You will first need to build the initial Spring Boot application into an executable jar file. 
+Navigate to the `start` directory and run the Maven package command.
 
 [role='command']
 ----
@@ -65,10 +68,87 @@ Greetings from Spring Boot!
 
 When you need to stop the application, simply press `CTRL+C` in the shell session where you ran the application.
 
+== Deploying the application to Docker
+You will build an Open Liberty Docker image to run the Spring Boot application. Using Docker, you can run your thinned application with a few simple commands.
+For more information on using Open Liberty with Docker, see the https://github.com/OpenLiberty/guide-docker[Using Docker containers to develop microservices^] guide.
+
+Navigate to the `start` directory. 
+
+[role="code_command", subs="quotes"] 
+---- 
+#Create the `Dockerfile`.#
+`Dockerfile`
+---- 
+
+Dockerfile
+[source, Text, linenums, role='code_column'] 
+---- 
+include::finish/Dockerfile[]
+---- 
+
+This Dockerfile is written in two main stages. 
+The first stage copies over the Spring Boot application [hotspot=copyJar]`gs-spring-boot-0.1.0.jar` to a temporary directory [hotspot=7]`/staging`, 
+and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
+For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^].
+
+The next stage downloads the [hotspot=OLimage2]`Open Liberty image`, copies the [hotspot=20]`server` 
+configuration file created in the previous section, and copies the library cache [hotspot=libcache]`lib.index.cache` and 
+thinned application [hotspot=thinjar]`thin-gs-spring-boot-0.1.0.jar` which were generated in the first stage.
+
+Next, build the Docker image with the following command.
+[role='command']
+```
+docker build -t springboot .
+```
+
+To verify that the images are built, run the `docker images` command to list all local Docker images:
+
+[role='command']
+```
+docker images
+```
+
+Your image `springboot` should appear in the list of all Docker images:
+[role='no_copy']
+```
+REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
+springboot    latest    d3ffdaa81854     27 seconds ago    486MB
+```
+
+Execute the Docker `run` command to run your Spring Boot application in a Docker container.
+[role='command']
+```
+docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
+```
+
+Before you access your application from the browser, run the `docker ps` command from the command line to make sure that your container is running and didn’t crash:
+[role='command']
+----
+docker ps
+----
+
+You should see an entry like the following:
+[role='no_copy']
+----
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
+e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
+----
+
+Point your browser to the http://localhost:9080/hello[^] URL to access the application.
+
+=== Tearing down Docker container
+
+To stop and remove your container, run the following commands:
+
+[role='command']
+```
+docker stop springBootContainer
+docker rm springBootContainer
+```
 
 == Running the Spring Boot application on Open Liberty
 
-Next, you will run the Spring Boot application on Open Liberty by updating the `pom.xml`.
+Next, you will run the Spring Boot application on Open Liberty locally by updating the `pom.xml`.
 
 The [hotspot file=0]`pom.xml` has already been created for you in this directory. 
 
@@ -166,84 +246,6 @@ Point your browser to the http://localhost:9080/hello[^] URL to access the appli
 
 When you need to stop the application, simply press `CTRL+C` in the shell session where you ran the application.
 
-== Deploying the application to Docker
-You will build an Open Liberty Docker image to run the Spring Boot application. Using Docker, you can run your thinned application with a few simple commands.
-For more information on using Open Liberty with Docker, see the https://github.com/OpenLiberty/guide-docker[Using Docker containers to develop microservices^] guide.
-
-
-Navigate to the `start` directory. 
-
-[role="code_command", subs="quotes"] 
----- 
-#Create the `Dockerfile`.#
-`Dockerfile`
----- 
-
-Dockerfile
-[source, Text, linenums, role='code_column'] 
----- 
-include::finish/Dockerfile[]
----- 
-
-This Dockerfile is written in two main stages. 
-The first stage copies over the Spring Boot application [hotspot=copyJar]`gs-spring-boot-0.1.0.jar` to a temporary directory [hotspot=7]`/staging`, 
-and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
-For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^].
-
-The next stage downloads the [hotspot=OLimage2]`Open Liberty image`, copies the [hotspot=20]`server` 
-configuration file created in the previous section, and copies the library cache [hotspot=libcache]`lib.index.cache` and 
-thinned application [hotspot=thinjar]`thin-gs-spring-boot-0.1.0.jar` which were generated by the first stage.
-
-Next, build the Docker image with the following command.
-[role='command']
-```
-docker build -t springboot .
-```
-
-To verify that the images are built, run the `docker images` command to list all local Docker images:
-
-[role='command']
-```
-docker images
-```
-
-Your image `springboot` should appear in the list of all Docker images:
-[role='no_copy']
-```
-REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
-springboot    latest    d3ffdaa81854     27 seconds ago    486MB
-```
-
-Execute the Docker `run` command to run your Spring Boot application in a Docker container.
-[role='command']
-```
-docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
-```
-
-Before you access your application from the browser, run the `docker ps` command from the command line to make sure that your container is running and didn’t crash:
-[role='command']
-----
-docker ps
-----
-
-You should see an entry like the following:
-[role='no_copy']
-----
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
-e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
-----
-
-Point your browser to the http://localhost:9080/hello[^] URL to access the application.
-
-=== Tearing down Docker container
-
-To stop and remove your container, run the following commands:
-
-[role='command']
-```
-docker stop springBootContainer
-docker rm springBootContainer
-```
 
 == Great work! You're done!
 
