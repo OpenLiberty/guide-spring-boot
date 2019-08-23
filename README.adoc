@@ -86,7 +86,6 @@ configuration file, and copies the library cache [hotspot=libcache file=0]`lib.i
 thinned application [hotspot=thinjar file=0]`thin-gs-spring-boot-0.1.0.jar` which were generated in the first stage.
 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
-The [hotspot=configFile file=1]`<configFile />` tag specifies the location of the server configuration file.
 
 [role="code_command hotspot file=1", subs="quotes"] 
 ---- 
@@ -94,7 +93,7 @@ The [hotspot=configFile file=1]`<configFile />` tag specifies the location of th
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is also specified as [hotspot=14 file=1]`9080`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
