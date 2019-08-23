@@ -8,7 +8,7 @@
 //
 :page-layout: guide-multipane
 :projectid: spring-boot
-:page-duration: 30 minutes
+:page-duration: 20 minutes
 :page-releasedate: 2018-11-17
 :page-description: Learn how to deploy a Spring Boot application in Open Liberty.
 :page-tags: []
@@ -93,7 +93,7 @@ To get the Spring Boot application running, the Liberty server needs to be corre
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is also specified as [hotspot=14 file=1]`9080`.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httport file=1]`9080`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
