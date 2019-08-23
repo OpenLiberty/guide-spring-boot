@@ -77,16 +77,16 @@ include::finish/Dockerfile[]
 ---- 
 
 This Dockerfile is written in two main stages. For more information about multistage Dockerfiles, you can check out the https://docs.docker.com/develop/develop-images/multistage-build/[multi-stage builds page^] on the official Docker site.
-The first stage copies over the Spring Boot application [hotspot=copyJar]`gs-spring-boot-0.1.0.jar` to a temporary directory [hotspot=7]`/staging`, 
+The first stage copies over the Spring Boot application [hotspot=copyJar]`gs-spring-boot-0.1.0.jar` to a temporary directory [hotspot=7 file=0]`/staging`, 
 and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
 For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^].
 
-The next stage downloads the [hotspot=OLimage2]`Open Liberty image`, copies the [hotspot=20]`server` 
-configuration file, and copies the library cache [hotspot=libcache]`lib.index.cache` and 
-thinned application [hotspot=thinjar]`thin-gs-spring-boot-0.1.0.jar` which were generated in the first stage.
+The next stage downloads the [hotspot=OLimage2 file=0]`Open Liberty image`, copies the [hotspot=20]`server` 
+configuration file, and copies the library cache [hotspot=libcache file=0]`lib.index.cache` and 
+thinned application [hotspot=thinjar file=0]`thin-gs-spring-boot-0.1.0.jar` which were generated in the first stage.
 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
-The [hotspot=configFile file=0]`<configFile />` tag specifies the location of the server configuration file.
+The [hotspot=configFile file=1]`<configFile />` tag specifies the location of the server configuration file.
 
 [role="code_command hotspot file=1", subs="quotes"] 
 ---- 
@@ -94,7 +94,7 @@ The [hotspot=configFile file=0]`<configFile />` tag specifies the location of th
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=2]`servlet` and [hotspot=springboot file=2]`springBoot` features are required for the Liberty server to run the Spring Boot application.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
