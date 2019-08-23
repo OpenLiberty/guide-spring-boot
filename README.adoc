@@ -10,17 +10,17 @@
 :projectid: spring-boot
 :page-duration: 20 minutes
 :page-releasedate: 2018-11-17
-:page-description: Learn how to deploy a Spring Boot application in Open Liberty.
+:page-description: Learn how to run a Spring Boot application with Open Liberty.
 :page-tags: []
 :page-related-guides: ['rest-intro']
 :page-permalink: /guides/spring-boot-guide
 :common-includes: ../guides-common/
 = Deploying a Spring Boot Application
 
-Learn how to deploy a Spring Boot application on a Liberty server.
+Learn how to run a Spring Boot application on a Liberty server.
 
 == What you'll learn
-You will learn how to run a Spring Boot application in a Open Liberty Docker container, how to run it by a local Liberty server, and how to repackage it with a Liberty server.
+You will learn how to build and run a Spring Boot application with a Open Liberty Docker image, how to run it locally with a  Liberty server, and how to repackage it embedded with a Liberty server.
 
 The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide.
 Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
@@ -93,7 +93,7 @@ To get the Spring Boot application running, the Liberty server needs to be corre
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httport file=1]`9080`.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
@@ -121,13 +121,13 @@ REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
 springboot    latest    d3ffdaa81854     27 seconds ago    486MB
 ```
 
-Execute the Docker `run` command to run your Spring Boot application in a Docker container.
+Now, you can run the Spring Boot application in a Docker container.
 [role='command']
 ```
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
 ```
 
-Before you access your application from the browser, run the `docker ps` command from the command line to make sure that your container is running and didn’t crash:
+Before you access your application from the browser, run the `docker ps` command to make sure that your container is running and didn’t crash:
 [role='command']
 ----
 docker ps
@@ -178,14 +178,12 @@ However, in order to install the Spring Boot application to the downloaded Open 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
 The [hotspot=configFile file=0]`<configFile />` tag specifies the location of the server configuration file.
 
+Create the server.xml if you didn't do in the previous section.
 [role="code_command hotspot file=1", subs="quotes"] 
 ---- 
 #Create the `server.xml`.#
 `src/main/liberty/config/server.xml`
 ---- 
-
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.
-Since the  application was thinned, the `<springbootApplication />` location is set to [hotspot=location file=1]`thin-gs-spring-boot-0.1.0.jar`. Adding this location tag in the `server.xml` is optional since the thinned application was packaged in the shared library directories earlier.  The application port is also specified as [hotspot=14 file=1]`9080`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
