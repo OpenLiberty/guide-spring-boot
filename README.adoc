@@ -231,7 +231,7 @@ You can update the `pom.xml` to package the Spring Boot application embedded wit
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=packageFile file=0]`<packageFile/>` and [hotspot=include file=0]`<include/>` configuration tags to the `pom.xml`.
+Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageFile/>` configuration tags to the `pom.xml`.
  
 pom.xml
 [source, XML, linenums, role='code_column'] 
