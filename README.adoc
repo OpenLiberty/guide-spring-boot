@@ -10,28 +10,25 @@
 :projectid: spring-boot
 :page-duration: 20 minutes
 :page-releasedate: 2018-11-17
-:page-description: Learn how to run a Spring Boot application with Open Liberty.
+:page-description: Learn how to deploy a Spring Boot application on Open Liberty.
 :page-tags: []
 :page-related-guides: ['rest-intro']
 :page-permalink: /guides/spring-boot-guide
 :common-includes: ../guides-common/
 = Deploying a Spring Boot Application
 
-Learn how to run a Spring Boot application on a Liberty server.
+Learn how to deploy a Spring Boot application on a Liberty server without modification.
 
 == What you'll learn
-You will learn how to build and run a Spring Boot application with a Open Liberty Docker image, how to run it locally with a  Liberty server, and how to repackage it embedded with a Liberty server.
-
-The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide.
-Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
-You will first learn how to take the finished application from that guide and execute it in a jar. Then, using that jar you will learn how to containerize and deploy the application using an Open Liberty image.
-Next, you will learn about running the Spring Boot application in Open Liberty locally and also how to package the  application embedded with Open Liberty into a jar. 
+You will learn how to deploy a Spring Boot application on a Liberty server in Docker without modification by using the Spring Boot utility thin command to create a thin jar and indexed library. 
+The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
+Next, you will learn how to run the Spring Boot application locally with a  Liberty server, and how to package it embedded with a Liberty server.
 
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
 
-== Building and running the Spring Boot application
+== Building and running the Spring Boot application in embedded Tomcat
 You will first need to build the initial Spring Boot application into an executable jar file. 
 Navigate to the `start` directory and run the Maven package command.
 
