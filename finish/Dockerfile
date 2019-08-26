@@ -13,7 +13,7 @@ RUN springBootUtility thin \
  --targetLibCachePath=/staging/lib.index.cache
 # end::springBootUtility[]
 
-# Build the image only copying the lib.index.cache and the thin application
+# Build the image
 # tag::OLimage2[]
 FROM open-liberty:springBoot2
 # end::OLimage2[]
