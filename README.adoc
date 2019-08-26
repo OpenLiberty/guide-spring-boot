@@ -9,7 +9,7 @@
 :page-layout: guide-multipane
 :projectid: spring-boot
 :page-duration: 15 minutes
-:page-releasedate: 2018-09-05
+:page-releasedate: 2019-09-05
 :page-description: Learn how to deploy a Spring Boot application on Open Liberty.
 :page-tags: ['Docker']
 :page-related-guides: ['rest-intro', 'containerize']
@@ -181,7 +181,7 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 The `liberty-maven-plugin` will download and install Open Liberty to the `target/liberty` directory.
-The [hotspot=installAppPackages file=0]`<installAppPackages/>` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case `spring-boot-project`. The default value being `dependencies`. 
+The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case `spring-boot-project`. The default value being `dependencies`. 
 However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as [hotspot=installAppPackages file=0]`spring-boot-project`. This allows maven to package, thin, and copy the Spring Boot application `gs-spring-boot-0.1.0.jar` to the Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
@@ -231,7 +231,7 @@ You can update the `pom.xml` to package the Spring Boot application embedded wit
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=packageApp file=0]`<packageFile/>` and [hotspot=include file=0]`<include/>` configuration tags to the `pom.xml`.
+Add the [hotspot=packageFile file=0]`<packageFile/>` and [hotspot=include file=0]`<include/>` configuration tags to the `pom.xml`.
  
 finish/pom.xml
 [source, XML, linenums, role='code_column'] 
