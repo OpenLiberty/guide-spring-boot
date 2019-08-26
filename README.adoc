@@ -46,7 +46,12 @@ You can now run the application in the embedded Tomcat web-container by executin
 java -jar target/gs-spring-boot-0.1.0.jar
 ----
 
-Notice that the console output displays a message that the application is running in Tomcat on port 8080. Now access the application at the following URL: http://localhost:8080/hello[^].
+Notice that the console output displays a message that the application is running in Tomcat on port 8080. 
+[role='no_copy']
+----
+... INFO ... [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path ''
+----
+Now access the application at the following URL: http://localhost:8080/hello[^].
 
 
 You should see the following output displayed in your browser:
