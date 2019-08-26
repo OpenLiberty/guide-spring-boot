@@ -8,7 +8,7 @@
 //
 :page-layout: guide-multipane
 :projectid: spring-boot
-:page-duration: 20 minutes
+:page-duration: 15 minutes
 :page-releasedate: 2018-09-05
 :page-description: Learn how to deploy a Spring Boot application on Open Liberty.
 :page-tags: []
