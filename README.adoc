@@ -176,16 +176,16 @@ The [hotspot file=0]`pom.xml` has already been created for you in this directory
 Add the [hotspot=libertyMavenPlugin file=0]`liberty-maven-plugin` to the [hotspot file=0]`pom.xml`.
 
 pom.xml
-[source, XML, linenums, role='code_column hide_tags=packageApp'] 
+[source, XML, linenums, role='code_column hide_tags=packageApp,include'] 
 ---- 
 include::finish/pom.xml[]
 ---- 
 The `liberty-maven-plugin` will download and install Open Liberty to the `target/liberty` directory.
 The [hotspot=installAppPackages file=0]`<installAppPackages/>` tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case `spring-boot-project`. The default value being `dependencies`. 
-However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as [hotspot=installAppPackages file=0]`spring-boot-project`. This allows maven to package, thin, and copy the Spring Boot application `gs-spring-boot-0.1.0.jar` to the Liberty runtime application and shared library directories.
+However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as [hotspot=installAppPackages file=0]`spring-boot-project`. This allows maven to package, thin, and copy the Spring Boot application `gs-spring-boot-0.1.0.jar` to the Liberty runtime [hotspot=appsDirectory file=0]`applications directory` and shared library directory.
 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
-The [hotspot=configFile file=0]`<configFile/>` tag specifies the location of the server configuration file.
+By default, the `liberty-maven-plugin` will pick up the server configuration file at the `src/main/liberty/config` directory.
 
 Create the server.xml if you didn't do in the previous section.
 [role="code_command hotspot file=1", subs="quotes"] 
@@ -203,7 +203,7 @@ include::finish/src/main/liberty/config/server.xml[]
 Next, run the following command to build the application on Liberty:
 [role='command']
 ```
-mvn package
+mvn liberty:create-server liberty:install-apps
 ```
 
 To run the application, start the server:
@@ -231,7 +231,7 @@ You can update the `pom.xml` to package the Spring Boot application embedded wit
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=packageApp file=0]`<execution/>` to the `pom.xml`.
+Add the [hotspot=packageApp file=0]`<packageFile/>` and [hotspot=include file=0]`<include/>` configuration tags to the `pom.xml`.
  
 finish/pom.xml
 [source, XML, linenums, role='code_column'] 
@@ -239,13 +239,13 @@ finish/pom.xml
 include::finish/pom.xml[]
 ---- 
 
-The [hotspot=include file=0]`<include/>` tag of this execution is specified to `minify`, `runnable`. The `runnable` value allows the application to be generated as a runnable `jar` file and the `minify` value packages only what you need from your configuration files without bundling the entire `Liberty` install.
+The [hotspot=include file=0]`<include/>` configuration tag is specified to `minify`, `runnable`. The `runnable` value allows the application to be generated as a runnable `jar` file and the `minify` value packages only what you need from your configuration files without bundling the entire `Liberty` install.
 
-The [hotspot=packageFile file=0]`<packageFile/>` tag specifies that the application will be generated as `GSSpringBootApp.jar`. 
+The [hotspot=packageFile file=0]`<packageFile/>` configuration tag specifies that the application will be generated as `GSSpringBootApp.jar`. 
 Next, run the Maven package command:
 [role='command']
 ```
-mvn package
+mvn liberty:package-server
 ```
 
 Next, run the repacked Spring Boot application with Liberty. This jar was defined previously in the [hotspot file=0]`pom.xml`.
