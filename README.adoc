@@ -176,7 +176,7 @@ The [hotspot file=0]`pom.xml` has already been created for you in this directory
 Add the [hotspot=libertyMavenPlugin file=0]`liberty-maven-plugin` to the [hotspot file=0]`pom.xml`.
 
 pom.xml
-[source, XML, linenums, role='code_column hide_tags=packageApp,include'] 
+[source, XML, linenums, role='code_column hide_tags=packageFile,include'] 
 ---- 
 include::finish/pom.xml[]
 ---- 
@@ -233,7 +233,7 @@ You can update the `pom.xml` to package the Spring Boot application embedded wit
 [role="edit_command_text"]
 Add the [hotspot=packageFile file=0]`<packageFile/>` and [hotspot=include file=0]`<include/>` configuration tags to the `pom.xml`.
  
-finish/pom.xml
+pom.xml
 [source, XML, linenums, role='code_column'] 
 ---- 
 include::finish/pom.xml[]
