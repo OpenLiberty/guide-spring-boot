@@ -67,14 +67,14 @@
           <!-- tag::installAppPackages[] -->
           <installAppPackages>spring-boot-project</installAppPackages>
           <!-- end::installAppPackages[] -->
+          <!-- tag::include[] -->
+          <include>minify,runnable</include>
+          <!-- end::include[] -->
           <!-- tag::packageFile[] -->
           <packageFile>
             ${project.build.directory}/GSSpringBootApp.jar
           </packageFile>
           <!-- end::packageFile[] -->
-          <!-- tag::include[] -->
-          <include>minify,runnable</include>
-          <!-- end::include[] -->
         </configuration>
       </plugin>
       <!-- end::libertyMavenPlugin[] -->
