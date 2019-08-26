@@ -11,10 +11,14 @@
 :page-duration: 15 minutes
 :page-releasedate: 2018-09-05
 :page-description: Learn how to deploy a Spring Boot application on Open Liberty.
-:page-tags: []
-:page-related-guides: ['rest-intro']
-:page-permalink: /guides/spring-boot
+:page-tags: ['Docker']
+:page-related-guides: ['rest-intro', 'containerize']
+:page-permalink: /guides/{projectid}
 :common-includes: ../guides-common/
+:source-highlighter: prettify
+:page-seo-title: Deploying and running a Spring Boot Application on Open Liberty.
+:page-seo-description: A tutorial on how to deploy and run a Spring Boot application without modification on Open Liberty docker or local Liberty server, and how to package it embedded with a Liberty server.
+:guide-author: Open Liberty
 = Deploying a Spring Boot Application
 
 Learn how to deploy a Spring Boot application on a Liberty server without modification.
