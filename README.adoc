@@ -261,7 +261,7 @@ When you need to stop the application, simply press `CTRL+C` in the shell sessio
 
 == Great work! You're done!
 
-You installed a basic Spring Boot application to run in Open Liberty.
+You have just run a basic Spring Boot application with Open Liberty.
 
-include::{common-includes}/finish.adoc[]
+include::https://raw.githubusercontent.com/OpenLiberty/guides-common/master/attribution.adoc[]
 
