@@ -61,66 +61,21 @@
         <groupId>net.wasdev.wlp.maven.plugins</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
         <configuration>
-          <assemblyArtifact>
-             <groupId>io.openliberty</groupId>
-             <artifactId>openliberty-runtime</artifactId>
-             <version>RELEASE</version>
-            <type>zip</type>
-          </assemblyArtifact>
-          <!-- tag::configFile[] -->
-          <configFile>src/main/liberty/config/server.xml</configFile>
-          <!-- end::configFile[] -->
           <!-- tag::appsDirectory[] -->
           <appsDirectory>apps</appsDirectory>
           <!-- end::appsDirectory[] -->
           <!-- tag::installAppPackages[] -->
           <installAppPackages>spring-boot-project</installAppPackages>
           <!-- end::installAppPackages[] -->
+          <!-- tag::packageFile[] -->
+          <packageFile>
+            ${project.build.directory}/GSSpringBootApp.jar
+          </packageFile>
+          <!-- end::packageFile[] -->
+          <!-- tag::include[] -->
+          <include>minify,runnable</include>
+          <!-- end::include[] -->
         </configuration>
-        <executions>
-          <execution>
-            <id>stop-server-before-clean</id>
-            <phase>pre-clean</phase>
-            <goals>
-              <goal>stop-server</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>create-server</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>install-server</goal>
-              <goal>create-server</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>install-apps</id>
-            <phase>package</phase>
-            <goals>
-              <goal>install-apps</goal>
-            </goals>
-          </execution>
-          <!-- tag::packageApp[] -->
-          <execution>
-            <id>package-server</id>
-            <phase>package</phase>
-            <goals>
-              <goal>package-server</goal>
-            </goals>
-            <configuration>
-            <!-- tag::packageFile[] -->
-              <packageFile>
-                ${project.build.directory}/GSSpringBootApp.jar
-              </packageFile>
-            <!-- end::packageFile[] -->
-              <!-- tag::include[] -->
-              <include>minify,runnable</include>
-              <!-- end::include[] -->
-              <outputDirectory>target/liberty-alt-output-dir</outputDirectory>
-            </configuration>
-          </execution>
-          <!-- end::packageApp[] -->
-        </executions>
       </plugin>
       <!-- end::libertyMavenPlugin[] -->
       <!-- End of Liberty Maven plugin -->
