@@ -227,7 +227,7 @@ You can update the `pom.xml` to package the Spring Boot application embedded wit
 
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
-#Update the `Maven POM` file.#
+#Update the Maven POM file.#
 `pom.xml`
 ---- 
 [role="edit_command_text"]

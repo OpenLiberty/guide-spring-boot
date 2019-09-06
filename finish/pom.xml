@@ -72,9 +72,7 @@
           <include>minify,runnable</include>
           <!-- end::include[] -->
           <!-- tag::packageFile[] -->
-          <packageFile>
-            ${project.build.directory}/GSSpringBootApp.jar
-          </packageFile>
+          <packageFile>${project.build.directory}/GSSpringBootApp.jar</packageFile>
           <!-- end::packageFile[] -->
         </configuration>
       </plugin>
