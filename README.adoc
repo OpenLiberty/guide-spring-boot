@@ -34,7 +34,7 @@ Next, you will learn how to run the Spring Boot application locally with a Liber
 include::{common-includes}/gitclone.adoc[]
 
 
-== Building and running the Spring Boot application in embedded Tomcat
+== Building and running the application in embedded Tomcat
 You will first need to build the initial Spring Boot application into an executable jar file. 
 Navigate to the `start` directory and run the Maven package command.
 
@@ -161,7 +161,7 @@ docker stop springBootContainer
 docker rm springBootContainer
 ```
 
-== Running the Spring Boot application on Open Liberty
+== Running the application on Open Liberty
 
 Next, you will run the Spring Boot application on Open Liberty locally by updating the `pom.xml`.
 
@@ -221,7 +221,7 @@ When you are finished checking out the application, stop the server:
 mvn liberty:stop
 ```
 
-== Packaging the Spring Boot application embedded with Open Liberty
+== Packaging the application embedded with Open Liberty
 
 You can update the `pom.xml` to package the Spring Boot application embedded with Open Liberty.
 
