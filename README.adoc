@@ -9,7 +9,7 @@
 :page-layout: guide-multipane
 :projectid: spring-boot
 :page-duration: 15 minutes
-:page-releasedate: 2019-09-05
+:page-releasedate: 2019-09-16
 :page-description: Learn how to deploy a Spring Boot application on Open Liberty.
 :page-tags: ['Docker']
 :page-related-guides: ['rest-intro', 'containerize']
@@ -209,7 +209,7 @@ mvn liberty:create-server liberty:install-apps
 To run the application, start the server:
 [role='command']
 ```
-mvn liberty:start-server
+mvn liberty:start
 ```
 
 Point your browser to the http://localhost:9080/hello[^] URL to access the application.
@@ -218,7 +218,7 @@ Point your browser to the http://localhost:9080/hello[^] URL to access the appli
 When you are finished checking out the application, stop the server:
 [role='command']
 ```
-mvn liberty:stop-server
+mvn liberty:stop
 ```
 
 == Package the Spring Boot application embedded with Open Liberty
