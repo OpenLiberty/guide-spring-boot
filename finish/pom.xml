@@ -60,7 +60,6 @@
       <plugin>
         <groupId>io.openliberty.tools</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
-        <version>3.0-M2</version>
         <configuration>
           <!-- tag::appsDirectory[] -->
           <appsDirectory>apps</appsDirectory>
