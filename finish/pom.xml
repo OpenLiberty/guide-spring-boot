@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.springframework</groupId>
-  <artifactId>gs-spring-boot</artifactId>
+  <artifactId>guide-spring-boot</artifactId>
   <version>0.1.0</version>
 
   <parent>
@@ -71,7 +71,7 @@
           <include>minify,runnable</include>
           <!-- end::include[] -->
           <!-- tag::packageFile[] -->
-          <packageFile>${project.build.directory}/GSSpringBootApp.jar</packageFile>
+          <packageName>GSSpringBootApp.jar</packageName>
           <!-- end::packageFile[] -->
         </configuration>
       </plugin>
