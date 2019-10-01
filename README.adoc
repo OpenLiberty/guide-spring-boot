@@ -9,7 +9,7 @@
 :page-layout: guide-multipane
 :projectid: spring-boot
 :page-duration: 15 minutes
-:page-releasedate: 2019-09-16
+:page-releasedate: 2019-10-26
 :page-description: Learn how to package and run a Spring Boot application on Open Liberty.
 :page-tags: ['Docker']
 :page-related-guides: ['rest-intro', 'containerize']
@@ -34,7 +34,7 @@ Next, you will learn how to run the Spring Boot application locally with a Liber
 include::{common-includes}/gitclone.adoc[]
 
 
-== Building and running the application in embedded Tomcat
+== Building and running the application
 You will first need to build the initial Spring Boot application into an executable jar file. 
 Navigate to the `start` directory and run the Maven package command.
 
