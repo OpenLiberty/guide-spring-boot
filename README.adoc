@@ -24,9 +24,9 @@
 Learn how to package and run a Spring Boot application on a Liberty server without modification.
 
 == What you'll learn
-The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. Please first go through that guide if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
+The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. Please first go through that guide first, if you are not familiar with Spring Boot. Note that Java 8 is required to run this project.
 
-You will learn how to deploy a Spring Boot application on a Liberty server in Docker without modification by using the Spring Boot utility thin command `springBootUtility`, which stores the dependent library JARs of the application to the target library cache and packages the remaining application artifacts into a thin application JAR.
+You will learn how to deploy a Spring Boot application on a Liberty server in Docker without modification, by using the Spring Boot utility thin command `springBootUtility`, which stores the dependent library JARs of the application to the target library cache and packages the remaining application artifacts into a thin application JAR.
 
 Next, you will learn how to run the Spring Boot application locally with a Liberty server, and how to package it embedded with a Liberty server.
 
@@ -51,7 +51,7 @@ You can now run the application in the embedded Tomcat web-container by executin
 java -jar target/guide-spring-boot-0.1.0.jar
 ----
 
-Notice that the console output displays a message that the application is running in Tomcat on port 8080. 
+Notice that the console output displays a message about the application running in Tomcat on port 8080. 
 [role='no_copy']
 ----
 ... INFO ... [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path ''
@@ -90,7 +90,7 @@ The first stage copies over the Spring Boot application [hotspot=copyJar]`guide-
 and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
 For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^].
 
-The next stage downloads the [hotspot=OLimage2 file=0]`Open Liberty image`, copies the [hotspot=20]`server` 
+The next stage downloads the [hotspot=OLimage2 file=0]`Open Liberty image`, then copies the [hotspot=20]`server` 
 configuration file, the Spring Boot dependent library JARs at [hotspot=libcache file=0]`lib.index.cache`, and 
 the thin application [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` which were generated in the first stage.
 
@@ -123,7 +123,7 @@ To verify that the images are built, run the `docker images` command to list all
 docker images
 ```
 
-Your image `springboot` should appear in the list of all Docker images:
+Your image `springboot` should appear in the list of all Docker images as such:
 [role='no_copy']
 ```
 REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
@@ -181,13 +181,13 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 The `liberty-maven-plugin` will download and install Open Liberty to the `target/liberty` directory.
-The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case `spring-boot-project`. The default value being `dependencies`. 
+The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case, `spring-boot-project`. The default value being `dependencies`. 
 However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as [hotspot=installAppPackages file=0]`spring-boot-project`. This allows maven to package, thin, and copy the Spring Boot application `guide-spring-boot-0.1.0.jar` to the Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
 By default, the `liberty-maven-plugin` will pick up the server configuration file from the `src/main/liberty/config` directory.
 
-Create the server.xml if you didn't do in the previous section.
+Create the server.xml if you didn't in the previous section.
 [role="code_command hotspot file=1", subs="quotes"] 
 ---- 
 #Create the `server.xml`.#
@@ -200,7 +200,7 @@ server.xml
 include::finish/src/main/liberty/config/server.xml[]
 ---- 
 
-Next, run the following command to create the Liberty, install required features, and install the application to the Liberty:
+Next, run the following command to create the Liberty server, install required features, and install the application to the Liberty:
 [role='command']
 ```
 mvn liberty:create liberty:install-feature liberty:deploy
