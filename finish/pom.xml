@@ -77,14 +77,14 @@
         <!-- tag::packageGoals[] -->
         <executions>
           <execution>
-          	 <id>package-server</id>
-          	 <phase>package</phase>
-          	 <goals>
+            <id>package-server</id>
+            <phase>package</phase>
+            <goals>
               <goal>create</goal>
               <goal>install-feature</goal>
               <goal>deploy</goal>
               <goal>package</goal>
-             </goals>
+            </goals>
           </execution>
         </executions>
         <!-- end::packageGoals[] -->
