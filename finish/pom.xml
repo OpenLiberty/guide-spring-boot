@@ -74,7 +74,7 @@
           <packageName>GSSpringBootApp</packageName>
           <!-- end::packageFile[] -->
         </configuration>
-        <!-- tag::packageGoals -->
+        <!-- tag::packageGoals[] -->
         <executions>
           <execution>
           	 <id>package-server</id>
@@ -87,7 +87,7 @@
              </goals>
           </execution>
         </executions>
-        <!-- end::packageGoals -->
+        <!-- end::packageGoals[] -->
       </plugin>
       <!-- end::libertyMavenPlugin[] -->
       <!-- End of Liberty Maven plugin -->
