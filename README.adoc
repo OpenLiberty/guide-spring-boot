@@ -231,7 +231,7 @@ You can update the `pom.xml` to package the Spring Boot application embedded wit
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageFile/>` configuration tags to the `pom.xml`.
+Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageFile/>` configuration tags, and the [hotspot=packageGoals file=0]`<executions/>` tag to the `pom.xml`. 
  
 pom.xml
 [source, XML, linenums, role='code_column'] 
@@ -241,11 +241,14 @@ include::finish/pom.xml[]
 
 The [hotspot=include file=0]`<include/>` configuration tag is specified to `minify`, `runnable`. The `runnable` value allows the application to be generated as a runnable `jar` file and the `minify` value packages only what you need from your configuration files without bundling the entire `Liberty` install.
 
-The [hotspot=packageFile file=0]`<packageFile/>` configuration tag specifies that the application will be generated as `GSSpringBootApp.jar`. 
+The [hotspot=packageFile file=0]`<packageFile/>` configuration tag specifies that the application will be generated as `GSSpringBootApp.jar`.
+
+The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required Liberty maven goals to generate the application embedded with Open Liberty. 
+
 Next, run the Maven package command:
 [role='command']
 ```
-mvn liberty:package
+mvn package
 ```
 
 Next, run the repacked Spring Boot application with Liberty. This jar was defined previously in the [hotspot file=0]`pom.xml`.
