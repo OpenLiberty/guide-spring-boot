@@ -176,7 +176,7 @@ The [hotspot file=0]`pom.xml` has already been created for you in this directory
 Add the [hotspot=libertyMavenPlugin file=0]`liberty-maven-plugin` to the [hotspot file=0]`pom.xml`.
 
 pom.xml
-[source, XML, linenums, role='code_column hide_tags=packageFile,include'] 
+[source, XML, linenums, role='code_column hide_tags=packageFile,include,packageGoals'] 
 ---- 
 include::finish/pom.xml[]
 ---- 
@@ -200,16 +200,16 @@ server.xml
 include::finish/src/main/liberty/config/server.xml[]
 ---- 
 
-Next, run the following command to create the Liberty server, install required features, and install the application to the Liberty:
+Run the `package` goal if you didn't build the Spring Boot application.
 [role='command']
 ```
-mvn liberty:create liberty:install-feature liberty:deploy
+mvn package
 ```
 
-To run the application, start the server:
+Next, run the 'liberty:run` goal that create the Liberty, install required features, and deploy the Spring Boot application to the Liberty, and then run the application.
 [role='command']
 ```
-mvn liberty:start
+mvn liberty:run
 ```
 
 Point your browser to the http://localhost:9080/hello[^] URL to access the application.
