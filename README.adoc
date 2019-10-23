@@ -182,7 +182,7 @@ include::finish/pom.xml[]
 ---- 
 The `liberty-maven-plugin` will download and install Open Liberty to the `target/liberty` directory.
 The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the [hotspot file=0]`pom.xml` typically takes in the following parameters: `dependencies`, `project`, `all` or in this case, `spring-boot-project`. The default value being `dependencies`. 
-However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as [hotspot=installAppPackages file=0]`spring-boot-project`. This allows maven to package, thin, and copy the Spring Boot application `guide-spring-boot-0.1.0.jar` to the Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
+However, in order to install the Spring Boot application to the downloaded Open Liberty, the value should be set as [hotspot=installAppPackages file=0]`spring-boot-project`. This allows Maven to package, thin, and copy the Spring Boot application `guide-spring-boot-0.1.0.jar` to the Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
 By default, the `liberty-maven-plugin` will pick up the server configuration file from the `src/main/liberty/config` directory.
@@ -206,7 +206,7 @@ Run the `package` goal if you didn't build the Spring Boot application.
 mvn package
 ```
 
-Next, run the 'liberty:run` goal that create the Liberty, install required features, and deploy the Spring Boot application to the Liberty, and then run the application.
+Next, run the `liberty:run` goal that create the Liberty, install required features, and deploy the Spring Boot application to the Liberty, and then start the application.
 [role='command']
 ```
 mvn liberty:run
@@ -214,8 +214,7 @@ mvn liberty:run
 
 Point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
-
-When you are finished checking out the application, stop the server:
+After you are done checking out the application, stop the Open Liberty server by pressing `CTRL+C` in the shell session where you ran the server. Alternatively, you can run the `liberty:stop` goal from the `start` directory in another shell session:
 [role='command']
 ```
 mvn liberty:stop
@@ -223,7 +222,7 @@ mvn liberty:stop
 
 == Packaging the application embedded with Open Liberty
 
-You can update the `pom.xml` to package the Spring Boot application embedded with Open Liberty.
+You can update the `pom.xml` to bind more Liberty Maven goals to the package phase, so that the Maven `package` goal can build the Spring Boot application embedded with Open Liberty.
 
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
@@ -243,9 +242,9 @@ The [hotspot=include file=0]`<include/>` configuration tag is specified to `mini
 
 The [hotspot=packageFile file=0]`<packageFile/>` configuration tag specifies that the application will be generated as `GSSpringBootApp.jar`.
 
-The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required Liberty maven goals to generate the application embedded with Open Liberty. 
+The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required Liberty Maven goals to generate the application embedded with Open Liberty. 
 
-Next, run the Maven package command:
+Next, run the Maven `package` goal:
 [role='command']
 ```
 mvn package
