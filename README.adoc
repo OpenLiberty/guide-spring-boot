@@ -108,7 +108,7 @@ To get the Spring Boot application running, the Liberty server needs to be corre
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080`.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`<springBootApplication />.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
@@ -155,7 +155,13 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
 ----
 
-Point your browser to the http://localhost:9080/hello[^] URL to access the application.
+You can watch the application start by monitoring the logs:
+[role='command']
+```
+docker logs -f springBootContainer
+```
+
+When the application has started, point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
 === Tearing down Docker container
 
