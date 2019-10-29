@@ -54,9 +54,44 @@
           </execution>
         </executions>
       </plugin>
-      
-      <!-- Enable Liberty Maven plugin at here -->
-       
+            
+      <!-- Enable Liberty Maven plugin -->
+      <!-- tag::libertyMavenPlugin[] -->
+      <plugin>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <configuration>
+          <!-- tag::appsDirectory[] -->
+          <appsDirectory>apps</appsDirectory>
+          <!-- end::appsDirectory[] -->
+          <!-- tag::installAppPackages[] -->
+          <installAppPackages>spring-boot-project</installAppPackages>
+          <!-- end::installAppPackages[] -->
+          <!-- tag::include[] -->
+          <include>minify,runnable</include>
+          <!-- end::include[] -->
+          <!-- tag::packageFile[] -->
+          <packageName>GSSpringBootApp</packageName>
+          <!-- end::packageFile[] -->
+        </configuration>
+        <!-- tag::packageGoals[] -->
+        <executions>
+          <execution>
+            <id>package-server</id>
+            <phase>package</phase>
+            <goals>
+              <goal>create</goal>
+              <goal>install-feature</goal>
+              <goal>deploy</goal>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+        <!-- end::packageGoals[] -->
+      </plugin>
+      <!-- end::libertyMavenPlugin[] -->
+      <!-- End of Liberty Maven plugin -->
+
     </plugins>
   </build>
 </project>
