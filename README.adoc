@@ -91,11 +91,12 @@ include::finish/Dockerfile[]
 ---- 
 
 This Dockerfile is written in two main stages. For more information about multistage Dockerfiles, you can check out the https://docs.docker.com/develop/develop-images/multistage-build/[multi-stage builds page^] on the official Docker site.
+
 The first stage copies over the Spring Boot application [hotspot=copyJar]`guide-spring-boot-0.1.0.jar` to a temporary directory [hotspot=7 file=0]`/staging`, 
 and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
 For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^].
 
-The next stage downloads the [hotspot=OLimage2 file=0]`Open Liberty image`, then copies the [hotspot=20]`server` 
+The next stage starts from the [hotspot=OLimage2 file=0]`Open Liberty Docker image`, then copies the [hotspot=20]`server`
 configuration file, the Spring Boot dependent library JARs at [hotspot=libcache file=0]`lib.index.cache`, and 
 the thin application [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` which were generated in the first stage.
 
@@ -107,7 +108,7 @@ To get the Spring Boot application running, the Liberty server needs to be corre
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080`.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`<springBootApplication />.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
@@ -154,7 +155,13 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
 ----
 
-Point your browser to the http://localhost:9080/hello[^] URL to access the application.
+You can watch the application start by monitoring the logs:
+[role='command']
+```
+docker logs -f springBootContainer
+```
+
+When the application has started, point your browser to the http://localhost:9080/hello[^] URL to access the application.
 
 === Tearing down Docker container
 
