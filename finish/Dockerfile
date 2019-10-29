@@ -3,13 +3,13 @@
 FROM open-liberty:springBoot2 as staging
 # end::OLimage1[]
 # tag::copyJar[]
-COPY --chown=1001:0 target/gs-spring-boot-0.1.0.jar \
-                    /staging/fat-gs-spring-boot-0.1.0.jar
+COPY --chown=1001:0 target/guide-spring-boot-0.1.0.jar \
+                    /staging/fat-guide-spring-boot-0.1.0.jar
 # end::copyJar[]
 # tag::springBootUtility[]
 RUN springBootUtility thin \
- --sourceAppPath=/staging/fat-gs-spring-boot-0.1.0.jar \
- --targetThinAppPath=/staging/thin-gs-spring-boot-0.1.0.jar \
+ --sourceAppPath=/staging/fat-guide-spring-boot-0.1.0.jar \
+ --targetThinAppPath=/staging/thin-guide-spring-boot-0.1.0.jar \
  --targetLibCachePath=/staging/lib.index.cache
 # end::springBootUtility[]
 
@@ -22,6 +22,6 @@ COPY --chown=1001:0 src/main/liberty/config/server.xml /config
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 # end::libcache[]
 # tag::thinjar[]
-COPY --from=staging /staging/thin-gs-spring-boot-0.1.0.jar \ 
-                    /config/apps/thin-gs-spring-boot-0.1.0.jar
+COPY --from=staging /staging/thin-guide-spring-boot-0.1.0.jar \
+                    /config/apps/thin-guide-spring-boot-0.1.0.jar
 # end::thinjar[]

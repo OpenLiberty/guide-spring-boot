@@ -91,11 +91,12 @@ include::finish/Dockerfile[]
 ---- 
 
 This Dockerfile is written in two main stages. For more information about multistage Dockerfiles, you can check out the https://docs.docker.com/develop/develop-images/multistage-build/[multi-stage builds page^] on the official Docker site.
+
 The first stage copies over the Spring Boot application [hotspot=copyJar]`guide-spring-boot-0.1.0.jar` to a temporary directory [hotspot=7 file=0]`/staging`, 
 and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
 For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^].
 
-The next stage downloads the [hotspot=OLimage2 file=0]`Open Liberty image`, then copies the [hotspot=20]`server` 
+The next stage starts from the [hotspot=OLimage2 file=0]`Open Liberty Docker image`, then copies the [hotspot=20]`server`
 configuration file, the Spring Boot dependent library JARs at [hotspot=libcache file=0]`lib.index.cache`, and 
 the thin application [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` which were generated in the first stage.
 
