@@ -17,7 +17,9 @@
     <!-- end::httpport[] -->
 
     <!-- tag::springBootApplication[] -->
-    <springBootApplication id="guide-spring-boot" location="thin-guide-spring-boot-0.1.0.jar" name="guide-spring-boot"/>
+    <springBootApplication id="guide-spring-boot" 
+                           location="thin-guide-spring-boot-0.1.0.jar"
+                           name="guide-spring-boot" />
     <!-- end::springBootApplication[] -->
 
 </server>
