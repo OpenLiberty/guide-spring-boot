@@ -96,25 +96,9 @@ The first stage copies over the Spring Boot application [hotspot=copyJar]`guide-
 and then use the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
 For more information, you can check out the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[official springBootUtility page^].
 
-The next stage starts from the [hotspot=OLimage2 file=0]`Open Liberty Docker image`, then copies the [hotspot=20]`server`
-configuration file, the Spring Boot dependent library JARs at [hotspot=libcache file=0]`lib.index.cache`, and 
+The next stage starts from the [hotspot=OLimage2 file=0]`Open Liberty Docker image`, then copies
+the Spring Boot dependent library JARs at [hotspot=libcache file=0]`lib.index.cache`, and
 the thin application [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` which were generated in the first stage.
-
-To get the Spring Boot application running, the Liberty server needs to be correctly configured.
-
-[role="code_command hotspot file=1", subs="quotes"] 
----- 
-#Create the `server.xml`.#
-`src/main/liberty/config/server.xml`
----- 
-
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`<springBootApplication />`.
-
-server.xml
-[source, XML, linenums, role='code_column'] 
----- 
-include::finish/src/main/liberty/config/server.xml[]
----- 
 
 Next, build the Docker image with the following command.
 [role='command']
@@ -199,12 +183,13 @@ However, in order to install the Spring Boot application to the downloaded Open 
 To get the Spring Boot application running, the Liberty server needs to be correctly configured.
 By default, the `liberty-maven-plugin` will pick up the server configuration file from the `src/main/liberty/config` directory.
 
-Create the server.xml if you didn't in the previous section.
 [role="code_command hotspot file=1", subs="quotes"] 
 ---- 
 #Create the `server.xml`.#
 `src/main/liberty/config/server.xml`
 ---- 
+
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`<springBootApplication />`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
