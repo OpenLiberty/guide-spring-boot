@@ -17,11 +17,10 @@ RUN springBootUtility thin \
 # tag::OLimage2[]
 FROM open-liberty:springBoot2
 # end::OLimage2[]
-COPY --chown=1001:0 src/main/liberty/config/server.xml /config
 # tag::libcache[]
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 # end::libcache[]
 # tag::thinjar[]
 COPY --from=staging /staging/thin-guide-spring-boot-0.1.0.jar \
-                    /config/apps/thin-guide-spring-boot-0.1.0.jar
+                    /config/dropins/spring/thin-guide-spring-boot-0.1.0.jar
 # end::thinjar[]
