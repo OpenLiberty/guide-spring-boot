@@ -17,7 +17,7 @@
 :common-includes: ../guides-common/
 :source-highlighter: prettify
 :page-seo-title: Containerizing, packaging and running a Spring Boot application with Open Liberty.
-:page-seo-description: A tutorial on how to containerize, package and run a Spring Boot application without modification on Open Liberty docker or local Liberty server, and how to package it embedded with a Liberty server.
+:page-seo-description: A tutorial on how to containerize, package and run a Spring Boot application without modification in a Docker container with Open Liberty, on a local Open Liberty server, and how to package it embedded with an Open Liberty runtime.
 :guide-author: Open Liberty
 = Containerizing, packaging and running a Spring Boot application
 
@@ -247,7 +247,7 @@ Next, run the Maven `package` goal:
 ./mvnw package
 ```
 
-Run the repacked Spring Boot application with Liberty. This jar was defined previously in the [hotspot file=0]`pom.xml`.
+Run the repackaged Spring Boot application with Liberty. This jar was defined previously in the [hotspot file=0]`pom.xml`.
 
 [role='command']
 ```
