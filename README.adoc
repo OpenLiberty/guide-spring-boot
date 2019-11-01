@@ -10,33 +10,33 @@
 :projectid: spring-boot
 :page-duration: 20 minutes
 :page-releasedate: 2019-11-01
-:page-description: Learn how to containerize, package and run a Spring Boot application on Open Liberty.
+:page-description: Learn how to containerize, package, and run a Spring Boot application on Open Liberty.
 :page-tags: ['Docker']
 :page-related-guides: ['rest-intro', 'containerize']
 :page-permalink: /guides/{projectid}
 :common-includes: ../guides-common/
 :source-highlighter: prettify
-:page-seo-title: Containerizing, packaging and running a Spring Boot application with Open Liberty.
-:page-seo-description: A tutorial on how to containerize, package and run a Spring Boot application without modification in a Docker container with Open Liberty, on a local Open Liberty server, and how to package it embedded with an Open Liberty runtime.
+:page-seo-title: Containerizing, packaging, and running a Spring Boot application with Open Liberty.
+:page-seo-description: A tutorial on how to containerize, package, and run a Spring Boot application without modification in a Docker container with Open Liberty, on a local Open Liberty server, and how to package it embedded with an Open Liberty runtime.
 :guide-author: Open Liberty
-= Containerizing, packaging and running a Spring Boot application
+= Containerizing, packaging, and running a Spring Boot application
 
-Learn how to containerize, package and run a Spring Boot application on a Liberty server without modification.
+Learn how to containerize, package, and run a Spring Boot application on an Open Liberty server without modification.
 
 == What you'll learn
-The starting point of this guide will be the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, go through that guide first. Note that Java 8 is required to run this project.
+The starting point of this guide is the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 8 is required to run this project.
 
-You will learn how to deploy a Spring Boot application on a Liberty server in Docker without modification, by using the thin command of Liberty's Spring Boot utility `springBootUtility`, which stores the dependent library JARs of the application in a target library cache and packages the remaining application artifacts into a thin application JAR.
+You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on an Open Liberty server without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file.
 
-Next, you will learn how to run the Spring Boot application locally with a Liberty server, and how to package it embedded with a Liberty server.
+You will also learn how to run the Spring Boot application locally with an Open Liberty server, and how to package it so that it is embedded with an Open Liberty server.
 
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
 
 == Building and running the application
-You will first need to build the initial Spring Boot application into an executable jar file. 
-Navigate to the `start` directory and run the Maven package command.
+First, build the initial Spring Boot application into an executable jar file. 
+Navigate to the `start` directory and run the Maven package command:
 
 [role='command']
 ----
@@ -44,28 +44,28 @@ cd start
 ./mvnw package
 ----
 
-You can now run the application in the embedded Tomcat web-container by executing the newly built jar file.
+You can now run the application in the embedded Tomcat web container by executing the JAR file that you built:
 
 [role='command']
 ----
 java -jar target/guide-spring-boot-0.1.0.jar
 ----
 
-Notice that the console output displays a message about the application running in Tomcat on port 8080. 
+Notice that the console output displays a message about the application running in Tomcat on port `8080`. 
 [role='no_copy']
 ----
 ... INFO ... [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path ''
 ----
-Now access the application at the following URL: http://localhost:8080/hello[^].
+Go to the http://localhost:8080/hello[^] URL to access the application.
 
 
-You should see the following output displayed in your browser:
+The following output is displayed in your browser:
 [role='no_copy']
 ----
 Greetings from Spring Boot!
 ----
 
-When you need to stop the application, simply press `CTRL+C` in the shell session where you ran the application.
+When you need to stop the application, press `CTRL+C` in the shell session where you ran the application.
 
 == Building and running the application in Docker container
 You will build an Open Liberty Docker image to run the Spring Boot application. Using Docker, you can run your thinned application with a few simple commands.
