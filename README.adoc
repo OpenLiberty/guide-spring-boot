@@ -35,7 +35,7 @@ include::{common-includes}/gitclone.adoc[]
 
 
 == Building and running the application
-First, build the initial Spring Boot application into an executable jar file. 
+First, build the initial Spring Boot application into an executable JAR file. 
 Navigate to the `start` directory and run the Maven package command:
 
 [role='command']
