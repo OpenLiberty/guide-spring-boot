@@ -74,7 +74,7 @@ For more information on using Open Liberty with Docker, see the https://openlibe
 
 Learn more about Docker on the https://www.docker.com/what-docker[official Docker website^].
 
-Install Docker by following the instructions on the https://docs.docker.com/engine/installation[official Docker documentation^].
+Install Docker by following the instructions in the https://docs.docker.com/engine/installation[official Docker documentation^].
 
 Navigate to the `start` directory. 
 
