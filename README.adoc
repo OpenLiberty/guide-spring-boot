@@ -202,7 +202,7 @@ If you didn't build the Spring Boot application, run the `package` goal:
 ./mvnw package
 ```
 
-Next, run the `liberty:run` goal. This goal creates the Open Liberty server, installs required features, and deploys the Spring Boot application to the Open Liberty server, and starts the application.
+Next, run the `liberty:run` goal. This goal creates the Open Liberty server, installs required features, deploys the Spring Boot application to the Open Liberty server, and starts the application.
 [role='command']
 ```
 ./mvnw liberty:run
