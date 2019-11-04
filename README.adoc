@@ -234,7 +234,7 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 
-The [hotspot=include file=0]`<include/>` configuration tag specifies the `minify` and `runnable` values. The `runnable` value allows the application to be generated as a runnable JAR file. The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
+The [hotspot=include file=0]`<include/>` configuration tag specifies the `minify, runnable` values. The `runnable` value allows the application to be generated as a runnable JAR file. The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
 
 The [hotspot=packageFile file=0]`<packageFile/>` configuration tag specifies that the application is generated as a `GSSpringBootApp.jar` file.
 
