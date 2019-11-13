@@ -17,9 +17,9 @@ RUN springBootUtility thin \
 # tag::OLimage2[]
 FROM open-liberty
 # end::OLimage2[]
-# tag::copyServerXml[]
+# tag::serverXml[]
 RUN cp /opt/ol/wlp/templates/servers/springBoot2/server.xml /config/server.xml
-# end::copyServerXml[]
+# end::serverXml[]
 # tag::libcache[]
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 # end::libcache[]
