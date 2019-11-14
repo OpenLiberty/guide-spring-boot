@@ -1,6 +1,6 @@
 # Stage and thin the application 
 # tag::OLimage1[]
-FROM open-liberty:springBoot2 as staging
+FROM open-liberty as staging
 # end::OLimage1[]
 # tag::copyJar[]
 COPY --chown=1001:0 target/guide-spring-boot-0.1.0.jar \
@@ -15,8 +15,11 @@ RUN springBootUtility thin \
 
 # Build the image
 # tag::OLimage2[]
-FROM open-liberty:springBoot2
+FROM open-liberty
 # end::OLimage2[]
+# tag::serverXml[]
+RUN cp /opt/ol/wlp/templates/servers/springBoot2/server.xml /config/server.xml
+# end::serverXml[]
 # tag::libcache[]
 COPY --from=staging /staging/lib.index.cache /lib.index.cache
 # end::libcache[]
