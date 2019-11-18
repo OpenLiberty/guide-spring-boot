@@ -42,12 +42,16 @@ include::{common-includes}/os-tabs.adoc[]
 
 [.tab_content.windows_section]
 --
+[role='command']
+----
 cd start 
 mvnw.cmd package
+----
 --
 
 [.tab_content.mac_section.linux_section]
 --
+[role='command']
 ----
 cd start
 ./mvnw package
