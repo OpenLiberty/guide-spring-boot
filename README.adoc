@@ -38,11 +38,21 @@ include::{common-includes}/gitclone.adoc[]
 First, build the initial Spring Boot application into an executable JAR file. 
 Navigate to the `start` directory and run the Maven package command:
 
-[role='command']
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+cd start 
+mvnw.cmd package
+--
+
+[.tab_content.mac_section.linux_section]
+--
 ----
 cd start
 ./mvnw package
 ----
+--
 
 You can now run the application in the embedded Tomcat web container by executing the JAR file that you built:
 
@@ -195,24 +205,66 @@ include::finish/src/main/liberty/config/server.xml[]
 ---- 
 
 If you didn't build the Spring Boot application, run the `package` goal:
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+mvnw.cmd package
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
 [role='command']
 ```
 ./mvnw package
 ```
+--
 
 Next, run the `liberty:run` goal. This goal creates the Open Liberty server, installs required features, deploys the Spring Boot application to the Open Liberty server, and starts the application.
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+mvnw.cmd liberty:run
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
 [role='command']
 ```
 ./mvnw liberty:run
 ```
+--
 
 Go to the http://localhost:9080/hello[^] URL to access the application.
 
 After you finish exploring the application, press `CTRL+C` to stop the Open Liberty server. Alternatively, you can run the `liberty:stop` goal from the `start` directory in a separate shell session:
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+mvnw.cmd liberty:stop
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
 [role='command']
 ```
 ./mvnw liberty:stop
 ```
+--
 
 == Packaging the application embedded with Open Liberty
 
@@ -239,10 +291,24 @@ The [hotspot=packageFile file=0]`<packageFile/>` configuration tag specifies tha
 The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required Open Liberty Maven goals to generate the application that is embedded with Open Liberty. 
 
 Next, run the Maven `package` goal:
+
+include::{common-includes}/os-tabs.adoc[]
+
+[.tab_content.windows_section]
+--
+[role='command']
+```
+mvnw.cmd package
+```
+--
+
+[.tab_content.mac_section.linux_section]
+--
 [role='command']
 ```
 ./mvnw package
 ```
+--
 
 Run the repackaged Spring Boot application. This JAR file was defined previously in the [hotspot file=0]`pom.xml` file.
 
