@@ -35,6 +35,7 @@
 
   <properties>
     <java.version>1.8</java.version>
+    <version.liberty-maven-plugin>3.1</version.liberty-maven-plugin>
   </properties>
 
   <build>
@@ -60,7 +61,7 @@
       <plugin>
         <groupId>io.openliberty.tools</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
-        <version>3.1</version>
+        <version>${version.liberty-maven-plugin}</version>
         <configuration>
           <!-- tag::appsDirectory[] -->
           <appsDirectory>apps</appsDirectory>
