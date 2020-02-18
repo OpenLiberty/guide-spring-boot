@@ -14,7 +14,6 @@
 :page-tags: ['Docker']
 :page-related-guides: ['rest-intro', 'containerize']
 :page-permalink: /guides/{projectid}
-:page-search-keywords: ['Spring Boot', 'springBootUtility', 'Docker', 'Open Liberty', 'Tomcat']
 :common-includes: ../guides-common/
 :source-highlighter: prettify
 :page-seo-title: Deploying a Spring Boot Java application
