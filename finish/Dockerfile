@@ -10,7 +10,7 @@ LABEL \
   org.opencontainers.image.authors="My Name" \
   org.opencontainers.image.vendor="Open Liberty" \
   org.opencontainers.image.url="local" \
-  org.opencontainers.image.source="https://github.com/guide-spring-boot" \
+  org.opencontainers.image.source="https://github.com/OpenLiberty/guide-spring-boot" \
   org.opencontainers.image.version="$VERSION" \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \

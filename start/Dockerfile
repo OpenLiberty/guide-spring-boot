@@ -8,11 +8,11 @@ LABEL \
   org.opencontainers.image.authors="My Name" \
   org.opencontainers.image.vendor="Open Liberty" \
   org.opencontainers.image.url="local" \
-  org.opencontainers.image.source="https://github.com/guide-spring-boot" \
+  org.opencontainers.image.source="https://github.com/OpenLiberty/guide-spring-boot" \
   org.opencontainers.image.version="$VERSION" \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \
-  name="staging" \
+  name="system" \
   version="$VERSION-$REVISION" \
   summary="The first stage of the multistage build from the Spring Boot guide" \
   description="This image contains the Spring Boot application jar file and uses Open Liberty springBootUtility command to thin the application."
@@ -39,7 +39,7 @@ LABEL \
   org.opencontainers.image.version="$VERSION" \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \
-  name="templates" \
+  name="system" \
   version="$VERSION-$REVISION" \
   summary="The second stage of the multistage build from the Spring Boot guide" \
   description="This image contains the configuration file and Spring Boot dependent library JAR files."
