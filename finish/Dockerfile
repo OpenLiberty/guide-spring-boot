@@ -7,7 +7,7 @@ ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 
 LABEL \
-  org.opencontainers.image.authors="My Name" \
+  org.opencontainers.image.authors="Your Name" \
   org.opencontainers.image.vendor="Open Liberty" \
   org.opencontainers.image.url="local" \
   org.opencontainers.image.source="https://github.com/OpenLiberty/guide-spring-boot" \
@@ -40,10 +40,10 @@ ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 
 LABEL \
-  org.opencontainers.image.authors="My Name" \
+  org.opencontainers.image.authors="Your Name" \
   org.opencontainers.image.vendor="Open Liberty" \
   org.opencontainers.image.url="local" \
-  org.opencontainers.image.source="https://github.com/guide-spring-boot" \
+  org.opencontainers.image.source="https://github.com/OpenLiberty/guide-spring-boot" \
   org.opencontainers.image.version="$VERSION" \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \
