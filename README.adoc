@@ -16,8 +16,8 @@
 :page-permalink: /guides/{projectid}
 :common-includes: ../guides-common/
 :source-highlighter: prettify
-:page-seo-title: Deploying a Spring Boot Java application
-:page-seo-description: A tutorial with examples on how to containerize, package, and run a Spring Boot Java application in a Docker container on an Open Liberty server.
+:page-seo-title: Deploying a Spring Boot application
+:page-seo-description: A tutorial with examples on how to containerize, package, and run a Spring Boot application in a Docker container on an Open Liberty server.
 :guide-author: Open Liberty
 = Containerizing, packaging, and running a Spring Boot application
 
