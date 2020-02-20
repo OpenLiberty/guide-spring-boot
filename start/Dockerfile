@@ -26,10 +26,10 @@ LABEL \
   org.opencontainers.image.version="$VERSION" \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \
-  name="system" \
+  name="hello app" \
   version="$VERSION-$REVISION" \
-  summary="The microservice from the Spring Boot guide" \
-  description="This image contains the microservice running with the Open Liberty runtime."
+  summary="The hello application from the Spring Boot guide" \
+  description="This image contains the hello application running with the Open Liberty runtime."
 
 RUN cp /opt/ol/wlp/templates/servers/springBoot2/server.xml /config/server.xml
 
