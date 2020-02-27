@@ -16,8 +16,8 @@
 :page-permalink: /guides/{projectid}
 :common-includes: ../guides-common/
 :source-highlighter: prettify
-:page-seo-title: Containerizing, packaging, and running a Spring Boot application with Open Liberty.
-:page-seo-description: A tutorial on how to containerize, package, and run a Spring Boot application without modification in a Docker container with Open Liberty, on a local Open Liberty server, and how to package it embedded with an Open Liberty runtime.
+:page-seo-title: Deploying a Spring Boot application
+:page-seo-description: A tutorial with examples on how to containerize, package, and run a Spring Boot application in a Docker container on an Open Liberty server.
 :guide-author: Open Liberty
 = Containerizing, packaging, and running a Spring Boot application
 
