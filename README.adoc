@@ -92,7 +92,7 @@ Install Docker by following the instructions in the https://docs.docker.com/engi
 
 Navigate to the `start` directory. 
 
-[role="code_command", subs="quotes"] 
+[role="code_command hotspot file=0", subs="quotes"] 
 ---- 
 #Create the `Dockerfile`.#
 `Dockerfile`
