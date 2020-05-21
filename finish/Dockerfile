@@ -1,6 +1,6 @@
 # Stage and thin the application 
 # tag::OLimage1[]
-FROM open-liberty as staging
+FROM openliberty/open-liberty:kernel-java8-openj9-ubi as staging
 # end::OLimage1[]
 
 # tag::copyJar[]
@@ -17,7 +17,7 @@ RUN springBootUtility thin \
 
 # Build the image
 # tag::OLimage2[]
-FROM open-liberty
+FROM openliberty/open-liberty:kernel-java8-openj9-ubi
 # end::OLimage2[]
 
 ARG VERSION=1.0
