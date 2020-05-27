@@ -9,7 +9,7 @@ set -euxo pipefail
 
 mvn -q clean package
 
-docker pull open-liberty
+docker pull openliberty/open-liberty:kernel-java8-openj9-ubi
 
 docker build -t springboot .
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
