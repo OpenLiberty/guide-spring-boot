@@ -30,12 +30,6 @@ You will learn how to use the `springBootUtility` command to deploy a Spring Boo
 
 You will also learn how to run the Spring Boot application locally with an Open Liberty server, and how to package it so that it is embedded with an Open Liberty server.
 
-== Additional prerequisites
-
-Before you begin, Docker needs to be installed. For installation instructions, refer to the https://docs.docker.com/get-docker/[official Docker documentation^]. You will build and run the application in Docker containers.
-
-Make sure to start your Docker daemon before you proceed.
-
 [role='command']
 include::{common-includes}/gitclone.adoc[]
 
@@ -93,6 +87,8 @@ For more information on using Open Liberty with Docker, see the https://openlibe
 
 
 Learn more about Docker on the https://www.docker.com/what-docker[official Docker website^].
+
+Install Docker by following the instructions in the https://docs.docker.com/engine/installation[official Docker documentation^].
 
 Navigate to the `start` directory. 
 
