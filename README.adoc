@@ -79,7 +79,7 @@ The following output is displayed in your browser:
 Greetings from Spring Boot!
 ----
 
-When you need to stop the application, press `CTRL+C` in the shell session where you ran the application.
+When you need to stop the application, press `CTRL+C` in the command-line session where you ran the application.
 
 == Building and running the application in a Docker container
 You will build an Open Liberty Docker image to run the Spring Boot application. Using Docker, you can run your thinned application with a few simple commands.
@@ -252,7 +252,7 @@ mvnw.cmd liberty:run
 
 Go to the http://localhost:9080/hello[^] URL to access the application.
 
-After you finish exploring the application, press `CTRL+C` to stop the Open Liberty server. Alternatively, you can run the `liberty:stop` goal from the `start` directory in a separate shell session:
+After you finish exploring the application, press `CTRL+C` to stop the Open Liberty server. Alternatively, you can run the `liberty:stop` goal from the `start` directory in a separate command-line session:
 
 include::{common-includes}/os-tabs.adoc[]
 
