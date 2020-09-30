@@ -26,8 +26,8 @@ else
   exit 1
 fi
 
-docker exec springBootContainer -- cat /logs/messages.log | grep product
-docker exec springBootContainer -- cat /logs/messages.log | grep java
+docker exec springBootContainer cat /logs/messages.log | grep product
+docker exec springBootContainer cat /logs/messages.log | grep java
 
 docker stop springBootContainer
 docker rm springBootContainer
