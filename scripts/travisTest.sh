@@ -7,7 +7,7 @@ set -euxo pipefail
 ##
 ##############################################################################
 
-mvn -q clean package
+./mvnw -q clean package
 
 docker pull openliberty/open-liberty:kernel-java8-openj9-ubi
 
@@ -32,9 +32,9 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 docker rm springBootContainer
 
-mvn liberty:start
+./mvnw liberty:start
 curl http://localhost:9080/hello
-mvn liberty:stop
+./mvnw liberty:stop
 if [ ! -f "target/GSSpringBootApp.jar" ]; then
     echo "target/GSSpringBootApp.jar was not generated!"
     exit 1
