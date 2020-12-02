@@ -3,7 +3,7 @@ set -euxo pipefail
 
 ##############################################################################
 ##
-##  Travis CI test script
+##  GH actions CI test script
 ##
 ##############################################################################
 
@@ -16,9 +16,8 @@ docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
 
 sleep 60
 
-status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")" 
-if [ "$status" == "200" ]
-then
+status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
+if [ "$status" == "200" ]; then
   echo ENDPOINT OK
 else
   echo "$status"
@@ -36,6 +35,6 @@ docker rm springBootContainer
 curl http://localhost:9080/hello
 ./mvnw liberty:stop
 if [ ! -f "target/GSSpringBootApp.jar" ]; then
-    echo "target/GSSpringBootApp.jar was not generated!"
-    exit 1
+  echo "target/GSSpringBootApp.jar was not generated!"
+  exit 1
 fi
