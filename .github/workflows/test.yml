@@ -36,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: server-logs
-          path: target/liberty/wlp/usr/servers/defaultServer/logs/
+          path: finish/target/liberty/wlp/usr/servers/defaultServer/logs/
