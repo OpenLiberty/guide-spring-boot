@@ -2,14 +2,14 @@ name: Test application
 
 on:
   pull_request:
-    branches: [qa]
+    branches: [ qa ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        jdk: [8]
+        jdk: [ 8 ]
     defaults:
       run:
         working-directory: finish
@@ -21,16 +21,13 @@ jobs:
         with:
           java-version: ${{ matrix.jdk }}
       - run: unset _JAVA_OPTIONS
-
       - name: Run tests
         run: sudo ../scripts/testApp.sh
-
       - name: Post tests
         if: always()
         run: |
           logsPath=$(sudo find . -name "console.log");
           sudo cat $logsPath | sudo grep Launching
-
       - name: Archive server logs if failed
         if: failure()
         uses: actions/upload-artifact@v2
