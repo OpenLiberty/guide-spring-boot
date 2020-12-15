@@ -23,7 +23,7 @@ echo "Testing daily Docker image"
 sed -i "s;FROM "$DOCKER_USERNAME"/olguides:"$BUILD";FROM openliberty/daily:latest;g" Dockerfile
 cat Dockerfile
 
-docker pull openliberty/daily:latest
+docker pull "openliberty/daily:latest"
 
 IMAGEBUILDLEVEL=$(docker inspect --format "{{ index .Config.Labels \"org.opencontainers.image.revision\"}}" openliberty/daily:latest)
 
