@@ -1,4 +1,4 @@
-// Copyright (c) 2019 IBM Corporation and others.
+// Copyright (c) 2019, 2021 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -282,7 +282,7 @@ You can update the `pom.xml` file to bind more Open Liberty Maven goals to the p
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageFile/>` configuration tags, and the [hotspot=packageGoals file=0]`<executions/>` tag to the `pom.xml` file. 
+Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageName/>` configuration tags, and the [hotspot=packageGoals file=0]`<executions/>` tag to the `pom.xml` file. 
  
 pom.xml
 [source, XML, linenums, role='code_column'] 
@@ -292,7 +292,7 @@ include::finish/pom.xml[]
 
 The [hotspot=include file=0]`<include/>` configuration tag specifies the `minify, runnable` values. The `runnable` value allows the application to be generated as a runnable JAR file. The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
 
-The [hotspot=packageFile file=0]`<packageFile/>` configuration tag specifies that the application is generated as a `GSSpringBootApp.jar` file.
+The [hotspot=packageFile file=0]`<packageName/>` configuration tag specifies that the application is generated as a `GSSpringBootApp.jar` file.
 
 The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required Open Liberty Maven goals to generate the application that is embedded with Open Liberty. 
 
