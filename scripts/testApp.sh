@@ -7,7 +7,10 @@ set -euxo pipefail
 ##
 ##############################################################################
 
-./mvnw -q clean package
+./mvnw -Dhttp.keepAlive=false \
+      -Dmaven.wagon.http.pool=false \
+      -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
+      -q clean package
 
 docker pull openliberty/open-liberty:full-java11-openj9-ubi
 
