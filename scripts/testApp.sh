@@ -7,12 +7,9 @@ set -euxo pipefail
 ##
 ##############################################################################
 
-./mvnw -Dhttp.keepAlive=false \
-      -Dmaven.wagon.http.pool=false \
-      -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-      -q clean package
+./mvnw -q clean package
 
-docker pull openliberty/open-liberty:full-java11-openj9-ubi
+docker pull openliberty/open-liberty:kernel-java8-openj9-ubi
 
 docker build -t springboot .
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
