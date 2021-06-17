@@ -24,11 +24,15 @@
 Learn how to containerize, package, and run a Spring Boot application on an Open Liberty server without modification.
 
 == What you'll learn
-The starting point of this guide is the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 8 is required to run this project.
+The starting point of this guide is the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide.
+If you are not familiar with Spring Boot, complete that guide first. Java 8 is required to run this project.
 
-You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on an Open Liberty server without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file.
+You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on an Open Liberty server without modification.
+This command stores the dependent library JAR files of the application to the target library cache,
+and packages the remaining application artifacts into a thin application JAR file.
 
-You will also learn how to run the Spring Boot application locally with an Open Liberty server, and how to package it so that it is embedded with an Open Liberty server.
+You will also learn how to run the Spring Boot application locally with an Open Liberty server,
+and how to package it so that it is embedded with an Open Liberty server.
 
 [role='command']
 include::{common-includes}/gitclone.adoc[]
@@ -82,7 +86,9 @@ Greetings from Spring Boot!
 When you need to stop the application, press `CTRL+C` in the command-line session where you ran the application.
 
 == Building and running the application in a Docker container
-You will build an Open Liberty Docker image to run the Spring Boot application. Using Docker, you can run your thinned application with a few simple commands.
+
+You will build an Open Liberty Docker image to run the Spring Boot application.
+Using Docker, you can run your thinned application with a few simple commands.
 For more information on using Open Liberty with Docker, see the https://openliberty.io/guides/containerize.html[Containerizing microservices^] guide.
 
 
@@ -104,13 +110,20 @@ Dockerfile
 include::finish/Dockerfile[]
 ---- 
 
-This Dockerfile is written in two main stages. For more information about multi-stage Dockerfiles, see the documentation on the https://docs.docker.com/develop/develop-images/multistage-build/[official Docker website^].
+This Dockerfile is written in two main stages.
+For more information about multi-stage Dockerfiles, see the documentation on the
+https://docs.docker.com/develop/develop-images/multistage-build/[official Docker website^].
 
-The first stage copies the [hotspot=copyJar]`guide-spring-boot-0.1.0.jar` Spring Boot application to the [hotspot=7 file=0]`/staging`  temporary directory, 
+The first stage copies the [hotspot=copyJar]`guide-spring-boot-0.1.0.jar` Spring Boot application to the [hotspot=7 file=0]`/staging` temporary directory, 
 and then uses the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
 For more information about the `springBootUtility` command, see the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[springBootUtility documentation^].
 
-The second stage begins with the [hotspot=OLimage2 file=0]`Open Liberty Docker image`. The Dockerfile copies the [hotspot=serverXml file=0]`server.xml` file from the `/opt/ol/wlp/templates` directory, which enables Spring Boot and TLS support. Then, the Dockerfile copies the Spring Boot dependent library JAR files that are at the [hotspot=libcache file=0]`lib.index.cache` directory and the [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file. The `lib.index.cache` directory and the `thin-guide-spring-boot-0.1.0.jar` file were both generated in the first stage.
+The second stage begins with the [hotspot=OLimage2 file=0]`Open Liberty Docker image`.
+The Dockerfile copies the [hotspot=serverXml file=0]`server.xml` file from the `/opt/ol/wlp/templates` directory,
+which enables Spring Boot and TLS support.
+Then, the Dockerfile copies the Spring Boot dependent library JAR files that are at the [hotspot=libcache file=0]`lib.index.cache` directory and
+the [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file.
+The `lib.index.cache` directory and the `thin-guide-spring-boot-0.1.0.jar` file were both generated in the first stage.
 
 include::{common-includes}/ol-full-docker-pull.adoc[]
 
@@ -159,7 +172,18 @@ You can watch the application start by monitoring the logs:
 docker logs springBootContainer
 ```
 
+// Static guide instruction
+ifndef::cloud-hosted[]
 After the application starts, go to the http://localhost:9080/hello[^] URL to access the application.
+endif::[]
+
+// Cloud hosted guide instruction
+ifdef::cloud-hosted[]
+```
+mvn liberty:devc -DserverStartTimeout=300
+```
+{: codeblock}
+endif::[]
 
 === Tearing down the Docker container
 
@@ -191,7 +215,12 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 The `liberty-maven-plugin` downloads and installs Open Liberty to the `target/liberty` directory.
-The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the [hotspot file=0]`pom.xml` file typically takes in the following parameters: `dependencies`, `project`, or `all`. The default value is `dependencies`, but to install the Spring Boot application to Open Liberty, the value must be [hotspot=installAppPackages file=0]`spring-boot-project`. This value allows Maven to package, thin, and copy the `guide-spring-boot-0.1.0.jar` application to the Open Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
+The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the
+[hotspot file=0]`pom.xml` file typically takes in the following parameters: `dependencies`, `project`, or `all`.
+The default value is `dependencies`, but to install the Spring Boot application to Open Liberty,
+the value must be [hotspot=installAppPackages file=0]`spring-boot-project`.
+This value allows Maven to package, thin, and copy the `guide-spring-boot-0.1.0.jar` application
+to the Open Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
 
 To run the Spring Boot application, the Open Liberty server needs to be correctly configured.
 By default, the `liberty-maven-plugin` picks up the server configuration file from the `src/main/liberty/config` directory.
@@ -202,7 +231,10 @@ By default, the `liberty-maven-plugin` picks up the server configuration file fr
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`<springBootApplication />`.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features
+are required for the Liberty server to run the Spring Boot application.
+The application port is specified as [hotspot=httpport file=1]`9080` and
+the application is configured as a [hotspot=springBootApplication file=1]`<springBootApplication />`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
@@ -230,7 +262,9 @@ mvnw.cmd package
 ```
 --
 
-Next, run the `liberty:run` goal. This goal creates the Open Liberty server, installs required features, deploys the Spring Boot application to the Open Liberty server, and starts the application.
+Next, run the `liberty:run` goal.
+This goal creates the Open Liberty server, installs required features,
+deploys the Spring Boot application to the Open Liberty server, and starts the application.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -252,7 +286,8 @@ mvnw.cmd liberty:run
 
 Go to the http://localhost:9080/hello[^] URL to access the application.
 
-After you finish exploring the application, press `CTRL+C` to stop the Open Liberty server. Alternatively, you can run the `liberty:stop` goal from the `start` directory in a separate command-line session:
+After you finish exploring the application, press `CTRL+C` to stop the Open Liberty server.
+Alternatively, you can run the `liberty:stop` goal from the `start` directory in a separate command-line session:
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -274,7 +309,8 @@ mvnw.cmd liberty:stop
 
 == Packaging the application embedded with Open Liberty
 
-You can update the `pom.xml` file to bind more Open Liberty Maven goals to the package phase. Binding these goals to the package phase allows the Maven `package` goal to build a Spring Boot application that is embedded with Open Liberty.
+You can update the `pom.xml` file to bind more Open Liberty Maven goals to the package phase.
+Binding these goals to the package phase allows the Maven `package` goal to build a Spring Boot application that is embedded with Open Liberty.
 
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
@@ -282,7 +318,8 @@ You can update the `pom.xml` file to bind more Open Liberty Maven goals to the p
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageName/>` configuration tags, and the [hotspot=packageGoals file=0]`<executions/>` tag to the `pom.xml` file. 
+Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageName/>` configuration tags,
+and the [hotspot=packageGoals file=0]`<executions/>` tag to the `pom.xml` file. 
  
 pom.xml
 [source, XML, linenums, role='code_column'] 
@@ -290,7 +327,9 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 
-The [hotspot=include file=0]`<include/>` configuration tag specifies the `minify, runnable` values. The `runnable` value allows the application to be generated as a runnable JAR file. The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
+The [hotspot=include file=0]`<include/>` configuration tag specifies the `minify, runnable` values.
+The `runnable` value allows the application to be generated as a runnable JAR file.
+The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
 
 The [hotspot=packageFile file=0]`<packageName/>` configuration tag specifies that the application is generated as a `GSSpringBootApp.jar` file.
 
