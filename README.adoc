@@ -24,7 +24,9 @@
 Learn how to containerize, package, and run a Spring Boot application on an Open Liberty server without modification.
 
 == What you'll learn
-The starting point of this guide is the finished application from Spring's https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide.
+
+The starting point of this guide is the finished application from Spring's
+https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide.
 If you are not familiar with Spring Boot, complete that guide first. Java 8 is required to run this project.
 
 You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on an Open Liberty server without modification.
@@ -39,6 +41,7 @@ include::{common-includes}/gitclone.adoc[]
 
 
 == Building and running the application
+
 First, build the initial Spring Boot application into an executable JAR file. 
 Navigate to the `start` directory and run the Maven package command:
 
@@ -89,12 +92,12 @@ When you need to stop the application, press `CTRL+C` in the command-line sessio
 
 You will build an Open Liberty Docker image to run the Spring Boot application.
 Using Docker, you can run your thinned application with a few simple commands.
-For more information on using Open Liberty with Docker, see the https://openliberty.io/guides/containerize.html[Containerizing microservices^] guide.
+For more information on using Open Liberty with Docker, see the
+https://openliberty.io/guides/containerize.html[Containerizing microservices^] guide.
 
+Learn more about Docker on the https://www.docker.com/why-docker[official Docker website^].
 
-Learn more about Docker on the https://www.docker.com/what-docker[official Docker website^].
-
-Install Docker by following the instructions in the https://docs.docker.com/engine/installation[official Docker documentation^].
+Install Docker by following the instructions in the https://docs.docker.com/engine/install[official Docker documentation^].
 
 Navigate to the `start` directory. 
 
@@ -114,15 +117,18 @@ This Dockerfile is written in two main stages.
 For more information about multi-stage Dockerfiles, see the documentation on the
 https://docs.docker.com/develop/develop-images/multistage-build/[official Docker website^].
 
-The first stage copies the [hotspot=copyJar]`guide-spring-boot-0.1.0.jar` Spring Boot application to the [hotspot=7 file=0]`/staging` temporary directory, 
+The first stage copies the [hotspot=copyJar]`guide-spring-boot-0.1.0.jar`
+Spring Boot application to the [hotspot=7 file=0]`/staging` temporary directory, 
 and then uses the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
-For more information about the `springBootUtility` command, see the https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[springBootUtility documentation^].
+For more information about the `springBootUtility` command, see the
+https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[springBootUtility documentation^].
 
 The second stage begins with the [hotspot=OLimage2 file=0]`Open Liberty Docker image`.
 The Dockerfile copies the [hotspot=serverXml file=0]`server.xml` file from the `/opt/ol/wlp/templates` directory,
 which enables Spring Boot and TLS support.
-Then, the Dockerfile copies the Spring Boot dependent library JAR files that are at the [hotspot=libcache file=0]`lib.index.cache` directory and
-the [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file.
+Then, the Dockerfile copies the Spring Boot dependent library JAR files that are at the
+[hotspot=libcache file=0]`lib.index.cache` directory and the
+[hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file.
 The `lib.index.cache` directory and the `thin-guide-spring-boot-0.1.0.jar` file were both generated in the first stage.
 
 include::{common-includes}/ol-full-docker-pull.adoc[]
@@ -153,7 +159,9 @@ Now, you can run the Spring Boot application in a Docker container:
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
 ```
 
-Before you access your application from the browser, run the `docker ps` command to make sure that your container is running:
+Before you access your application from the browser,
+run the `docker ps` command to make sure that your container is running:
+
 [role='command']
 ----
 docker ps
@@ -331,9 +339,11 @@ The [hotspot=include file=0]`<include/>` configuration tag specifies the `minify
 The `runnable` value allows the application to be generated as a runnable JAR file.
 The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
 
-The [hotspot=packageFile file=0]`<packageName/>` configuration tag specifies that the application is generated as a `GSSpringBootApp.jar` file.
+The [hotspot=packageFile file=0]`<packageName/>` configuration tag specifies
+that the application is generated as a `GSSpringBootApp.jar` file.
 
-The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required Open Liberty Maven goals to generate the application that is embedded with Open Liberty. 
+The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required
+Open Liberty Maven goals to generate the application that is embedded with Open Liberty. 
 
 Next, run the Maven `package` goal:
 
@@ -371,5 +381,5 @@ When you need to stop the application, press `CTRL+C`.
 
 You just ran a basic Spring Boot application with Open Liberty.
 
-include::https://raw.githubusercontent.com/OpenLiberty/guides-common/master/attribution.adoc[]
+include::{common-includes}/attribution.adoc[]
 
