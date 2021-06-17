@@ -27,7 +27,8 @@ Learn how to containerize, package, and run a Spring Boot application on an Open
 
 The starting point of this guide is the finished application from Spring's
 https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide.
-If you are not familiar with Spring Boot, complete that guide first. Java 8 is required to run this project.
+If you are not familiar with Spring Boot, complete that guide first.
+Java 8 is required to run this project.
 
 You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on an Open Liberty server without modification.
 This command stores the dependent library JAR files of the application to the target library cache,
@@ -97,7 +98,8 @@ https://openliberty.io/guides/containerize.html[Containerizing microservices^] g
 
 Learn more about Docker on the https://www.docker.com/why-docker[official Docker website^].
 
-Install Docker by following the instructions in the https://docs.docker.com/engine/install[official Docker documentation^].
+Install Docker by following the instructions in the
+https://docs.docker.com/engine/install[official Docker documentation^].
 
 Navigate to the `start` directory. 
 
@@ -121,7 +123,7 @@ The first stage copies the [hotspot=copyJar]`guide-spring-boot-0.1.0.jar`
 Spring Boot application to the [hotspot=7 file=0]`/staging` temporary directory, 
 and then uses the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
 For more information about the `springBootUtility` command, see the
-https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_command_sbutility.html[springBootUtility documentation^].
+https://www.ibm.com/docs/en/was-liberty/base?topic=applications-springbootutility-command[springBootUtility documentation^].
 
 The second stage begins with the [hotspot=OLimage2 file=0]`Open Liberty Docker image`.
 The Dockerfile copies the [hotspot=serverXml file=0]`server.xml` file from the `/opt/ol/wlp/templates` directory,
