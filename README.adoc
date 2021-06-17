@@ -78,14 +78,33 @@ Notice that the console output displays a message about the application running 
 ----
 ... INFO ... [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path ''
 ----
-Go to the http://localhost:8080/hello[^] URL to access the application.
 
+// Static guide instruction
+ifndef::cloud-hosted[]
+Go to the http://localhost:8080/hello[^] URL to access the application.
 
 The following output is displayed in your browser:
 [role='no_copy']
 ----
 Greetings from Spring Boot!
 ----
+endif::[]
+
+// Cloud hosted guide instruction
+ifdef::cloud-hosted[]
+Run the following command to access the application:
+
+```
+curl http://localhost:8080/hello
+```
+{: codeblock}
+
+The following output is returned:
+
+```
+Greetings from Spring Boot!
+```
+endif::[]
 
 When you need to stop the application, press `CTRL+C` in the command-line session where you ran the application.
 
@@ -189,8 +208,10 @@ endif::[]
 
 // Cloud hosted guide instruction
 ifdef::cloud-hosted[]
+After the application starts, run the following command to access the application:
+
 ```
-mvn liberty:devc -DserverStartTimeout=300
+curl http://localhost:9080/hello
 ```
 {: codeblock}
 endif::[]
@@ -224,6 +245,7 @@ pom.xml
 ---- 
 include::finish/pom.xml[]
 ---- 
+
 The `liberty-maven-plugin` downloads and installs Open Liberty to the `target/liberty` directory.
 The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the
 [hotspot file=0]`pom.xml` file typically takes in the following parameters: `dependencies`, `project`, or `all`.
@@ -294,7 +316,20 @@ mvnw.cmd liberty:run
 ```
 --
 
+// Static guide instruction
+ifndef::cloud-hosted[]
 Go to the http://localhost:9080/hello[^] URL to access the application.
+endif::[]
+
+// Cloud hosted guide instruction
+ifdef::cloud-hosted[]
+In another command line sesssion, run the following command to access the application:
+
+```
+curl http://localhost:9080/hello
+```
+{: codeblock}
+endif::[]
 
 After you finish exploring the application, press `CTRL+C` to stop the Open Liberty server.
 Alternatively, you can run the `liberty:stop` goal from the `start` directory in a separate command-line session:
@@ -374,7 +409,20 @@ Run the repackaged Spring Boot application. This JAR file was defined previously
 java -jar target/GSSpringBootApp.jar
 ```
 
+// Static guide instruction
+ifndef::cloud-hosted[]
 Go to the http://localhost:9080/hello[^] URL to access the application.
+endif::[]
+
+// Cloud hosted guide instruction
+ifdef::cloud-hosted[]
+In another command line sesssion, run the following command to access the application:
+
+```
+curl http://localhost:9080/hello
+```
+{: codeblock}
+endif::[]
 
 When you need to stop the application, press `CTRL+C`.
 
