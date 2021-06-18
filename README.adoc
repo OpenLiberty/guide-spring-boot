@@ -141,15 +141,14 @@ https://docs.docker.com/develop/develop-images/multistage-build/[official Docker
 The first stage copies the [hotspot=copyJar]`guide-spring-boot-0.1.0.jar`
 Spring Boot application to the [hotspot=7 file=0]`/staging` temporary directory, 
 and then uses the Open Liberty [hotspot=springBootUtility]`springBootUtility` command to thin the application. 
-For more information about the `springBootUtility` command, see the
-https://www.ibm.com/docs/en/was-liberty/base?topic=applications-springbootutility-command[springBootUtility documentation^].
+For more information about the `springBootUtility` command, 
+see the https://openliberty.io/docs/latest/reference/command/springbootUtility-thin.html[springBootUtility documentation^].
 
-The second stage begins with the [hotspot=OLimage2 file=0]`Open Liberty Docker image`.
-The Dockerfile copies the [hotspot=serverXml file=0]`server.xml` file from the `/opt/ol/wlp/templates` directory,
-which enables Spring Boot and TLS support.
-Then, the Dockerfile copies the Spring Boot dependent library JAR files that are at the
-[hotspot=libcache file=0]`lib.index.cache` directory and the
-[hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file.
+The second stage begins with the [hotspot=OLimage2 file=0]`Open Liberty Docker image`. 
+The Dockerfile copies the [hotspot=serverXml file=0]`server.xml` file from the `/opt/ol/wlp/templates` directory, 
+which enables Spring Boot and TLS support. 
+Then, the Dockerfile copies the Spring Boot dependent library JAR files that are at the [hotspot=libcache file=0]`lib.index.cache` directory 
+and the [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file. 
 The `lib.index.cache` directory and the `thin-guide-spring-boot-0.1.0.jar` file were both generated in the first stage.
 
 include::{common-includes}/ol-full-docker-pull.adoc[]
