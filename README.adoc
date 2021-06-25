@@ -430,5 +430,4 @@ When you need to stop the application, press `CTRL+C`.
 
 You just ran a basic Spring Boot application with Open Liberty.
 
-include::{common-includes}/attribution.adoc[]
-
+include::{common-includes}/attribution.adoc[subs="attributes"]
