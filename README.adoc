@@ -197,7 +197,7 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 The `liberty-maven-plugin` downloads and installs Open Liberty to the `target/liberty` directory.
-The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the [hotspot file=0]`pom.xml` file typically takes in the following parameters: `dependencies`, `project`, or `all`. The default value is `dependencies`, but to install the Spring Boot application to Open Liberty, the value must be [hotspot=installAppPackages file=0]`spring-boot-project`. This value allows Maven to package, thin, and copy the `guide-spring-boot-0.1.0.jar` application to the Open Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
+The [hotspot=installAppPackages file=0]`installAppPackages` configuration element in the [hotspot file=0]`pom.xml` file typically takes in the following parameters: `dependencies`, `project`, or `all`. The default value is `dependencies`, but to install the Spring Boot application to Open Liberty, the value must be [hotspot=installAppPackages file=0]`spring-boot-project`. This value allows Maven to package, thin, and copy the `guide-spring-boot-0.1.0.jar` application to the Open Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
 
 To run the Spring Boot application, the Open Liberty server needs to be correctly configured.
 By default, the `liberty-maven-plugin` picks up the server configuration file from the `src/main/liberty/config` directory.
@@ -208,7 +208,7 @@ By default, the `liberty-maven-plugin` picks up the server configuration file fr
 `src/main/liberty/config/server.xml`
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`<springBootApplication />`.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application.  The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`springBootApplication`.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
@@ -288,7 +288,7 @@ You can update the `pom.xml` file to bind more Open Liberty Maven goals to the p
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageName/>` configuration tags, and the [hotspot=packageGoals file=0]`<executions/>` tag to the `pom.xml` file. 
+Add the [hotspot=include file=0]`include` and [hotspot=packageFile file=0]`packageName` configuration elements, and the [hotspot=packageGoals file=0]`executions` element to the `pom.xml` file. 
  
 pom.xml
 [source, XML, linenums, role='code_column'] 
@@ -296,11 +296,11 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 
-The [hotspot=include file=0]`<include/>` configuration tag specifies the `minify, runnable` values. The `runnable` value allows the application to be generated as a runnable JAR file. The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
+The [hotspot=include file=0]`include` configuration element specifies the `minify, runnable` values. The `runnable` value allows the application to be generated as a runnable JAR file. The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
 
-The [hotspot=packageFile file=0]`<packageName/>` configuration tag specifies that the application is generated as a `GSSpringBootApp.jar` file.
+The [hotspot=packageFile file=0]`packageName` configuration element specifies that the application is generated as a `GSSpringBootApp.jar` file.
 
-The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required Open Liberty Maven goals to generate the application that is embedded with Open Liberty. 
+The [hotspot=packageGoals file=0]`executions` element specifies the required Open Liberty Maven goals to generate the application that is embedded with Open Liberty. 
 
 Next, run the Maven `package` goal:
 
