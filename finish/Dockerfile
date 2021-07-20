@@ -1,6 +1,6 @@
 # Stage and thin the application 
 # tag::OLimage1[]
-FROM openliberty/open-liberty:full-java11-openj9-ubi as staging
+FROM guidesbot/olguides:cl210820210716-1901  as staging
 # end::OLimage1[]
 
 # tag::copyJar[]

@@ -41,6 +41,11 @@
       </exclusions>
     </dependency>
     <!-- end::tests[] -->
+    <dependency>
+      <groupId>org.opentest4j</groupId>
+      <artifactId>opentest4j</artifactId>
+      <version>1.2</version>
+    </dependency>
   </dependencies>
 
   <properties>
@@ -73,6 +78,7 @@
         <artifactId>liberty-maven-plugin</artifactId>
         <version>3.3.4</version>
         <configuration>
+          <install><runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/2021-07-16_1901/openliberty-all-21.0.0.8-cl210820210716-1901.zip</runtimeUrl></install>
           <!-- tag::appsDirectory[] -->
           <appsDirectory>apps</appsDirectory>
           <!-- end::appsDirectory[] -->
