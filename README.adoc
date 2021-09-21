@@ -246,7 +246,6 @@ include::finish/pom.xml[]
 ---- 
 
 The `liberty-maven-plugin` downloads and installs Open Liberty to the `target/liberty` directory.
-
 The [hotspot=installAppPackages file=0]`installAppPackages` configuration element in the
 [hotspot file=0]`pom.xml` file typically takes in the following parameters: `dependencies`, `project`, or `all`.
 The default value is `dependencies`, but to install the Spring Boot application to Open Liberty,
