@@ -14,7 +14,7 @@
 :page-tags: ['Docker']
 :page-related-guides: ['rest-intro', 'containerize']
 :page-permalink: /guides/{projectid}
-:common-includes: ../guides-common/
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
 :page-seo-title: Deploying a Spring Boot application
 :page-seo-description: A tutorial with examples on how to containerize, package, and run a Spring Boot application in a Docker container on an Open Liberty server.
