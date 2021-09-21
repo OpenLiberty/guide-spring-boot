@@ -355,6 +355,12 @@ mvnw.cmd liberty:stop
 You can update the `pom.xml` file to bind more Open Liberty Maven goals to the package phase.
 Binding these goals to the package phase allows the Maven `package` goal to build a Spring Boot application that is embedded with Open Liberty.
 
+pom.xml
+[source, XML, linenums, role='code_column'] 
+---- 
+include::finish/pom.xml[]
+---- 
+
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
 #Update the Maven POM file.#
@@ -364,12 +370,6 @@ Binding these goals to the package phase allows the Maven `package` goal to buil
 [role="edit_command_text"]
 Add the [hotspot=include file=0]`include` and [hotspot=packageFile file=0]`packageName` configuration elements,
 and the [hotspot=packageGoals file=0]`executions` element to the `pom.xml` file. 
-
-pom.xml
-[source, XML, linenums, role='code_column'] 
----- 
-include::finish/pom.xml[]
----- 
 
 The [hotspot=include file=0]`include` configuration element specifies the `minify, runnable` values.
 The `runnable` value allows the application to be generated as a runnable JAR file.
