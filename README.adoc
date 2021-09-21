@@ -246,7 +246,8 @@ include::finish/pom.xml[]
 ---- 
 
 The `liberty-maven-plugin` downloads and installs Open Liberty to the `target/liberty` directory.
-The [hotspot=installAppPackages file=0]`<installAppPackages/>` configuration tag in the
+
+The [hotspot=installAppPackages file=0]`installAppPackages` configuration element in the
 [hotspot file=0]`pom.xml` file typically takes in the following parameters: `dependencies`, `project`, or `all`.
 The default value is `dependencies`, but to install the Spring Boot application to Open Liberty,
 the value must be [hotspot=installAppPackages file=0]`spring-boot-project`.
@@ -265,7 +266,7 @@ By default, the `liberty-maven-plugin` picks up the server configuration file fr
 The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features
 are required for the Liberty server to run the Spring Boot application.
 The application port is specified as [hotspot=httpport file=1]`9080` and
-the application is configured as a [hotspot=springBootApplication file=1]`<springBootApplication />`.
+the application is configured as a [hotspot=springBootApplication file=1]`springBootApplication` element.
 
 server.xml
 [source, XML, linenums, role='code_column'] 
@@ -362,8 +363,8 @@ Binding these goals to the package phase allows the Maven `package` goal to buil
 `pom.xml`
 ---- 
 [role="edit_command_text"]
-Add the [hotspot=include file=0]`<include/>` and [hotspot=packageFile file=0]`<packageName/>` configuration tags,
-and the [hotspot=packageGoals file=0]`<executions/>` tag to the `pom.xml` file. 
+Add the [hotspot=include file=0]`include` and [hotspot=packageFile file=0]`packageName` configuration elements,
+and the [hotspot=packageGoals file=0]`executions` element to the `pom.xml` file. 
  
 pom.xml
 [source, XML, linenums, role='code_column'] 
@@ -371,14 +372,14 @@ pom.xml
 include::finish/pom.xml[]
 ---- 
 
-The [hotspot=include file=0]`<include/>` configuration tag specifies the `minify, runnable` values.
+The [hotspot=include file=0]`include` configuration element specifies the `minify, runnable` values.
 The `runnable` value allows the application to be generated as a runnable JAR file.
 The `minify` value packages only what you need from your configuration files without bundling the entire Open Liberty install.
 
-The [hotspot=packageFile file=0]`<packageName/>` configuration tag specifies
+The [hotspot=packageFile file=0]`packageName` configuration element specifies
 that the application is generated as a `GSSpringBootApp.jar` file.
 
-The [hotspot=packageGoals file=0]`<executions/>` tag specifies the required
+The [hotspot=packageGoals file=0]`executions` element specifies the required
 Open Liberty Maven goals to generate the application that is embedded with Open Liberty. 
 
 Next, run the Maven `package` goal:
