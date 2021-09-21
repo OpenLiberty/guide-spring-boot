@@ -51,27 +51,27 @@ include::{common-includes}/os-tabs.adoc[]
 [.tab_content.windows_section]
 --
 [role='command']
-----
+```
 cd start 
 mvnw.cmd package
-----
+```
 --
 
 [.tab_content.mac_section.linux_section]
 --
 [role='command']
-----
+```
 cd start
 ./mvnw package
-----
+```
 --
 
 You can now run the application in the embedded Tomcat web container by executing the JAR file that you built:
 
 [role='command']
-----
+```
 java -jar target/guide-spring-boot-0.1.0.jar
-----
+```
 
 Notice that the console output displays a message about the application running in Tomcat on port `8080`. 
 [role='no_copy']
