@@ -366,10 +366,8 @@ include::finish/pom.xml[]
 #Update the Maven POM file.#
 `pom.xml`
 ----
-
 [role="edit_command_text"]
-Add the [hotspot=include file=0]`include` and [hotspot=packageFile file=0]`packageName` configuration elements,
-and the [hotspot=packageGoals file=0]`executions` element to the `pom.xml` file. 
+Add the [hotspot=include file=0]`include` and [hotspot=packageFile file=0]`packageName` configuration elements, and the [hotspot=packageGoals file=0]`executions` element to the `pom.xml` file. 
 
 The [hotspot=include file=0]`include` configuration element specifies the `minify, runnable` values.
 The `runnable` value allows the application to be generated as a runnable JAR file.
