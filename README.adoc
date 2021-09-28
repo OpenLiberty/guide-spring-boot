@@ -25,7 +25,7 @@ Learn how to containerize, package, and run a Spring Boot application on an Open
 
 == What you'll learn
 
-The starting point of this guide is the finished application from Spring's
+The starting point of this guide is the finished application from the
 https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide.
 If you are not familiar with Spring Boot, complete that guide first.
 Java 8 is required to run this project.
@@ -321,7 +321,7 @@ endif::[]
 
 // Cloud hosted guide instruction
 ifdef::cloud-hosted[]
-In another command line sesssion, run the following command to access the application:
+In another command-line sesssion, run the following command to access the application:
 
 ```
 curl http://localhost:9080/hello
@@ -413,7 +413,7 @@ endif::[]
 
 // Cloud hosted guide instruction
 ifdef::cloud-hosted[]
-In another command line sesssion, run the following command to access the application:
+In another command-line sesssion, run the following command to access the application:
 ```
 curl http://localhost:9080/hello
 ```
