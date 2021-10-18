@@ -232,7 +232,7 @@ The [hotspot file=0]`pom.xml` was created for you in this directory.
 
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
-#Update the `Maven POM` file.#
+#Update the `Maven POM` file in the `start` directory.#
 `pom.xml`
 ---- 
 [role="edit_command_text"]
@@ -363,7 +363,7 @@ include::finish/pom.xml[]
 
 [role="code_command hotspot file=0", subs="quotes"] 
 ---- 
-#Update the Maven POM file.#
+#Update the Maven POM file in the `start` directory.#
 `pom.xml`
 ----
 [role="edit_command_text"]
