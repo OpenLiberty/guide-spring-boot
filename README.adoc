@@ -257,7 +257,7 @@ By default, the `liberty-maven-plugin` picks up the server configuration file fr
 
 [role="code_command hotspot file=1", subs="quotes"] 
 ---- 
-#Create the `server.xml` file in the `start` directory.#
+#Create the `server.xml`.#
 `src/main/liberty/config/server.xml`
 ---- 
 
