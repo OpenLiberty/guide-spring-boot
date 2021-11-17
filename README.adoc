@@ -153,7 +153,7 @@ Then, the Dockerfile copies the Spring Boot dependent library JAR files that are
 and the [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file. 
 The `lib.index.cache` directory and the `thin-guide-spring-boot-0.1.0.jar` file were both generated in the first stage.
 
-include::{common-includes}/ol-full-docker-pull.adoc[]
+include::{common-includes}/ol-icr-full-docker-pull.adoc[]
 
 Use the following command to build the Docker image:
 [role='command']
