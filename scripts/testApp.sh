@@ -37,7 +37,22 @@ docker rm springBootContainer
 ./mvnw liberty:start
 curl http://localhost:9080/hello
 ./mvnw liberty:stop
+
 if [ ! -f "target/GSSpringBootApp.jar" ]; then
   echo "target/GSSpringBootApp.jar was not generated!"
+  exit 1
+fi
+
+java -jar target/GSSpringBootApp.jar &
+GSSBA_PID=$!
+echo "GSSBA_PID=$GSSBA_PID"
+sleep 30
+status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
+kill $GSSBA_PID
+if [ "$status" == "200" ]; then
+  echo ENDPOINT OK
+else
+  echo "$status"
+  echo ENDPOINT NOT OK
   exit 1
 fi

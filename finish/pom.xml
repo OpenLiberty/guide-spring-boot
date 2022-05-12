@@ -73,9 +73,6 @@
         <artifactId>liberty-maven-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
-          <install>
-            <version>22.0.0.2</version>
-          </install>
           <!-- tag::appsDirectory[] -->
           <appsDirectory>apps</appsDirectory>
           <!-- end::appsDirectory[] -->
