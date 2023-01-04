@@ -7,7 +7,7 @@ set -euxo pipefail
 ##
 ##############################################################################
 
-mvn -ntp -Dhttp.keepAlive=false \
+./mvnw -ntp -Dhttp.keepAlive=false \
       -Dmaven.wagon.http.pool=false \
       -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
       -q clean package
@@ -34,7 +34,7 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 docker rm springBootContainer
 
-mvn -ntp liberty:start
+./mvnw -ntp liberty:start
 curl http://localhost:9080/hello
 mvn -ntp liberty:stop
 
