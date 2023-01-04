@@ -17,4 +17,4 @@ cat pom.xml
 sed -i "s;FROM icr.io/appcafe/open-liberty:full-java11-openj9-ubi;FROM $DOCKER_USERNAME/olguides:$BUILD;g" Dockerfile
 cat Dockerfile
 
-sudo ../scripts/testApp.sh
+sudo -u runner ../scripts/testApp.sh
