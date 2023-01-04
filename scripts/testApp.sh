@@ -7,7 +7,7 @@ set -euxo pipefail
 ##
 ##############################################################################
 
-./mvn -ntpw -Dhttp.keepAlive=false \
+./mvnw -ntp -Dhttp.keepAlive=false \
       -Dmaven.wagon.http.pool=false \
       -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
       -q clean package
@@ -34,9 +34,9 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 docker rm springBootContainer
 
-./mvn -ntpw liberty:start
+./mvnw -ntp liberty:start
 curl http://localhost:9080/hello
-./mvn -ntpw liberty:stop
+./mvnw -ntp liberty:stop
 
 if [ ! -f "target/GSSpringBootApp.jar" ]; then
   echo "target/GSSpringBootApp.jar was not generated!"
