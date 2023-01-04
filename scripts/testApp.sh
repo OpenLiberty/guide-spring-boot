@@ -36,7 +36,7 @@ docker rm springBootContainer
 
 ./mvnw -ntp liberty:start
 curl http://localhost:9080/hello
-mvn -ntp liberty:stop
+./mvnw -ntp liberty:stop
 
 if [ ! -f "target/GSSpringBootApp.jar" ]; then
   echo "target/GSSpringBootApp.jar was not generated!"
