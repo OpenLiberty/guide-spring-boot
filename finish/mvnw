@@ -53,7 +53,7 @@ fi
 cygwin=false;
 darwin=false;
 mingw=false
-case "`uname`" in
+case "$(uname)" in
   CYGWIN*) cygwin=true ;;
   MINGW*) mingw=true;;
   Darwin*) darwin=true
@@ -61,7 +61,7 @@ case "`uname`" in
     # See https://developer.apple.com/library/mac/qa/qa1170/_index.html
     if [ -z "$JAVA_HOME" ]; then
       if [ -x "/usr/libexec/java_home" ]; then
-        JAVA_HOME="`/usr/libexec/java_home`"; export JAVA_HOME
+        JAVA_HOME="$(/usr/libexec/java_home)"; export JAVA_HOME
       else
         JAVA_HOME="/Library/Java/Home"; export JAVA_HOME
       fi
@@ -71,38 +71,38 @@ esac
 
 if [ -z "$JAVA_HOME" ] ; then
   if [ -r /etc/gentoo-release ] ; then
-    JAVA_HOME=`java-config --jre-home`
+    JAVA_HOME=$(java-config --jre-home)
   fi
 fi
 
 # For Cygwin, ensure paths are in UNIX format before anything is touched
 if $cygwin ; then
   [ -n "$JAVA_HOME" ] &&
-    JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
+    JAVA_HOME=$(cygpath --unix "$JAVA_HOME")
   [ -n "$CLASSPATH" ] &&
-    CLASSPATH=`cygpath --path --unix "$CLASSPATH"`
+    CLASSPATH=$(cygpath --path --unix "$CLASSPATH")
 fi
 
 # For Mingw, ensure paths are in UNIX format before anything is touched
 if $mingw ; then
   [ -n "$JAVA_HOME" ] &&
-    JAVA_HOME="`(cd "$JAVA_HOME"; pwd)`"
+    JAVA_HOME="$((cd "$JAVA_HOME" || exit; pwd))"
 fi
 
 if [ -z "$JAVA_HOME" ]; then
-  javaExecutable="`which javac`"
-  if [ -n "$javaExecutable" ] && ! [ "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "no" ]; then
+  javaExecutable="$(which javac)"
+  if [ -n "$javaExecutable" ] && ! [ "$(expr \"$javaExecutable\" : '\([^ ]*\)')" = "no" ]; then
     # readlink(1) is not available as standard on Solaris 10.
-    readLink=`which readlink`
-    if [ ! `expr "$readLink" : '\([^ ]*\)'` = "no" ]; then
+    readLink=$(which readlink)
+    if [ ! $(expr "$readLink" : '\([^ ]*\)') = "no" ]; then
       if $darwin ; then
-        javaHome="`dirname \"$javaExecutable\"`"
-        javaExecutable="`cd \"$javaHome\" && pwd -P`/javac"
+        javaHome="$(dirname \"$javaExecutable\")"
+        javaExecutable="$(cd \"$javaHome\" && pwd -P)/javac"
       else
-        javaExecutable="`readlink -f \"$javaExecutable\"`"
+        javaExecutable="$(readlink -f \"$javaExecutable\")"
       fi
-      javaHome="`dirname \"$javaExecutable\"`"
-      javaHome=`expr "$javaHome" : '\(.*\)/bin'`
+      javaHome="$(dirname \"$javaExecutable\")"
+      javaHome=$(expr "$javaHome" : '\(.*\)/bin')
       JAVA_HOME="$javaHome"
       export JAVA_HOME
     fi
@@ -118,7 +118,7 @@ if [ -z "$JAVACMD" ] ; then
       JAVACMD="$JAVA_HOME/bin/java"
     fi
   else
-    JAVACMD="`\\unset -f command; \\command -v java`"
+    JAVACMD="$(\unset -f command; \command -v java)"
   fi
 fi
 
@@ -150,28 +150,28 @@ find_maven_basedir() {
     fi
     # workaround for JBEAP-8937 (on Solaris 10/Sparc)
     if [ -d "${wdir}" ]; then
-      wdir=`cd "$wdir/.."; pwd`
+      wdir=$(cd "$wdir/.." || exit; pwd)
     fi
     # end of workaround
   done
-  printf '%s' "$(cd "$basedir"; pwd)"
+  printf '%s' "$(cd "$basedir" || exit; pwd)"
 }
 
 # concatenates all lines of a file
 concat_lines() {
   if [ -f "$1" ]; then
-    echo "$(tr -s '\n' ' ' < "$1")"
+    '$(tr -s '\n' ' ' < "$1")'
   fi
 }
 
-BASE_DIR=$(find_maven_basedir "$(dirname $0)")
+BASE_DIR=$(find_maven_basedir "$(dirname "$0")")
 if [ -z "$BASE_DIR" ]; then
   exit 1;
 fi
 
 MAVEN_PROJECTBASEDIR=${MAVEN_BASEDIR:-"$BASE_DIR"}; export MAVEN_PROJECTBASEDIR
 if [ "$MVNW_VERBOSE" = true ]; then
-  echo $MAVEN_PROJECTBASEDIR
+  echo "$MAVEN_PROJECTBASEDIR"
 fi
 
 ##########################################################################################
@@ -191,7 +191,7 @@ else
     else
       wrapperUrl="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.1.1/maven-wrapper-3.1.1.jar"
     fi
-    while IFS="=" read key value; do
+    while IFS="=" read -r key value; do
       case "$key" in (wrapperUrl) wrapperUrl="$value"; break ;;
       esac
     done < "$BASE_DIR/.mvn/wrapper/maven-wrapper.properties"
@@ -200,7 +200,7 @@ else
     fi
     wrapperJarPath="$BASE_DIR/.mvn/wrapper/maven-wrapper.jar"
     if $cygwin; then
-      wrapperJarPath=`cygpath --path --windows "$wrapperJarPath"`
+      wrapperJarPath=$(cygpath --path --windows "$wrapperJarPath")`
     fi
 
     if command -v wget > /dev/null; then
@@ -210,10 +210,11 @@ else
           QUIET=""
         fi
         if [ -z "$MVNW_USERNAME" ] || [ -z "$MVNW_PASSWORD" ]; then
-            wget $QUIET "$wrapperUrl" -O "$wrapperJarPath"
+            wget "$QUIET" "$wrapperUrl" -O "$wrapperJarPath"
         else
-            wget $QUIET --http-user="$MVNW_USERNAME" --http-password="$MVNW_PASSWORD" "$wrapperUrl" -O "$wrapperJarPath"
+            wget "$QUIET" --http-user="$MVNW_USERNAME" --http-*** "$wrapperUrl" -O "$wrapperJarPath"
         fi
+        # shellcheck disable=SC2181
         [ $? -eq 0 ] || rm -f "$wrapperJarPath"
     elif command -v curl > /dev/null; then
         QUIET="--silent"
@@ -222,9 +223,9 @@ else
           QUIET=""
         fi
         if [ -z "$MVNW_USERNAME" ] || [ -z "$MVNW_PASSWORD" ]; then
-            curl $QUIET -o "$wrapperJarPath" "$wrapperUrl" -f -L
+            curl "$QUIET" -o "$wrapperJarPath" "$wrapperUrl" -f -L
         else
-            curl $QUIET --user "$MVNW_USERNAME:$MVNW_PASSWORD" -o "$wrapperJarPath" "$wrapperUrl" -f -L
+             curl "$QUIET" --user "$MVNW_USERNAME:$MVNW_PASSWORD" -o "$wrapperJarPath" "$wrapperUrl" -f -L
         fi
         [ $? -eq 0 ] || rm -f "$wrapperJarPath"
     else
@@ -235,8 +236,8 @@ else
         javaClass="$BASE_DIR/.mvn/wrapper/MavenWrapperDownloader.class"
         # For Cygwin, switch paths to Windows format before running javac
         if $cygwin; then
-          javaSource=`cygpath --path --windows "$javaSource"`
-          javaClass=`cygpath --path --windows "$javaClass"`
+          javaSource=$(cygpath --path --windows "$javaSource")
+          javaClass=$(cygpath --path --windows "$javaClass")
         fi
         if [ -e "$javaSource" ]; then
             if [ ! -e "$javaClass" ]; then
@@ -265,23 +266,24 @@ MAVEN_OPTS="$(concat_lines "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config") $MAVEN_OPTS"
 # For Cygwin, switch paths to Windows format before running java
 if $cygwin; then
   [ -n "$JAVA_HOME" ] &&
-    JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`
+    JAVA_HOME=$(cygpath --path --windows "$JAVA_HOME")
   [ -n "$CLASSPATH" ] &&
-    CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
+    CLASSPATH=$(cygpath --path --windows "$CLASSPATH")
   [ -n "$MAVEN_PROJECTBASEDIR" ] &&
-    MAVEN_PROJECTBASEDIR=`cygpath --path --windows "$MAVEN_PROJECTBASEDIR"`
+    MAVEN_PROJECTBASEDIR=$(cygpath --path --windows "$MAVEN_PROJECTBASEDIR")
 fi
 
 # Provide a "standardized" way to retrieve the CLI args that will
 # work with both Windows and non-Windows executions.
+# shellcheck disable=SC2124
 MAVEN_CMD_LINE_ARGS="$MAVEN_CONFIG $@"
 export MAVEN_CMD_LINE_ARGS
 
 WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
 
 exec "$JAVACMD" \
-  $MAVEN_OPTS \
-  $MAVEN_DEBUG_OPTS \
+  "$MAVEN_OPTS" \
+  "$MAVEN_DEBUG_OPTS" \
   -classpath "$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar" \
   "-Dmaven.multiModuleProjectDirectory=${MAVEN_PROJECTBASEDIR}" \
-  ${WRAPPER_LAUNCHER} $MAVEN_CONFIG "$@"
+  ${WRAPPER_LAUNCHER} "$MAVEN_CONFIG" "$@"
