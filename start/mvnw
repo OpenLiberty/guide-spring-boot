@@ -36,12 +36,15 @@
 if [ -z "$MAVEN_SKIP_RC" ] ; then
 
   if [ -f /usr/local/etc/mavenrc ] ; then
+  # shellcheck source=somefile
     . /usr/local/etc/mavenrc
   fi
   if [ -f /etc/mavenrc ] ; then
+  # shellcheck source=somefile
     . /etc/mavenrc
   fi
   if [ -f "$HOME/.mavenrc" ] ; then
+  # shellcheck source=somefile
     . "$HOME/.mavenrc"
   fi
 
