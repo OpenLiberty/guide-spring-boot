@@ -7,12 +7,12 @@ set -euxo pipefail
 ##
 ##############################################################################
 
-./mvnw -Dhttp.keepAlive=false \
+./mvnw -ntp -Dhttp.keepAlive=false \
       -Dmaven.wagon.http.pool=false \
       -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
       -q clean package
 
-docker pull icr.io/appcafe/open-liberty:full-java11-openj9-ubi
+docker pull -q icr.io/appcafe/open-liberty:full-java11-openj9-ubi
 
 docker build -t springboot .
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
@@ -34,9 +34,9 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 docker rm springBootContainer
 
-./mvnw liberty:start
+./mvnw -ntp liberty:start
 curl http://localhost:9080/hello
-./mvnw liberty:stop
+./mvnw -ntp liberty:stop
 
 if [ ! -f "target/GSSpringBootApp.jar" ]; then
   echo "target/GSSpringBootApp.jar was not generated!"
