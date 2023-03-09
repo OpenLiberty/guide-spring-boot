@@ -1,4 +1,4 @@
-// Copyright (c) 2019, 2022 IBM Corporation and others.
+// Copyright (c) 2019, 2023 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -239,7 +239,7 @@ server.xml
 include::finish/src/main/liberty/config/server.xml[]
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application. The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`springBootApplication` element.
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application. The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`springBootApplication` element. For more information about the `springBootApplication` element, see the https://www.openliberty.io/docs/latest/reference/config/springBootApplication.html[Server configuration/springBootApplication documentation^].
 
 If you didn't build the Spring Boot application, run the `package` goal:
 
