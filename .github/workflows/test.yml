@@ -23,7 +23,7 @@ jobs:
         run: bash ./tools/pr-checker/checker.sh ${{ github.repository }} ${{ github.event.pull_request.number }} | tee checker.log 
       - id: Lint-Code-Base
         if: always()
-        uses: github/super-linter@v3.17.1
+        uses: github/super-linter@v3.17.2
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_BASH: false
