@@ -28,7 +28,7 @@ Learn how to containerize, package, and run a Spring Boot application on an Open
 
 == What you'll learn
 
-The starting point of this guide is the finished application from the https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 8 is required to run this project.
+The starting point of this guide is the finished application from the https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 17 is required to run this project.
 
 You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on an Open Liberty server without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file.
 
