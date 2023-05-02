@@ -130,7 +130,13 @@ and then uses the Open Liberty [hotspot=springBootUtility]`springBootUtility` co
 
 The second stage begins with the [hotspot=OLimage2 file=0]`Open Liberty Docker image`. The Dockerfile copies the [hotspot=serverXml file=0]`server.xml` file from the `/opt/ol/wlp/templates` directory, which enables Spring Boot and TLS support. Then, the Dockerfile copies the Spring Boot dependent library JAR files that are at the [hotspot=libcache file=0]`lib.index.cache` directory and the [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file. The `lib.index.cache` directory and the `thin-guide-spring-boot-0.1.0.jar` file were both generated in the first stage.
 
-include::{common-includes}/ol-icr-full-docker-pull.adoc[]
+#include::{common-includes}/ol-icr-full-docker-pull.adoc[]
+Run the following command to download or update to the latest Open Liberty Docker image:
+
+[role='command']
+```
+docker pull icr.io/appcafe/open-liberty:full-java17-openj9-ubi
+```
 
 Use the following command to build the Docker image:
 [role='command']
