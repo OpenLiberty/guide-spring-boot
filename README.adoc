@@ -149,7 +149,7 @@ Your `springboot` image appears in the list of Docker images:
 [role='no_copy']
 ```
 REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
-springboot    latest    d3ffdaa81854     27 seconds ago    486MB
+springboot    latest    d3ffdaa81854     27 seconds ago    596MB
 ```
 
 Now, you can run the Spring Boot application in a Docker container:
