@@ -13,6 +13,7 @@ sed -i "\#<artifactId>liberty-maven-plugin</artifactId>#,\#<configuration>#c<art
 cat pom.xml
 
 sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi;FROM openliberty/daily:latest;g" Dockerfile
+sed -i "s;RUN features.sh;#RUN features.sh;g" Dockerfile
 cat Dockerfile
 
 docker pull -q "openliberty/daily:latest"
