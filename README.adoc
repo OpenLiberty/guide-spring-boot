@@ -130,7 +130,7 @@ and then uses the Open Liberty [hotspot=springBootUtility]`springBootUtility` co
 
 The second stage begins with the [hotspot=OLimage2 file=0]`Open Liberty Docker image`. The Dockerfile copies the [hotspot=serverXml file=0]`server.xml` file from the `/opt/ol/wlp/templates` directory, which enables Spring Boot and TLS support. Then, the Dockerfile copies the Spring Boot dependent library JAR files that are at the [hotspot=libcache file=0]`lib.index.cache` directory and the [hotspot=thinjar file=0]`thin-guide-spring-boot-0.1.0.jar` file. The `lib.index.cache` directory and the `thin-guide-spring-boot-0.1.0.jar` file were both generated in the first stage.
 
-include::{common-includes}/ol-icr-full-docker-pull.adoc[]
+
 
 Use the following command to build the Docker image:
 [role='command']
@@ -149,7 +149,7 @@ Your `springboot` image appears in the list of Docker images:
 [role='no_copy']
 ```
 REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
-springboot    latest    d3ffdaa81854     27 seconds ago    486MB
+springboot    latest    d3ffdaa81854     27 seconds ago    596MB
 ```
 
 Now, you can run the Spring Boot application in a Docker container:
@@ -281,6 +281,12 @@ mvnw.cmd liberty:run
 ```
 --
 
+After you see the following message, your application server is ready:
+[role="no_copy"]
+----
+The defaultServer server is ready to run a smarter planet.
+----
+
 // Static guide instruction
 ifndef::cloud-hosted[]
 Go to the http://localhost:9080/hello[^] URL to access the application.
@@ -366,6 +372,13 @@ Run the repackaged Spring Boot application. This JAR file was defined previously
 ```
 java -jar target/GSSpringBootApp.jar
 ```
+
+After you see the following message, your application server is ready:
+
+[role="no_copy"]
+----
+The defaultServer server is ready to run a smarter planet.
+----
 
 // Static guide instruction
 ifndef::cloud-hosted[]
