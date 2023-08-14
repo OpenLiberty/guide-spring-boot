@@ -17,22 +17,22 @@
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
 :page-seo-title: Deploying a Spring Boot application
-:page-seo-description: A tutorial with examples on how to containerize, package, and run a Spring Boot application in a Docker container on an Open Liberty server.
+:page-seo-description: A tutorial with examples on how to containerize, package, and run a Spring Boot application in a Docker container on an Open Liberty instance.
 :guide-author: Open Liberty
 = Containerizing, packaging, and running a Spring Boot application
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Learn how to containerize, package, and run a Spring Boot application on an Open Liberty server without modification.
+Learn how to containerize, package, and run a Spring Boot application on an Open Liberty instance without modification.
 
 == What you'll learn
 
 The starting point of this guide is the finished application from the https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 8 is required to run this project.
 
-You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on an Open Liberty server without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file.
+You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on an Open Liberty instance without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file.
 
-You will also learn how to run the Spring Boot application locally with an Open Liberty server, and how to package it so that it is embedded with an Open Liberty server.
+You will also learn how to run the Spring Boot application locally with an Open Liberty instance, and how to package it so that it is embedded with an Open Liberty instance.
 
 [role='command']
 include::{common-includes}/gitclone.adoc[]
@@ -225,7 +225,7 @@ Add the [hotspot=libertyMavenPlugin file=0]`liberty-maven-plugin` to the [hotspo
 
 The `liberty-maven-plugin` downloads and installs Open Liberty to the `target/liberty` directory. The [hotspot=installAppPackages file=0]`installAppPackages` configuration element in the [hotspot file=0]`pom.xml` file typically takes in the following parameters: `dependencies`, `project`, or `all`. The default value is `dependencies`, but to install the Spring Boot application to Open Liberty, the value must be [hotspot=installAppPackages file=0]`spring-boot-project`. This value allows Maven to package, thin, and copy the `guide-spring-boot-0.1.0.jar` application to the Open Liberty runtime [hotspot=appsDirectory file=0]`applications` directory and shared library directory.
 
-To run the Spring Boot application, the Open Liberty server needs to be correctly configured. By default, the `liberty-maven-plugin` picks up the server configuration file from the `src/main/liberty/config` directory.
+To run the Spring Boot application, the Open Liberty instance needs to be correctly configured. By default, the `liberty-maven-plugin` picks up the server configuration file from the `src/main/liberty/config` directory.
 
 [role="code_command hotspot file=1", subs="quotes"] 
 ---- 
@@ -239,7 +239,7 @@ server.xml
 include::finish/src/main/liberty/config/server.xml[]
 ---- 
 
-The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty server to run the Spring Boot application. The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`springBootApplication` element. For more information, see the https://www.openliberty.io/docs/latest/reference/config/springBootApplication.html[springBootApplication element documentation^].
+The [hotspot=servlet file=1]`servlet` and [hotspot=springboot file=1]`springBoot` features are required for the Liberty instance to run the Spring Boot application. The application port is specified as [hotspot=httpport file=1]`9080` and the application is configured as a [hotspot=springBootApplication file=1]`springBootApplication` element. For more information, see the https://www.openliberty.io/docs/latest/reference/config/springBootApplication.html[springBootApplication element documentation^].
 
 If you didn't build the Spring Boot application, run the `package` goal:
 
@@ -261,7 +261,7 @@ mvnw.cmd package
 ```
 --
 
-Next, run the `liberty:run` goal. This goal creates the Open Liberty server, installs required features, deploys the Spring Boot application to the Open Liberty server, and starts the application.
+Next, run the `liberty:run` goal. This goal creates the Open Liberty instance, installs required features, deploys the Spring Boot application to the Open Liberty instance, and starts the application.
 
 include::{common-includes}/os-tabs.adoc[]
 
@@ -301,7 +301,7 @@ curl http://localhost:9080/hello
 ```
 endif::[]
 
-After you finish exploring the application, press `CTRL+C` to stop the Open Liberty server. Alternatively, you can run the `liberty:stop` goal from the `start` directory in a separate command-line session:
+After you finish exploring the application, press `CTRL+C` to stop the Open Liberty instance. Alternatively, you can run the `liberty:stop` goal from the `start` directory in a separate command-line session:
 
 include::{common-includes}/os-tabs.adoc[]
 
