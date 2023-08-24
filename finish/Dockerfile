@@ -37,7 +37,7 @@ LABEL \
   description="This image contains the hello application running with the Open Liberty runtime."
 
 # tag::serverXml[]
-RUN cp /opt/ol/wlp/templates/servers/springBoot2/server.xml /config/server.xml
+RUN cp /opt/ol/wlp/templates/servers/springBoot3/server.xml /config/server.xml
 # end::serverXml[]
 
 RUN features.sh
