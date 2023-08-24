@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+
+    <featureManager>
+        <feature>crac-1.3</feature>
+    </featureManager>
+
+</server>

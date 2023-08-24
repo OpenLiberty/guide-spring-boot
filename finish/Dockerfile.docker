@@ -40,6 +40,8 @@ LABEL \
 RUN cp /opt/ol/wlp/templates/servers/springBoot3/server.xml /config/server.xml
 # end::serverXml[]
 
+COPY src/main/liberty/config/crac.xml /config/configDropins/defaults
+
 #RUN features.sh
 
 # tag::libcache[]
@@ -51,3 +53,4 @@ COPY --chown=1001:0 --from=staging /staging/thin-guide-spring-boot-0.1.0.jar \
 # end::thinjar[]
 
 RUN configure.sh 
+
