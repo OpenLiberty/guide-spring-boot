@@ -73,6 +73,13 @@
         <artifactId>liberty-maven-plugin</artifactId>
         <version>3.8.2</version>
         <configuration>
+          <runtimeArtifact>
+            <groupId>io.openliberty.beta</groupId>
+            <artifactId>openliberty-runtime</artifactId>
+            <version>LATEST</version>
+            <type>zip</type>
+          </runtimeArtifact>
+
           <!-- tag::appsDirectory[] -->
           <appsDirectory>apps</appsDirectory>
           <!-- end::appsDirectory[] -->
