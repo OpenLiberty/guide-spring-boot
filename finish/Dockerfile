@@ -1,6 +1,6 @@
 # Stage and thin the application 
 # tag::OLimage1[]
-FROM icr.io/appcafe/open-liberty:full-java11-openj9-ubi as staging
+FROM icr.io/appcafe/open-liberty:full-java8-openj9-ubi as staging
 # end::OLimage1[]
 
 # tag::copyJar[]
@@ -17,7 +17,7 @@ RUN springBootUtility thin \
 
 # Build the image
 # tag::OLimage2[]
-FROM icr.io/appcafe/open-liberty:full-java11-openj9-ubi
+FROM icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi
 # end::OLimage2[]
 
 ARG VERSION=1.0
@@ -39,6 +39,8 @@ LABEL \
 # tag::serverXml[]
 RUN cp /opt/ol/wlp/templates/servers/springBoot2/server.xml /config/server.xml
 # end::serverXml[]
+
+RUN features.sh
 
 # tag::libcache[]
 COPY --chown=1001:0 --from=staging /staging/lib.index.cache /lib.index.cache
