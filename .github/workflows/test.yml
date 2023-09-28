@@ -52,6 +52,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 17
+      - run: set _JAVA_OPTIONS
       - name: Run tests
         run: sudo ../scripts/testApp.sh
       - name: Post tests
