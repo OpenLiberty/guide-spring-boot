@@ -180,7 +180,7 @@ docker logs springBootContainer
 
 // Static guide instruction
 ifndef::cloud-hosted[]
-After the application starts, go to the http://localhost:9080[^] URL to access the application.
+After the application starts, go to the http://localhost:9080/hello[^] URL to access the application.
 endif::[]
 
 // Cloud hosted guide instruction
@@ -188,7 +188,7 @@ ifdef::cloud-hosted[]
 After the application starts, run the following command to access the application:
 
 ```bash
-curl http://localhost:9080
+curl http://localhost:9080/hello
 ```
 endif::[]
 
