@@ -7,6 +7,8 @@ set -euxo pipefail
 ##
 ##############################################################################
 
+./mvnw -version
+
 ./mvnw -ntp -Dhttp.keepAlive=false \
       -Dmaven.wagon.http.pool=false \
       -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
