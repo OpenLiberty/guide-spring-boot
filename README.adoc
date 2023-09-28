@@ -72,7 +72,10 @@ java -jar target/guide-spring-boot-0.1.0.jar
 Notice that the console output displays a message about the application running in Tomcat on port `8080`. 
 [role='no_copy']
 ----
-... INFO ... [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path ''
+... INFO ... [ main] com.example.springboot.Application       : Started Application in 2.511 seconds (process running for 3.24)
+Let's inspect the beans provided by Spring Boot:
+...
+welcomePageNotAcceptableHandlerMapping
 ----
 
 // Static guide instruction
