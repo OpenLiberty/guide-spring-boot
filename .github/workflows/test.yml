@@ -47,12 +47,11 @@ jobs:
         working-directory: finish
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 17
-      - run: set _JAVA_OPTIONS
       - name: Run tests
         run: sudo ../scripts/testApp.sh
       - name: Post tests
