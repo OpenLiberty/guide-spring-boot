@@ -27,6 +27,9 @@ if [ "$status" == "200" ]; then
 else
   echo "$status"
   echo ENDPOINT NOT OK
+  docker exec springBootContainer cat /logs/messages.log
+  docker stop springBootContainer
+  docker rm springBootContainer
   exit 1
 fi
 
