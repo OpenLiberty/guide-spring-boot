@@ -19,4 +19,4 @@ cat Dockerfile
 
 docker pull -q "openliberty/daily:latest"
 
-sudo ../scripts/testApp.sh
+sudo -E ../scripts/testApp.sh
