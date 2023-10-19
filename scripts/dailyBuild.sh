@@ -1,5 +1,5 @@
 #!/bin/bash
-while getopts t:d:b:u: flag; do
+while getopts t:d:b:u:j: flag; do
     case "${flag}" in
     t) DATE="${OPTARG}" ;;
     d) DRIVER="${OPTARG}" ;;
