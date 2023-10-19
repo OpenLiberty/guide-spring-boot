@@ -48,6 +48,8 @@ if [ ! -f "target/GSSpringBootApp.jar" ]; then
   exit 1
 fi
 
+java -version
+$JAVA_HOME/bin/java -version
 java -jar target/GSSpringBootApp.jar &
 GSSBA_PID=$!
 echo "GSSBA_PID=$GSSBA_PID"
