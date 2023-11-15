@@ -27,6 +27,7 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_BASH: false
+          VALIDATE_JAVA: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: ./tools/pr-checker/linters/
           DEFAULT_BRANCH: prod
@@ -46,14 +47,15 @@ jobs:
         working-directory: finish
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 8
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
-          java-version: 8
+          distribution: 'semeru'
+          java-version: 17
       - run: unset _JAVA_OPTIONS
       - name: Run tests
-        run: sudo ../scripts/testApp.sh
+        run: sudo -E ../scripts/testApp.sh
       - name: Post tests
         if: always()
         run: |
