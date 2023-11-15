@@ -7,12 +7,14 @@ set -euxo pipefail
 ##
 ##############################################################################
 
+./mvnw -version
+
 ./mvnw -ntp -Dhttp.keepAlive=false \
       -Dmaven.wagon.http.pool=false \
       -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
       -q clean package
 
-docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi
+docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
 
 docker build -t springboot .
 docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
@@ -25,6 +27,9 @@ if [ "$status" == "200" ]; then
 else
   echo "$status"
   echo ENDPOINT NOT OK
+  docker exec springBootContainer cat /logs/messages.log
+  docker stop springBootContainer
+  docker rm springBootContainer
   exit 1
 fi
 
@@ -43,7 +48,7 @@ if [ ! -f "target/GSSpringBootApp.jar" ]; then
   exit 1
 fi
 
-java -jar target/GSSpringBootApp.jar &
+$JAVA_HOME/bin/java -jar target/GSSpringBootApp.jar &
 GSSBA_PID=$!
 echo "GSSBA_PID=$GSSBA_PID"
 sleep 30

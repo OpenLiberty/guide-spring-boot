@@ -1,6 +1,6 @@
 # Stage and thin the application 
 # tag::OLimage1[]
-FROM icr.io/appcafe/open-liberty:full-java8-openj9-ubi as staging
+FROM icr.io/appcafe/open-liberty:full-java17-openj9-ubi as staging
 # end::OLimage1[]
 
 # tag::copyJar[]
@@ -17,7 +17,7 @@ RUN springBootUtility thin \
 
 # Build the image
 # tag::OLimage2[]
-FROM icr.io/appcafe/open-liberty:kernel-slim-java8-openj9-ubi
+FROM icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
 # end::OLimage2[]
 
 ARG VERSION=1.0
@@ -37,7 +37,7 @@ LABEL \
   description="This image contains the hello application running with the Open Liberty runtime."
 
 # tag::serverXml[]
-RUN cp /opt/ol/wlp/templates/servers/springBoot2/server.xml /config/server.xml
+RUN cp /opt/ol/wlp/templates/servers/springBoot3/server.xml /config/server.xml
 # end::serverXml[]
 
 RUN features.sh
