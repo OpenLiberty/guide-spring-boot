@@ -3,7 +3,6 @@ while getopts t:d:b:u:j: flag; do
     case "${flag}" in
     t) DATE="${OPTARG}" ;;
     d) DRIVER="${OPTARG}" ;;
-    b) BUILD="${OPTARG}" ;;
     j) JDK_LEVEL="${OPTARG}" ;;
     *) echo "Invalid option";;
     esac
