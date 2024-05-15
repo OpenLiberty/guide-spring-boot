@@ -33,7 +33,7 @@ jobs:
           DEFAULT_BRANCH: prod
       - name: Summary
         if: always()
-        run: |
+        run:
             cat ./checker.log |  tail -n +2; echo "====== Super Linter ======"
             cat ./super-linter.log | sed -n '/.*The script has completed.*/,$p' | tail -n +4 | sed  's/.*\(\[[A-Z]\+\]\)/\1/'
             echo "====== Examine logs in Checker and Super-Linter steps for more details ======"
