@@ -178,7 +178,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
 ----
 
-You can watch the application start by monitoring the logs:
+After you are finished checking out the application, stop and remove your container by running the following command:
 [role='command']
 ```
 docker logs springBootContainer
@@ -204,9 +204,7 @@ curl http://localhost:9080/hello
 ```
 endif::[]
 
-*Tearing down the Docker container*
-
-To stop and remove your container, run the following commands:
+After you are finished checking out the application, stop and remove your container by running the following command:
 
 [role='command']
 ```
@@ -214,21 +212,34 @@ docker stop springBootContainer
 ```
 
 ifndef::cloud-hosted[]
-=== Faster startup with Open Liberty InstantOn
+=== Faster startup with Open Liberty InstantOn - Optional
+
+In this section, you’ll learn how to build an InstantOn image that provides fast startup times. Your application can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features. To learn more about the Liberty InstantOn feature, visit the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] document.
+
+If you are working on a Linux system with kernel version 5.9 or greater, you can continue on this section, otherwise, go to the https://openliberty.io/guides/spring-boot.html#running-the-application-on-open-liberty[Running the application on Open Liberty] section.
+
+[role='command']
+```
+uname -r
+```
+
+You built the `springboot` docker container image in the previous section. Run the following command to take a the checkpoint of the application process with the `afterAppStart` option:
 
 [role='command']
 ```
 docker run \
-  --name springboot-checkpoint-container \
+  --name springBootCheckpointContainer \
   --privileged \
   --env WLP_CHECKPOINT=afterAppStart \
   springboot
 ```
 
+The `springBootCheckpointContainer` container from the previous step contains the data from the InstantOn checkpoint process. Take this checkpoint process data and commit it to an application container image layer by running the following commit commands:
+
 [role='command']
 ```
-docker commit springboot-checkpoint-container springboot-instanton
-docker rm springboot-checkpoint-container
+docker commit springBootCheckpointContainer springboot-instanton
+docker rm springBootCheckpointContainer
 ```
 
 Your `springboot-instanton` image appears in the list of Docker images:
@@ -238,6 +249,8 @@ REPOSITORY             TAG       IMAGE ID       CREATED          SIZE
 springboot-instanton   latest    c4aabcdd64bf   20 seconds ago   879MB
 springboot             latest    3a5492c0cbeb   14 minutes ago   789MB
 ```
+
+Run the `springboot-instanton` InstantOn application image by the following command:
 
 [role='command']
 ```
@@ -251,7 +264,7 @@ docker run \
   springboot-instanton
 ```
 
-You can run the following command to see the logs:
+You can run the following command to see the container logs:
 [role='command']
 ```
 docker logs springBootContainer
@@ -265,7 +278,6 @@ CWWKF0011I: The defaultServer server is ready to run a smarter planet. The defau
 
 Go to the http://localhost:9080/hello[^] URL to access the application.
 
-*Tearing down the Docker container*
 
 To stop and remove your container, run the following commands:
 
