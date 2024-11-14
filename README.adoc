@@ -244,6 +244,13 @@ docker rm springBootCheckpointContainer
 
 The stopped `springBootCheckpointContainer` container is no longer needed and can safely be removed.
 
+To verify that the images are built, run the `docker images` command to list all local Docker images:
+
+[role='command']
+```
+docker images
+```
+
 Your `springboot-instanton` image appears in the list of Docker images. It shows a faster startup time than the original `springboot` image.
 
 [role='no_copy']
