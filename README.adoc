@@ -1,4 +1,4 @@
-// Copyright (c) 2019, 2023 IBM Corporation and others.
+// Copyright (c) 2019, 2024 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -10,7 +10,7 @@
 :projectid: spring-boot
 :page-duration: 20 minutes
 :page-releasedate: 2019-11-04
-:page-majorupdateddate: 2023-11-15
+:page-majorupdateddate: 2024-12-15
 :page-description: Learn how to containerize, package, and run a Spring Boot application on Open Liberty.
 :page-tags: ['Docker']
 :page-related-guides: ['rest-intro', 'containerize']
@@ -155,13 +155,13 @@ Your `springboot` image appears in the list of Docker images:
 [role='no_copy']
 ```
 REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
-springboot    latest    d3ffdaa81854     27 seconds ago    596MB
+springboot    latest    3a5492c0cbeb     27 seconds ago    789MB
 ```
 
 Now, you can run the Spring Boot application in a Docker container:
 [role='command']
 ```
-docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
+docker run --rm -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
 ```
 
 Before you access your application from the browser, run the `docker ps` command to make sure that your container is running:
@@ -184,6 +184,12 @@ You can watch the application start by monitoring the logs:
 docker logs springBootContainer
 ```
 
+Wait for the following message, which indicates that Liberty’s startup is complete in several seconds:
+[role='no_copy']
+----
+CWWKF0011I: The defaultServer server is ready to run a smarter planet. The defaultServer server started in 7.121 seconds.
+----
+
 // Static guide instruction
 ifndef::cloud-hosted[]
 After the application starts, go to the http://localhost:9080/hello[^] URL to access the application.
@@ -198,15 +204,77 @@ curl http://localhost:9080/hello
 ```
 endif::[]
 
-=== Tearing down the Docker container
+*Tearing down the Docker container*
 
 To stop and remove your container, run the following commands:
 
 [role='command']
 ```
 docker stop springBootContainer
-docker rm springBootContainer
 ```
+
+ifndef::cloud-hosted[]
+=== Faster startup with Open Liberty InstantOn
+
+[role='command']
+```
+docker run \
+  --name springboot-checkpoint-container \
+  --privileged \
+  --env WLP_CHECKPOINT=afterAppStart \
+  springboot
+```
+
+[role='command']
+```
+docker commit springboot-checkpoint-container springboot-instanton
+docker rm springboot-checkpoint-container
+```
+
+Your `springboot-instanton` image appears in the list of Docker images:
+[role='no_copy']
+```
+REPOSITORY             TAG       IMAGE ID       CREATED          SIZE
+springboot-instanton   latest    c4aabcdd64bf   20 seconds ago   879MB
+springboot             latest    3a5492c0cbeb   14 minutes ago   789MB
+```
+
+[role='command']
+```
+docker run \
+  --rm -d \
+  --name springBootContainer \
+  --cap-add=CHECKPOINT_RESTORE \
+  --cap-add=SETPCAP \
+  --security-opt seccomp=unconfined \
+  -p 9080:9080 \
+  springboot-instanton
+```
+
+You can run the following command to see the logs:
+[role='command']
+```
+docker logs springBootContainer
+```
+
+Liberty’s startup is complete in less than a second:
+[role='no_copy']
+----
+CWWKF0011I: The defaultServer server is ready to run a smarter planet. The defaultServer server started in 0.323 seconds.
+----
+
+Go to the http://localhost:9080/hello[^] URL to access the application.
+
+*Tearing down the Docker container*
+
+To stop and remove your container, run the following commands:
+
+[role='command']
+```
+docker stop springBootContainer
+```
+endif::[]
+
 
 == Running the application on Open Liberty
 
