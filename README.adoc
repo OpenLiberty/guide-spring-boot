@@ -204,7 +204,7 @@ curl http://localhost:9080/hello
 ```
 endif::[]
 
-After you are finished checking out the application, stop and remove your container by running the following command:
+After you are finished checking out the application, stop your container by running the following command:
 
 [role='command']
 ```
@@ -212,18 +212,18 @@ docker stop springBootContainer
 ```
 
 ifndef::cloud-hosted[]
-=== Faster startup with Open Liberty InstantOn - Optional
+== Faster startup the container with Open Liberty InstantOn - Optional
 
-In this section, you’ll learn how to build an InstantOn image that provides fast startup times. Your application can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features. To learn more about the Liberty InstantOn feature, visit the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] document.
+In this section, you’ll learn how to build an InstantOn image that provides fast startup times. Your application can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features. To learn more about the Liberty InstantOn feature, see the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] documentation.
 
-If you are working on a Linux system with kernel version 5.9 or greater, you can continue on this section, otherwise, go to the https://openliberty.io/guides/spring-boot.html#running-the-application-on-open-liberty[Running the application on Open Liberty] section.
+If you are working on a Linux system with kernel version 5.9 or greater, you can continue on this section, otherwise, go to the <<running-the-application-on-open-liberty>> section. You can run the following command to check out the kernel version of your system:
 
 [role='command']
 ```
 uname -r
 ```
 
-You built the `springboot` docker container image in the previous section. Run the following command to take a the checkpoint of the application process with the `afterAppStart` option:
+You have built the `springboot` container image in the previous section. To take a checkpoint of the application process with the `afterAppStart` option, run the following command:
 
 [role='command']
 ```
@@ -234,7 +234,7 @@ docker run \
   springboot
 ```
 
-The `springBootCheckpointContainer` container from the previous step contains the data from the InstantOn checkpoint process. Take this checkpoint process data and commit it to an application container image layer by running the following commit commands:
+When the application process checkpoint completes, the `springBootCheckpointContainer` application container is stopped and exits. The stopped `springBootCheckpointContainer` container contains the data from the InstantOn checkpoint process. To take this checkpoint process data and commit it to an application container image layer, run the following commands:
 
 [role='command']
 ```
@@ -242,7 +242,10 @@ docker commit springBootCheckpointContainer springboot-instanton
 docker rm springBootCheckpointContainer
 ```
 
-Your `springboot-instanton` image appears in the list of Docker images:
+The stopped `springBootCheckpointContainer` container is no longer needed and can safely be removed.
+
+Your `springboot-instanton` image appears in the list of Docker images. It shows a faster startup time than the original `springboot` image.
+
 [role='no_copy']
 ```
 REPOSITORY             TAG       IMAGE ID       CREATED          SIZE
@@ -264,7 +267,7 @@ docker run \
   springboot-instanton
 ```
 
-You can run the following command to see the container logs:
+Run the following command to see the container logs:
 [role='command']
 ```
 docker logs springBootContainer
@@ -278,8 +281,7 @@ CWWKF0011I: The defaultServer server is ready to run a smarter planet. The defau
 
 Go to the http://localhost:9080/hello[^] URL to access the application.
 
-
-To stop and remove your container, run the following commands:
+After you are finished checking out the application, stop your container by running the following command:
 
 [role='command']
 ```
