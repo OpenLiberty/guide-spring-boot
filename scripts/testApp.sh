@@ -19,7 +19,7 @@ docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
 docker build -t springboot .
 docker run -d --name springBootContainer --rm -p 9080:9080 -p 9443:9443 springboot
 
-sleep 60
+sleep 40
 
 status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
 if [ "$status" == "200" ]; then
@@ -51,6 +51,7 @@ docker run --rm -d \
   -p 9080:9080 \
   springboot-instanton
 docker logs springBootContainer
+sleep 15
 status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
 docker stop springBootContainer
 if [ "$status" == "200" ]; then
