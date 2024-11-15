@@ -10,9 +10,9 @@
 :projectid: spring-boot
 :page-duration: 20 minutes
 :page-releasedate: 2019-11-04
-:page-majorupdateddate: 2024-12-15
+:page-majorupdateddate: 2024-12-02
 :page-description: Learn how to containerize, package, and run a Spring Boot application on Open Liberty.
-:page-tags: ['Docker']
+:page-tags: ['docker']
 :page-related-guides: ['rest-intro', 'containerize']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
