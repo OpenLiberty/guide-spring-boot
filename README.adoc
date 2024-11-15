@@ -228,7 +228,7 @@ You have built the `springboot` container image in the previous section. To take
 
 [role='command']
 ```
-docker run -d \
+docker run \
   --name springBootCheckpointContainer \
   --privileged \
   --env WLP_CHECKPOINT=afterAppStart \
