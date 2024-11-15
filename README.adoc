@@ -161,7 +161,7 @@ springboot    latest    3a5492c0cbeb     27 seconds ago    789MB
 Now, you can run the Spring Boot application in a Docker container:
 [role='command']
 ```
-docker run --rm -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
+docker run -d --name springBootContainer --rm -p 9080:9080 -p 9443:9443 springboot
 ```
 
 Before you access your application from the browser, run the `docker ps` command to make sure that your container is running:
@@ -228,7 +228,7 @@ You have built the `springboot` container image in the previous section. To take
 
 [role='command']
 ```
-docker run \
+docker run -d \
   --name springBootCheckpointContainer \
   --privileged \
   --env WLP_CHECKPOINT=afterAppStart \
