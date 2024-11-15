@@ -276,12 +276,14 @@ docker run \
 ```
 
 Run the following command to see the container logs:
+
 [role='command']
 ```
 docker logs springBootContainer
 ```
 
 Liberty’s startup is complete in less than a second:
+
 [role='no_copy']
 ----
 CWWKF0011I: The defaultServer server is ready to run a smarter planet.
@@ -297,7 +299,7 @@ After you are finished checking out the application, stop your container by runn
 docker stop springBootContainer
 ```
 
- To learn more about the Liberty InstantOn feature, see the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] documentation.
+To learn more about the Liberty InstantOn feature, see the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] documentation.
 
 endif::[]
 
