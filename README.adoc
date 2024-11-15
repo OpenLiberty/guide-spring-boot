@@ -178,7 +178,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
 ----
 
-After you are finished checking out the application, stop and remove your container by running the following command:
+You can watch the application start by monitoring the logs:
 [role='command']
 ```
 docker logs springBootContainer
