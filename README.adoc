@@ -187,7 +187,8 @@ docker logs springBootContainer
 Wait for the following message, which indicates that Liberty’s startup is complete in several seconds:
 [role='no_copy']
 ----
-CWWKF0011I: The defaultServer server is ready to run a smarter planet. The defaultServer server started in 7.121 seconds.
+CWWKF0011I: The defaultServer server is ready to run a smarter planet.
+The defaultServer server started in 7.121 seconds.
 ----
 
 // Static guide instruction
@@ -212,11 +213,11 @@ docker stop springBootContainer
 ```
 
 ifndef::cloud-hosted[]
-== Faster startup the container with Open Liberty InstantOn - Optional
+== Faster starting up the container with InstantOn - Optional
 
-In this section, you’ll learn how to build an InstantOn image that provides fast startup times. Your application can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features. To learn more about the Liberty InstantOn feature, see the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] documentation.
+Open Liberty InstantOn provides fast startup times for MicroProfile and Jakarta EE applications. In this section, you’ll learn how to build an InstantOn image that provides fast startup times. Your application can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features.
 
-If you are working on a Linux system with kernel version 5.9 or greater, you can continue on this section, otherwise, go to the <<running-the-application-on-open-liberty>> section. You can run the following command to check out the kernel version of your system:
+If you are working on a Linux system with kernel version 5.9 or greater, you can continue this section, otherwise, go to the <<running-the-application-on-open-liberty>> section. You can run the following command to check out the kernel version of your system:
 
 [role='command']
 ```
@@ -283,7 +284,8 @@ docker logs springBootContainer
 Liberty’s startup is complete in less than a second:
 [role='no_copy']
 ----
-CWWKF0011I: The defaultServer server is ready to run a smarter planet. The defaultServer server started in 0.323 seconds.
+CWWKF0011I: The defaultServer server is ready to run a smarter planet.
+The defaultServer server started in 0.323 seconds.
 ----
 
 Go to the http://localhost:9080/hello[^] URL to access the application.
@@ -295,6 +297,8 @@ After you are finished checking out the application, stop your container by runn
 docker stop springBootContainer
 ```
 endif::[]
+
+ To learn more about the Liberty InstantOn feature, see the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] documentation.
 
 
 == Running the application on Open Liberty
