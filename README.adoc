@@ -245,7 +245,7 @@ docker rm springBootCheckpointContainer
 
 The stopped `springBootCheckpointContainer` container is no longer needed and can safely be removed.
 
-To verify that the images are built, run the `docker images` command to list all local Docker images:
+To verify that the InstantOn image is built, run the `docker images` command to list all local Docker images:
 
 [role='command']
 ```
@@ -296,9 +296,10 @@ After you are finished checking out the application, stop your container by runn
 ```
 docker stop springBootContainer
 ```
-endif::[]
 
  To learn more about the Liberty InstantOn feature, see the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] documentation.
+
+endif::[]
 
 
 == Running the application on Open Liberty
