@@ -29,7 +29,7 @@ Learn how to containerize, package, and run a Spring Boot application on Open Li
 
 == What you'll learn
 
-The starting point of this guide is the finished application from the https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 17 is required to run this project.
+The starting point of this guide is the finished application from the https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 21 is required to run this project.
 
 You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on Open Liberty without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file.
 
@@ -124,7 +124,7 @@ Navigate to the `start` directory.
 ---- 
 
 Dockerfile
-[source, Text, linenums, role='code_column'] 
+[source, Text, linenums, role='code_column hide_tags==cracXml'] 
 ---- 
 include::finish/Dockerfile[]
 ---- 
@@ -155,7 +155,7 @@ Your `springboot` image appears in the list of Docker images:
 [role='no_copy']
 ```
 REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
-springboot    latest    3a5492c0cbeb     27 seconds ago    789MB
+springboot    latest    3a5492c0cbeb     27 seconds ago    485MB
 ```
 
 Now, you can run the Spring Boot application in a Docker container:
@@ -224,7 +224,33 @@ If you are working on a Linux system with kernel version 5.9 or greater, you can
 uname -r
 ```
 
-You have built the `springboot` container image in the previous section. To take a checkpoint of the application process with the `afterAppStart` option, run the following command:
+[role="code_command hotspot file=0", subs="quotes"]
+----
+#Replace the `Dockerfile` in the `start` directory.#
+`Dockerfile`
+----
+
+Dockerfile
+[source, Text, linenums, role='code_column']
+----
+include::finish/Dockerfile[]
+----
+
+crac.xml
+[source, xml, linenums, role='code_column']
+----
+include::start/src/main/liberty/config/crac.xml[]
+----
+
+Copy the [hotspot=cracXml file=0]`crac.xml` configuration file to the Liberty `configDropins` configuration directory. The [hotspot=crac file=1]`crac` feature enables Liberty to use the Liberty’s implementation of `org.crac` and more logs from Spring when the application is restoring.
+
+Run the following command to rebuild the Docker image:
+[role='command']
+```
+docker build -t springboot .
+```
+
+To take a checkpoint of the application process with the `afterAppStart` option, run the following command:
 
 [role='command']
 ```
@@ -258,7 +284,7 @@ Your `springboot-instanton` image appears in the list of Docker images. It shows
 ```
 REPOSITORY             TAG       IMAGE ID       CREATED          SIZE
 springboot-instanton   latest    c4aabcdd64bf   20 seconds ago   879MB
-springboot             latest    3a5492c0cbeb   14 minutes ago   789MB
+springboot             latest    3a5492c0cbeb   14 minutes ago   485MB
 ```
 
 Run the `springboot-instanton` InstantOn application image by the following command:
