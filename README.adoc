@@ -124,7 +124,7 @@ Navigate to the `start` directory.
 ---- 
 
 Dockerfile
-[source, Text, linenums, role='code_column hide_tags==cracXml'] 
+[source, Text, linenums, role='code_column']
 ---- 
 include::finish/Dockerfile[]
 ---- 
@@ -235,7 +235,7 @@ The https://openliberty.io/docs/latest/reference/feature/crac.html[Coordinated R
 Dockerfile
 [source, Text, linenums, role='code_column']
 ----
-include::finish/Dockerfile[]
+include::instantOn/Dockerfile[]
 ----
 
 crac.xml
