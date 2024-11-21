@@ -241,7 +241,7 @@ include::instantOn/Dockerfile[]
 crac.xml
 [source, xml, linenums, role='code_column']
 ----
-include::finish/src/main/liberty/config/crac.xml[]
+include::finish/src/main/liberty/instantOn/crac.xml[]
 ----
 
 Copy the provided [hotspot=cracXml file=0]`crac.xml` configuration file to the Liberty `configDropins` configuration directory. The crac.xml file enables the [hotspot=crac file=1]`crac` feature to the Liberty instance.

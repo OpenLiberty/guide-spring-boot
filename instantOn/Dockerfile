@@ -41,7 +41,7 @@ RUN cp /opt/ol/wlp/templates/servers/springBoot3/server.xml /config/server.xml
 # end::serverXml[]
 
 # tag::cracXml[]
-COPY --chown=1001:0 src/main/liberty/config/crac.xml /config/configDropins/defaults/crac.xml
+COPY --chown=1001:0 src/main/liberty/instantOn/crac.xml /config/configDropins/defaults/crac.xml
 # end::cracXml[]
 
 RUN features.sh
