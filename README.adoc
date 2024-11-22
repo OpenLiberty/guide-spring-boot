@@ -175,7 +175,7 @@ You see an entry similar to the following example:
 [role='no_copy']
 ----
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
-e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
+e33532aa07d6        springboot          "/opt/ol/helpers/run…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
 ----
 
 You can watch the application start by monitoring the logs:
@@ -187,6 +187,9 @@ docker logs springBootContainer
 Wait for the following message, which indicates that Liberty’s startup is complete in several seconds:
 [role='no_copy']
 ----
+...
+CWWKZ0001I: Application thin-guide-spring-boot-0.1.0 started in 5.542 seconds.
+...
 CWWKF0011I: The defaultServer server is ready to run a smarter planet.
 The defaultServer server started in 7.121 seconds.
 ----
@@ -284,9 +287,9 @@ Your `springboot-instanton` image appears in the list of Docker images. It shows
 
 [role='no_copy']
 ```
-REPOSITORY             TAG       IMAGE ID       CREATED          SIZE
-springboot-instanton   latest    c4aabcdd64bf   20 seconds ago   879MB
-springboot             latest    3a5492c0cbeb   14 minutes ago   485MB
+REPOSITORY             TAG      IMAGE ID       CREATED          SIZE
+springboot-instanton   latest   c4aabcdd64bf   20 seconds ago   577MB
+springboot             latest   3a5492c0cbeb   14 minutes ago   485MB
 ```
 
 Run the `springboot-instanton` InstantOn application image by the following command:
@@ -310,10 +313,17 @@ Run the following command to see the container logs:
 docker logs springBootContainer
 ```
 
-Liberty’s startup is complete in less than a second:
+You see more logs from Spring for restoring. Liberty’s startup is complete in less than a second:
 
 [role='no_copy']
 ----
+2024-11-22T16:33:43.349Z  INFO 1027 --- [ecutor-thread-1] o.s.c.support.DefaultLifecycleProcessor  : Restarting Spring-managed lifecycle beans after JVM restore
+...
+2024-11-22T16:33:43.562Z  INFO 1027 --- [ecutor-thread-1] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 135784 ms
+2024-11-22T16:33:43.568Z  INFO 1027 --- [ecutor-thread-1] o.s.c.support.DefaultLifecycleProcessor  : Spring-managed lifecycle restart completed (restored JVM running for 525 ms)
+...
+CWWKZ0001I: Application thin-guide-spring-boot-0.1.0 started in 0.585 seconds.
+...
 CWWKF0011I: The defaultServer server is ready to run a smarter planet.
 The defaultServer server started in 0.323 seconds.
 ----
