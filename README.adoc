@@ -29,7 +29,7 @@ Learn how to containerize, package, and run a Spring Boot application on Open Li
 
 == What you'll learn
 
-The starting point of this guide is the finished application from the https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 17 is required to run this project.
+The starting point of this guide is the finished application from the https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 21 is required to run this project.
 
 You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on Open Liberty without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file.
 
@@ -124,7 +124,7 @@ Navigate to the `start` directory.
 ---- 
 
 Dockerfile
-[source, Text, linenums, role='code_column'] 
+[source, Text, linenums, role='code_column']
 ---- 
 include::finish/Dockerfile[]
 ---- 
@@ -155,7 +155,7 @@ Your `springboot` image appears in the list of Docker images:
 [role='no_copy']
 ```
 REPOSITORY    TAG       IMAGE ID         CREATED           SIZE
-springboot    latest    3a5492c0cbeb     27 seconds ago    789MB
+springboot    latest    3a5492c0cbeb     27 seconds ago    485MB
 ```
 
 Now, you can run the Spring Boot application in a Docker container:
@@ -175,7 +175,7 @@ You see an entry similar to the following example:
 [role='no_copy']
 ----
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
-e33532aa07d6        springboot          "/opt/ibm/docker/doc…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
+e33532aa07d6        springboot          "/opt/ol/helpers/run…"   7 seconds ago       Up 2 seconds        0.0.0.0:9080->9080/tcp, 0.0.0.0:9443->9443/tcp   springBootContainer
 ----
 
 You can watch the application start by monitoring the logs:
@@ -187,6 +187,9 @@ docker logs springBootContainer
 Wait for the following message, which indicates that Liberty’s startup is complete in several seconds:
 [role='no_copy']
 ----
+...
+CWWKZ0001I: Application thin-guide-spring-boot-0.1.0 started in 5.542 seconds.
+...
 CWWKF0011I: The defaultServer server is ready to run a smarter planet.
 The defaultServer server started in 7.121 seconds.
 ----
@@ -224,7 +227,35 @@ If you are working on a Linux system with kernel version 5.9 or greater, you can
 uname -r
 ```
 
-You have built the `springboot` container image in the previous section. To take a checkpoint of the application process with the `afterAppStart` option, run the following command:
+The https://openliberty.io/docs/latest/reference/feature/crac.html[Coordinated Restore at Checkpoint^] feature enables Liberty to use the Liberty’s implementation of https://javadoc.io/doc/org.crac/crac/1.4.0/index.html[org.crac^] APIs and more logs from Spring when the application is restoring.
+
+[role="code_command hotspot file=0", subs="quotes"]
+----
+#Replace the `Dockerfile` in the `start` directory.#
+`Dockerfile`
+----
+
+Dockerfile
+[source, Text, linenums, role='code_column']
+----
+include::instantOn/Dockerfile[]
+----
+
+crac.xml
+[source, xml, linenums, role='code_column']
+----
+include::finish/src/main/liberty/instantOn/crac.xml[]
+----
+
+Copy the provided [hotspot=cracXml file=0]`crac.xml` configuration file to the Liberty `configDropins` configuration directory. The crac.xml file enables the [hotspot=crac file=1]`crac` feature to the Liberty instance.
+
+Run the following command to rebuild the Docker image:
+[role='command']
+```
+docker build -t springboot .
+```
+
+To take a checkpoint of the application process with the `afterAppStart` option, run the following command:
 
 [role='command']
 ```
@@ -256,9 +287,9 @@ Your `springboot-instanton` image appears in the list of Docker images. It shows
 
 [role='no_copy']
 ```
-REPOSITORY             TAG       IMAGE ID       CREATED          SIZE
-springboot-instanton   latest    c4aabcdd64bf   20 seconds ago   879MB
-springboot             latest    3a5492c0cbeb   14 minutes ago   789MB
+REPOSITORY             TAG      IMAGE ID       CREATED          SIZE
+springboot-instanton   latest   c4aabcdd64bf   20 seconds ago   577MB
+springboot             latest   3a5492c0cbeb   14 minutes ago   485MB
 ```
 
 Run the `springboot-instanton` InstantOn application image by the following command:
@@ -282,10 +313,17 @@ Run the following command to see the container logs:
 docker logs springBootContainer
 ```
 
-Liberty’s startup is complete in less than a second:
+You see more logs from Spring for restoring. Liberty’s startup is complete in less than a second:
 
 [role='no_copy']
 ----
+2024-11-22T16:33:43.349Z  INFO 1027 --- [ecutor-thread-1] o.s.c.support.DefaultLifecycleProcessor  : Restarting Spring-managed lifecycle beans after JVM restore
+...
+2024-11-22T16:33:43.562Z  INFO 1027 --- [ecutor-thread-1] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 135784 ms
+2024-11-22T16:33:43.568Z  INFO 1027 --- [ecutor-thread-1] o.s.c.support.DefaultLifecycleProcessor  : Spring-managed lifecycle restart completed (restored JVM running for 525 ms)
+...
+CWWKZ0001I: Application thin-guide-spring-boot-0.1.0 started in 0.585 seconds.
+...
 CWWKF0011I: The defaultServer server is ready to run a smarter planet.
 The defaultServer server started in 0.323 seconds.
 ----
@@ -298,6 +336,8 @@ After you are finished checking out the application, stop your container by runn
 ```
 docker stop springBootContainer
 ```
+
+If you use Podman instead of Docker, you can build your InstantOn image in a simply way. Read the https://openliberty.io/docs/latest/instanton.html#checkpoint_script[Building the InstantOn image with Podman and the checkpoint.sh script^] documentation.
 
 To learn more about the Liberty InstantOn feature, see the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] documentation.
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="Enable the org.crac API">
+
+    <featureManager>
+        <!-- tag::crac[] -->
+        <feature>crac-1.4</feature>
+        <!-- end::crac[] -->
+    </featureManager>
+
+</server>
