@@ -227,7 +227,7 @@ If you are working on a Linux system with kernel version 5.9 or greater, you can
 uname -r
 ```
 
-The https://openliberty.io/docs/latest/reference/feature/crac.html[Coordinated Restore at Checkpoint^] feature enables applications to use Liberty’s implementation of the https://javadoc.io/doc/org.crac/crac/1.4.0/index.html[org.crac^] APIs. The Spring Framework hooks into the checkpoint and restore when the `org.crac` APIs are enabled. 
+The https://openliberty.io/docs/latest/reference/feature/crac.html[Coordinated Restore at Checkpoint^] (`crac`) feature enables applications to use Liberty’s implementation of the https://javadoc.io/doc/org.crac/crac/1.4.0/index.html[org.crac^] APIs. The Spring Framework hooks into the checkpoint and restore when the `org.crac` APIs are enabled.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
@@ -247,7 +247,7 @@ crac.xml
 include::finish/src/main/liberty/instantOn/crac.xml[]
 ----
 
-Copy the provided [hotspot=cracXml file=0]`crac.xml` configuration file to the Liberty `configDropins` configuration directory. The crac.xml file enables the [hotspot=crac file=1]`crac` feature to the Liberty instance.
+To enable the `crac` feature, add the `COPY` command that copies the provided [hotspot=cracXml file=0]`crac.xml` configuration file to the Liberty `configDropins` configuration directory. The crac.xml file enables the [hotspot=crac file=1]`crac` feature to the Liberty instance.
 
 Run the following command to rebuild the Docker image:
 [role='command']
