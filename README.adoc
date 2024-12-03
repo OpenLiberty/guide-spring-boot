@@ -227,7 +227,7 @@ InstantOn requires a Linux system with kernel version 5.9 or greater. If your sy
 uname -r
 ```
 
-The https://openliberty.io/docs/latest/reference/feature/crac.html[Coordinated Restore at Checkpoint^] (`crac`) feature enables applications to use Liberty InstantOn implementation of the https://javadoc.io/doc/org.crac/crac/1.4.0/index.html[org.crac^] APIs. The Spring Framework hooks into the checkpoint and restore when the `org.crac` APIs are enabled.
+The https://openliberty.io/docs/latest/reference/feature/crac.html[Coordinated Restore at Checkpoint^] (`crac`) feature enables applications to use the Liberty InstantOn implementation of the https://javadoc.io/doc/org.crac/crac/1.4.0/index.html[org.crac^] APIs. The Spring Framework hooks into the checkpoint and restore when the `org.crac` APIs are enabled.
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
