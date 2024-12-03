@@ -227,7 +227,7 @@ If you are working on a Linux system with kernel version 5.9 or greater, you can
 uname -r
 ```
 
-The https://openliberty.io/docs/latest/reference/feature/crac.html[Coordinated Restore at Checkpoint^] feature enables Liberty to use the Liberty’s implementation of https://javadoc.io/doc/org.crac/crac/1.4.0/index.html[org.crac^] APIs and more logs from Spring when the application is restoring.
+The https://openliberty.io/docs/latest/reference/feature/crac.html[Coordinated Restore at Checkpoint^] feature enables applications to use Liberty’s implementation of the https://javadoc.io/doc/org.crac/crac/1.4.0/index.html[org.crac^] APIs. The Spring Framework hooks into the checkpoint and restore when the `org.crac` APIs are enabled. 
 
 [role="code_command hotspot file=0", subs="quotes"]
 ----
