@@ -184,7 +184,7 @@ You can watch the application start by monitoring the logs:
 docker logs springBootContainer
 ```
 
-Wait for the following message, which indicates that Liberty’s startup is complete in several seconds:
+Wait several seconds for the following message, which indicates that Liberty’s startup is complete:
 [role='no_copy']
 ----
 ...
