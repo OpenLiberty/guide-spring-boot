@@ -337,7 +337,7 @@ After you are finished checking out the application, stop your container by runn
 docker stop springBootContainer
 ```
 
-If you use Podman instead of Docker, you can build your InstantOn image in a simply way. Read the https://openliberty.io/docs/latest/instanton.html#checkpoint_script[Building the InstantOn image with Podman and the checkpoint.sh script^] documentation.
+If you use Podman instead of Docker, you can build your InstantOn image in a simplified way. Read the https://openliberty.io/docs/latest/instanton.html#checkpoint_script[Building the InstantOn image with Podman and the checkpoint.sh script^] documentation.
 
 To learn more about the Liberty InstantOn feature, see the https://openliberty.io/docs/latest/instanton.html[Faster startup for containerized applications with Open Liberty InstantOn^] documentation.
 
