@@ -249,7 +249,7 @@ crac.xml
 include::finish/src/main/liberty/instantOn/crac.xml[]
 ----
 
-To enable the `crac` feature, add the [hotspot=cracXml file=0]`COPY` command that copies the provided `crac.xml` configuration file to the Liberty `configDropins` configuration directory. The `crac.xml` file enables the [hotspot=crac file=1]`crac` feature to the Liberty instance.
+The [hotspot=cracXml file=0]`COPY` command copies the provided `crac.xml` configuration file to the Liberty `configDropins` configuration directory. The `crac.xml` file enables the [hotspot=crac file=1]`crac` feature to the Liberty instance.
 
 Run the following command to rebuild the Docker image:
 [role='command']
