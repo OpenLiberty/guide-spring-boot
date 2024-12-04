@@ -218,7 +218,7 @@ docker stop springBootContainer
 ifndef::cloud-hosted[]
 == Optional: Faster container startup with InstantOn
 
-Open Liberty InstantOn provides fast startup times for MicroProfile and Jakarta EE applications. In this section, you’ll learn how to build an InstantOn image that provides fast startup times. Your application can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features.
+Liberty InstantOn provides fast startup times for MicroProfile and Jakarta EE applications. In this section, you’ll learn how to build an InstantOn image that provides fast startup times. Your application can start in milliseconds, without compromising on throughput, memory, development-production parity, or Java language features.
 
 InstantOn requires a Linux system with kernel version 5.9 or greater. If your system does not meet this prerequisite, go to the <<running-the-application-on-open-liberty>> section. You can run the following command to check out the kernel version of your system:
 
