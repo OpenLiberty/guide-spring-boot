@@ -10,7 +10,7 @@
 :projectid: spring-boot
 :page-duration: 20 minutes
 :page-releasedate: 2019-11-04
-:page-majorupdateddate: 2024-12-02
+:page-majorupdateddate: 2024-12-05
 :page-description: Learn how to containerize, package, and run a Spring Boot application on Open Liberty.
 :page-tags: ['docker']
 :page-related-guides: ['rest-intro', 'containerize']
@@ -31,7 +31,7 @@ Learn how to containerize, package, and run a Spring Boot application on Open Li
 
 The starting point of this guide is the finished application from the https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot^] guide. If you are not familiar with Spring Boot, complete that guide first. Java 21 is required to run this project.
 
-You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on Open Liberty without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file.
+You will learn how to use the `springBootUtility` command to deploy a Spring Boot application in Docker on Open Liberty without modification. This command stores the dependent library JAR files of the application to the target library cache, and packages the remaining application artifacts into a thin application JAR file. Optionally, you will learn how to use Liberty InstantOn with your Spring Boot application for faster startup.
 
 You will also learn how to run the Spring Boot application locally with Open Liberty, and how to package it so that it is embedded with an Open Liberty server package.
 
@@ -285,7 +285,7 @@ To verify that the InstantOn image is built, run the `docker images` command to 
 docker images
 ```
 
-Your `springboot-instanton` image appears in the list of Docker images. It shows a faster startup time than the original `springboot` image.
+Your `springboot-instanton` image appears in the list of Docker images.
 
 [role='no_copy']
 ```
@@ -315,7 +315,7 @@ Run the following command to see the container logs:
 docker logs springBootContainer
 ```
 
-You see more logs from Spring for restoring. Liberty’s startup is complete in less than a second:
+You see more logs from Spring for restoring. Liberty’s startup is complete in less than a second. It shows a faster startup time than the original `springboot` image that you built in the previous section.
 
 [role='no_copy']
 ----
