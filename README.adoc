@@ -188,11 +188,13 @@ Wait several seconds for the following message, which indicates that Liberty’s
 [role='no_copy']
 ----
 ...
-CWWKZ0001I: Application thin-guide-spring-boot-0.1.0 started in 5.542 seconds.
+CWWKZ0001I: Application thin-guide-spring-boot-0.1.0 started in 8.033 seconds.
 ...
 CWWKF0011I: The defaultServer server is ready to run a smarter planet.
-The defaultServer server started in 7.121 seconds.
+The defaultServer server started in 11.065 seconds.
 ----
+
+Note that the `thin-guide-spring-boot-0.1.0` application took 8.033 seconds to start.
 
 // Static guide instruction
 ifndef::cloud-hosted[]
@@ -268,7 +270,7 @@ docker run \
   springboot
 ```
 
-When the application process checkpoint completes, the `springBootCheckpointContainer` application container is stopped and exits. The stopped `springBootCheckpointContainer` container contains the data from the InstantOn checkpoint process. To take this checkpoint process data and commit it to an application container image layer, run the following commands:
+When the application process checkpoint completes, the `springBootCheckpointContainer` application container is stopped and exits. The stopped `springBootCheckpointContainer` container contains the data from the InstantOn checkpoint process. Take this checkpoint process data and commit it to an application container image layer called `springboot-instanton`, run the following commands:
 
 [role='command']
 ```
@@ -290,11 +292,11 @@ Your `springboot-instanton` image appears in the list of Docker images.
 [role='no_copy']
 ```
 REPOSITORY             TAG      IMAGE ID       CREATED          SIZE
-springboot-instanton   latest   c4aabcdd64bf   20 seconds ago   577MB
-springboot             latest   3a5492c0cbeb   14 minutes ago   485MB
+springboot-instanton   latest   c4aabcdd64bf   20 seconds ago   583MB
+springboot             latest   3a5492c0cbeb   14 minutes ago   484MB
 ```
 
-Run the `springboot-instanton` InstantOn application image by the following command:
+Run the `springboot-instanton` InstantOn application image by running the following command:
 
 [role='command']
 ```
@@ -315,7 +317,7 @@ Run the following command to see the container logs:
 docker logs springBootContainer
 ```
 
-You see more logs from Spring for restoring. Liberty’s startup is complete in less than a second. It shows a faster startup time than the original `springboot` image that you built in the previous section.
+You see more logs from Spring for restoring. Liberty’s startup is complete in less than a second. It shows a faster startup time of 0.874 seconds than the original `springboot` image that you built in the previous section.
 
 [role='no_copy']
 ----
@@ -324,10 +326,10 @@ You see more logs from Spring for restoring. Liberty’s startup is complete in 
 2024-11-22T16:33:43.562Z  INFO 1027 --- [ecutor-thread-1] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 135784 ms
 2024-11-22T16:33:43.568Z  INFO 1027 --- [ecutor-thread-1] o.s.c.support.DefaultLifecycleProcessor  : Spring-managed lifecycle restart completed (restored JVM running for 525 ms)
 ...
-CWWKZ0001I: Application thin-guide-spring-boot-0.1.0 started in 0.585 seconds.
+CWWKZ0001I: Application thin-guide-spring-boot-0.1.0 started in 0.874 seconds.
 ...
 CWWKF0011I: The defaultServer server is ready to run a smarter planet.
-The defaultServer server started in 0.323 seconds.
+The defaultServer server started in 0.897 seconds.
 ----
 
 Go to the http://localhost:9080/hello[^] URL to access the application.
