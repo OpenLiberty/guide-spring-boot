@@ -70,6 +70,7 @@ cd start
 cd start
 ./mvnw package
 ```
+--
 
 You can now run the application in the embedded Tomcat web container by executing the JAR file that you built:
 
