@@ -10,7 +10,7 @@
 :projectid: spring-boot
 :page-duration: 20 minutes
 :page-releasedate: 2019-11-04
-:page-majorupdateddate: 2025-01-14
+:page-majorupdateddate: 2025-01-08
 :page-description: Learn how to containerize, package, and run a Spring Boot application on Open Liberty.
 :page-tags: ['docker']
 :page-related-guides: ['rest-intro', 'containerize']
@@ -54,7 +54,7 @@ mvnw.cmd package
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
 --
 [role='command']
 ```
@@ -62,6 +62,14 @@ cd start
 ./mvnw package
 ```
 --
+
+[.tab_content.linux_section]
+--
+[role='command']
+```
+cd start
+./mvnw package
+```
 
 You can now run the application in the embedded Tomcat web container by executing the JAR file that you built:
 
@@ -399,7 +407,15 @@ mvnw.cmd package
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw package
+```
+--
+
+[.tab_content.linux_section]
 --
 [role='command']
 ```
@@ -419,7 +435,15 @@ mvnw.cmd liberty:run
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw liberty:run
+```
+--
+
+[.tab_content.linux_section]
 --
 [role='command']
 ```
@@ -459,7 +483,15 @@ mvnw.cmd liberty:stop
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw liberty:stop
+```
+--
+
+[.tab_content.linux_section]
 --
 [role='command']
 ```
@@ -504,7 +536,15 @@ mvnw.cmd package
 ```
 --
 
-[.tab_content.mac_section.linux_section]
+[.tab_content.mac_section]
+--
+[role='command']
+```
+./mvnw package
+```
+--
+
+[.tab_content.linux_section]
 --
 [role='command']
 ```
