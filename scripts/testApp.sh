@@ -17,9 +17,9 @@ set -euxo pipefail
 docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
 
 docker build -t springboot .
-docker run -d --name springBootContainer -p 9080:9080 -p 9443:9443 springboot
+docker run -d --name springBootContainer --rm -p 9080:9080 -p 9443:9443 springboot
 
-sleep 60
+sleep 40
 
 status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
 if [ "$status" == "200" ]; then
@@ -29,7 +29,6 @@ else
   echo ENDPOINT NOT OK
   docker exec springBootContainer cat /logs/messages.log
   docker stop springBootContainer
-  docker rm springBootContainer
   exit 1
 fi
 
@@ -37,10 +36,42 @@ docker exec springBootContainer cat /logs/messages.log | grep product
 docker exec springBootContainer cat /logs/messages.log | grep java
 
 docker stop springBootContainer
-docker rm springBootContainer
+
+uname -r
+
+docker run --name springBootCheckpointContainer --privileged --env WLP_CHECKPOINT=afterAppStart springboot
+docker commit springBootCheckpointContainer springboot-instanton
+docker rm springBootCheckpointContainer
+docker images
+docker run --rm -d \
+  --name springBootContainer \
+  --cap-add=CHECKPOINT_RESTORE \
+  --cap-add=SETPCAP \
+  --security-opt seccomp=unconfined \
+  -p 9080:9080 \
+  springboot-instanton
+docker logs springBootContainer
+sleep 15
+status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
+docker stop springBootContainer
+if [ "$status" == "200" ]; then
+  echo ENDPOINT OK
+else
+  echo "$status"
+  echo ENDPOINT NOT OK
+  exit 1
+fi
 
 ./mvnw -ntp liberty:start
-curl http://localhost:9080/hello
+status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
+if [ "$status" == "200" ]; then
+  echo ENDPOINT OK
+else
+  echo "$status"
+  echo ENDPOINT NOT OK
+  ./mvnw -ntp liberty:stop
+  exit 1
+fi
 ./mvnw -ntp liberty:stop
 
 if [ ! -f "target/GSSpringBootApp.jar" ]; then
