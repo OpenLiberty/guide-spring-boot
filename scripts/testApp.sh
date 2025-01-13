@@ -38,7 +38,7 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 
 uname -r
-
+cp ../instantOn/Dockerfile Dockerfile
 docker run --name springBootCheckpointContainer --privileged --env WLP_CHECKPOINT=afterAppStart springboot
 docker commit springBootCheckpointContainer springboot-instanton
 docker rm springBootCheckpointContainer
@@ -50,8 +50,8 @@ docker run --rm -d \
   --security-opt seccomp=unconfined \
   -p 9080:9080 \
   springboot-instanton
+sleep 10
 docker logs springBootContainer
-sleep 15
 status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
 docker stop springBootContainer
 if [ "$status" == "200" ]; then
