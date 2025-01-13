@@ -38,7 +38,7 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 
 uname -r
-
+cp ../instantOn/Dockerfile Dockerfile
 docker run --name springBootCheckpointContainer --privileged --env WLP_CHECKPOINT=afterAppStart springboot
 docker commit springBootCheckpointContainer springboot-instanton
 docker rm springBootCheckpointContainer
