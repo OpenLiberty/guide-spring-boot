@@ -39,10 +39,11 @@ docker stop springBootContainer
 
 uname -r
 sudo add-apt-repository universe
-sudo apt-get update
+sudo add-apt-repository ppa:criu/ppa
+sudo apt update
 sudo apt-get install -y criu
+sudo criu check
 criu --version
-criu check
 cp ../instantOn/Dockerfile Dockerfile
 docker run --name springBootCheckpointContainer --privileged --cap-add=CHECKPOINT_RESTORE --cap-add=SYS_PTRACE --cap-add=SETPCAP -e XDG_RUNTIME_DIR=/tmp --env WLP_CHECKPOINT=afterAppStart springboot
 docker commit springBootCheckpointContainer springboot-instanton
