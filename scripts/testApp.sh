@@ -38,6 +38,7 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 
 uname -r
+sudo apt-get update
 sudo apt-get install -y criu
 criu --version
 criu check
