@@ -38,6 +38,8 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 
 uname -r
+sudo apt-get install -y criu
+criu --version
 criu check
 cp ../instantOn/Dockerfile Dockerfile
 docker run --name springBootCheckpointContainer --privileged --cap-add=CHECKPOINT_RESTORE --cap-add=SYS_PTRACE --cap-add=SETPCAP -e XDG_RUNTIME_DIR=/tmp --env WLP_CHECKPOINT=afterAppStart springboot
