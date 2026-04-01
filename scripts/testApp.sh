@@ -45,7 +45,15 @@ sudo apt-get install -y criu
 sudo criu check
 criu --version
 cp ../instantOn/Dockerfile Dockerfile
-docker run --name springBootCheckpointContainer --privileged --cap-add=CHECKPOINT_RESTORE --cap-add=SYS_PTRACE --cap-add=SETPCAP -e XDG_RUNTIME_DIR=/tmp --env WLP_CHECKPOINT=afterAppStart springboot
+docker run --name springBootCheckpointContainer \
+  --privileged \
+  --security-opt seccomp=unconfined \
+  --cap-add=CHECKPOINT_RESTORE \
+  --cap-add=SYS_PTRACE \
+  --cap-add=SETPCAP \
+  -e XDG_RUNTIME_DIR=/tmp \
+  -e WLP_CHECKPOINT=afterAppStart \
+  springboot
 docker commit springBootCheckpointContainer springboot-instanton
 docker rm springBootCheckpointContainer
 docker images
