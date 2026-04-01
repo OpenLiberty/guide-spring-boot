@@ -44,6 +44,7 @@ sudo apt update
 sudo apt-get install -y criu
 sudo criu check
 criu --version
+sudo criu check --all
 cp ../instantOn/Dockerfile Dockerfile
 docker run --name springBootCheckpointContainer \
   --privileged \
