@@ -65,6 +65,9 @@ docker run -d --name springBootCheckpointContainer \
 docker ps -a
 sleep 30
 docker logs springBootCheckpointContainer
+sleep 50
+docker logs springBootCheckpointContainer
+cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
 # docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
 # cat checkpoint.log
 docker commit springBootCheckpointContainer springboot-instanton
