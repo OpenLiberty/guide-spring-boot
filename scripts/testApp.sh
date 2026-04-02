@@ -45,8 +45,10 @@ sudo apt-get install -y criu
 sudo criu check
 criu --version
 sudo criu check --all
+capsh --print 
+grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
-docker run --name springBootCheckpointContainer \
+docker run -d --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
   --cap-add=CHECKPOINT_RESTORE \
@@ -54,7 +56,7 @@ docker run --name springBootCheckpointContainer \
   --cap-add=SETPCAP \
   -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
-  springboot
+  springboot && docker inspect springBootCheckpointContainer | jq '.[0].HostConfig.CapAdd, .[0].HostConfig.Privileged'
 docker commit springBootCheckpointContainer springboot-instanton
 docker rm springBootCheckpointContainer
 docker images
