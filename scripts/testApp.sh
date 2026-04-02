@@ -62,6 +62,8 @@ docker run --name springBootCheckpointContainer \
   springboot
 #  -e WLP_CHECKPOINT=afterAppStart \
 docker ps -a
+sleep 50
+docker exec springBootCheckpointContainer /opt/ol/wlp/bin/checkpoint.sh afterAppStart 
 #docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
 docker logs springBootCheckpointContainer
 #cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
