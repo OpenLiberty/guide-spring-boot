@@ -80,7 +80,8 @@ docker run --rm -d \
   --security-opt seccomp=unconfined \
   -p 9080:9080 \
   springboot-instanton
-sleep 10
+sleep 40
+docker ps -a
 docker logs springBootContainer
 status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
 docker stop springBootContainer
