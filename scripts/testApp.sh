@@ -48,6 +48,7 @@ sudo criu check --all
 capsh --print 
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
+mkdir -p "$GITHUB_WORKSPACE/checkpoint-logs"
 docker run -d --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
@@ -63,11 +64,10 @@ docker run -d --name springBootCheckpointContainer \
   springboot && docker inspect springBootCheckpointContainer
 
 docker ps -a
-sleep 30
-docker logs springBootCheckpointContainer
-sleep 50
+docker exec -it springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
 docker logs springBootCheckpointContainer
 cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
+
 # docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
 # cat checkpoint.log
 docker commit springBootCheckpointContainer springboot-instanton
