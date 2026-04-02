@@ -48,11 +48,13 @@ sudo criu check --all
 capsh --print 
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
+cat Dockerfile
 docker run -d --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
-  --cap-add=CAP_NET_ADMIN \
+  --cap-add=SYS_ADMIN \
+  --cap-add=NET_ADMIN \
   --cap-add=CHECKPOINT_RESTORE \
   --cap-add=SYS_PTRACE \
   --cap-add=SETPCAP \
