@@ -38,10 +38,17 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 
 uname -r
-sudo add-apt-repository universe
-sudo add-apt-repository ppa:criu/ppa
 sudo apt update
-sudo apt-get install -y criu
+sudo add-apt-repository universe
+# sudo add-apt-repository ppa:criu/ppa
+sudo apt install build-essential pkg-config libprotobuf-dev libprotobuf-c-dev \
+  protobuf-c-compiler protobuf-compiler python3-protobuf libbsd-dev \
+  libcap-dev libnl-3-dev libnet-dev libaio-dev libgnutls28-dev
+git clone https://github.com/checkpoint-restore/criu.git
+cd criu
+make
+sudo make install 
+#sudo apt-get install -y criu
 sudo criu check
 criu --version
 sudo criu check --all
@@ -64,9 +71,9 @@ docker run -d --name springBootCheckpointContainer \
   springboot && docker inspect springBootCheckpointContainer
 
 docker ps -a
-docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
+#docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
 docker logs springBootCheckpointContainer
-cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
+#cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
 
 # docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
 # cat checkpoint.log
