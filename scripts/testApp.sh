@@ -35,8 +35,8 @@ else
   exit 1
 fi
 
-docker logs springBootContainer | grep product
-docker logs springBootContainer | grep java
+#docker logs springBootContainer | grep product
+# docker logs springBootContainer | grep java
 docker rm -f springBootContainer
 
 uname -r
