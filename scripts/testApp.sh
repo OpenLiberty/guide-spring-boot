@@ -82,9 +82,19 @@ docker rm springBootCheckpointContainer
 docker images
 docker run --rm \
   --name springBootContainer \
-  --cap-add=CHECKPOINT_RESTORE \
-  --cap-add=SETPCAP \
+  --privileged \
   --security-opt seccomp=unconfined \
+  --security-opt apparmor=unconfined \
+  --cap-add=SYS_ADMIN \
+  --cap-add=NET_ADMIN \
+  --userns=host \
+  --network=host \
+  --cap-add=CHECKPOINT_RESTORE \
+  --cap-add=SYS_PTRACE \
+  --cap-add=SETPCAP \
+  --pid=host \
+  --cgroupns=host \
+  --ipc=host \
   -p 9080:9080 \
   springboot-instanton
 sleep 40
