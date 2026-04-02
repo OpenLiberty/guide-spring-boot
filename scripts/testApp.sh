@@ -56,8 +56,10 @@ docker run -d --name springBootCheckpointContainer \
   --cap-add=SETPCAP \
   -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
-  springboot && docker inspect springBootCheckpointContainer | jq '.[0].HostConfig.CapAdd, .[0].HostConfig.Privileged'
-docker logs springBootCheckpointContainer
+  springboot && docker inspect springBootCheckpointContainer
+docker ps -a
+docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
+cat checkpoint.log
 docker commit springBootCheckpointContainer springboot-instanton
 docker stop springBootCheckpointContainer
 docker rm springBootCheckpointContainer
