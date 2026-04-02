@@ -65,6 +65,9 @@ docker run --name springBootCheckpointContainer \
   springboot
 
 docker ps -a
+sleep 40
+docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log "$GITHUB_WORKSPACE/checkpoint.log"
+cat checkpoint.log
 #docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
 docker logs springBootCheckpointContainer
 #cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
