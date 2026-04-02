@@ -39,19 +39,9 @@ docker stop springBootContainer
 
 uname -r
 sudo add-apt-repository universe
-# sudo add-apt-repository ppa:criu/ppa
 sudo apt update
-sudo apt install -y build-essential pkg-config libprotobuf-dev libprotobuf-c-dev \
-  protobuf-c-compiler protobuf-compiler python3-protobuf libbsd-dev \
-  libcap-dev libnl-3-dev libnet-dev libaio-dev libgnutls28-dev python3-yaml \
-  libdrm-dev libseccomp-dev
-pip3 install pyyaml
-git clone https://github.com/checkpoint-restore/criu.git
-cd criu
-make clean
-make 
-sudo make install 
-#sudo apt-get install -y criu
+sudo add-apt-repository ppa:criu/ppa
+sudo apt-get install -y criu
 sudo criu check
 criu --version
 sudo criu check --all
@@ -63,15 +53,14 @@ docker run -d --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
-  --userns=host \
-  --network=host \
+  --cap-add=CAP_NET_ADMIN \
   --cap-add=CHECKPOINT_RESTORE \
   --cap-add=SYS_PTRACE \
   --cap-add=SETPCAP \
   -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
   -v "$GITHUB_WORKSPACE/checkpoint-logs:/liberty/logs/checkpoint" \
-  springboot && docker inspect springBootCheckpointContainer
+  springboot
 
 docker ps -a
 #docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
