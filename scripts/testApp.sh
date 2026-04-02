@@ -55,6 +55,8 @@ docker run --name springBootCheckpointContainer \
   --security-opt apparmor=unconfined \
   --cap-add=SYS_ADMIN \
   --cap-add=NET_ADMIN \
+  --userns=host \
+  --network=host \
   --cap-add=CHECKPOINT_RESTORE \
   --cap-add=SYS_PTRACE \
   --cap-add=SETPCAP \
