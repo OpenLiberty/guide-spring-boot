@@ -43,10 +43,13 @@ sudo add-apt-repository universe
 sudo apt update
 sudo apt install -y build-essential pkg-config libprotobuf-dev libprotobuf-c-dev \
   protobuf-c-compiler protobuf-compiler python3-protobuf libbsd-dev \
-  libcap-dev libnl-3-dev libnet-dev libaio-dev libgnutls28-dev python3-yaml
+  libcap-dev libnl-3-dev libnet-dev libaio-dev libgnutls28-dev python3-yaml \
+  libdrm-dev libseccomp-dev
+pip3 install pyyaml
 git clone https://github.com/checkpoint-restore/criu.git
 cd criu
-make
+make clean
+make 
 sudo make install 
 #sudo apt-get install -y criu
 sudo criu check
