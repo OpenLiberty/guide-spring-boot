@@ -75,7 +75,7 @@ podman run -d --name springBootCheckpointContainer \
   --cgroupns=host \
   --ipc=host \
   -e XDG_RUNTIME_DIR=/tmp \
-  -e WLP_CHECKPOINT=afterAppStart \
+  -e WLP_CHECKPOINT=beforeAppStart \
   "$APP_IMAGE"
 
 podman ps -a
