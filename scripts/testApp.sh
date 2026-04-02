@@ -57,7 +57,9 @@ docker run -d --name springBootCheckpointContainer \
   -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot && docker inspect springBootCheckpointContainer | jq '.[0].HostConfig.CapAdd, .[0].HostConfig.Privileged'
+docker logs springBootCheckpointContainer
 docker commit springBootCheckpointContainer springboot-instanton
+docker stop springBootCheckpointContainer
 docker rm springBootCheckpointContainer
 docker images
 docker run --rm -d \
