@@ -49,6 +49,7 @@ capsh --print
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
 docker run -d --name springBootCheckpointContainer \
+  -v "$GITHUB_WORKSPACE/checkpoint-logs:/liberty/logs/checkpoint" \
   --privileged \
   --security-opt seccomp=unconfined \
   --cap-add=CHECKPOINT_RESTORE \
@@ -57,6 +58,16 @@ docker run -d --name springBootCheckpointContainer \
   -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot && docker inspect springBootCheckpointContainer
+
+for i in $(seq 1 60):
+  if [ -f "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log" ]; then
+    echo "checkpoint.log found"
+    cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
+    break
+  else
+    echo "checkpoint.log not found, waiting..."
+    sleep 1
+  fi
 docker ps -a
 sleep 30
 docker logs springBootCheckpointContainer
