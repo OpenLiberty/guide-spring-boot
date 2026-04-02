@@ -38,12 +38,12 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 
 uname -r
-sudo apt update
 sudo add-apt-repository universe
 # sudo add-apt-repository ppa:criu/ppa
-sudo apt install build-essential pkg-config libprotobuf-dev libprotobuf-c-dev \
+sudo apt update
+sudo apt install -y build-essential pkg-config libprotobuf-dev libprotobuf-c-dev \
   protobuf-c-compiler protobuf-compiler python3-protobuf libbsd-dev \
-  libcap-dev libnl-3-dev libnet-dev libaio-dev libgnutls28-dev
+  libcap-dev libnl-3-dev libnet-dev libaio-dev libgnutls28-dev python3-yaml
 git clone https://github.com/checkpoint-restore/criu.git
 cd criu
 make
