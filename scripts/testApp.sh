@@ -49,6 +49,7 @@ capsh --print
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
 cat /proc/sys/kernel/yama/ptrace_scope
+echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 #cat Dockerfile
 docker run -d --name springBootCheckpointContainer \
   --privileged \
@@ -69,8 +70,6 @@ docker run -d --name springBootCheckpointContainer \
   springboot
 
 docker ps -a
-sleep 40
-docker exec springBootCheckpointContainer cat /liberty/logs/checkpoint/checkpoint.log
 #docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
 docker logs springBootCheckpointContainer
 #cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
