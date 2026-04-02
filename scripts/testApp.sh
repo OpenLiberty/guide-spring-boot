@@ -51,7 +51,7 @@ cp ../instantOn/Dockerfile Dockerfile
 cat /proc/sys/kernel/yama/ptrace_scope
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 #cat Dockerfile
-docker run -d --name springBootCheckpointContainer \
+docker run --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
@@ -80,21 +80,11 @@ docker commit springBootCheckpointContainer springboot-instanton
 docker stop springBootCheckpointContainer
 docker rm springBootCheckpointContainer
 docker images
-docker run --rm \
+docker run -d --rm \
   --name springBootContainer \
-  --privileged \
-  --security-opt seccomp=unconfined \
-  --security-opt apparmor=unconfined \
-  --cap-add=SYS_ADMIN \
-  --cap-add=NET_ADMIN \
-  --userns=host \
-  --network=host \
   --cap-add=CHECKPOINT_RESTORE \
-  --cap-add=SYS_PTRACE \
   --cap-add=SETPCAP \
-  --pid=host \
-  --cgroupns=host \
-  --ipc=host \
+  --security-opt seccomp=unconfined \
   -p 9080:9080 \
   springboot-instanton
 sleep 40
