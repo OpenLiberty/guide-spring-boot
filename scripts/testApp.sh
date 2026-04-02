@@ -48,10 +48,12 @@ sudo criu check --all
 capsh --print 
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
+#****
 cat /proc/sys/kernel/yama/ptrace_scope
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-#cat Dockerfile
-docker run --name springBootCheckpointContainer \
+cat /proc/sys/kernel/yama/ptrace_scope
+
+podman run --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
@@ -69,16 +71,25 @@ docker run --name springBootCheckpointContainer \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot
 
-docker ps -a
-#docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
-docker logs springBootCheckpointContainer
-#cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
+podman ps -a
+podman logs springBootCheckpointContainer
+podman commit springBootCheckpointContainer springboot-instanton
+podman stop springBootCheckpointContainer
+podman rm springBootCheckpointContainer
+podman images
 
-# docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
-# cat checkpoint.log
-docker commit springBootCheckpointContainer springboot-instanton
-docker stop springBootCheckpointContainer
-docker rm springBootCheckpointContainer
+podman run --rm -d \
+  --name springBootContainer \
+  --cap-add=CHECKPOINT_RESTORE \
+  --cap-add=SETPCAP \
+  --security-opt seccomp=unconfined \
+  -p 9080:9080 \
+  springboot-instanton
+
+sleep 40
+podman ps -a
+podman logs springBootContainer
+#****
 docker images
 docker run -d --rm \
   --name springBootContainer \
