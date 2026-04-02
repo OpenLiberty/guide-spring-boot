@@ -1,41 +1,43 @@
 #!/bin/bash
 set -euxo pipefail
 
-##############################################################################
-##
-##  GH actions CI test script
-##
-##############################################################################
+APP_IMAGE="localhost/springboot"
+INSTANTON_IMAGE="localhost/springboot-instanton"
+APP_PORT=9080
 
 ./mvnw -version
 
 ./mvnw -ntp -Dhttp.keepAlive=false \
-      -Dmaven.wagon.http.pool=false \
-      -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-      -q clean package
+  -Dmaven.wagon.http.pool=false \
+  -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
+  -q clean package
 
-docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
+docker pull icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
 
-docker build -t springboot .
-docker run -d --name springBootContainer --rm -p 9080:9080 -p 9443:9443 springboot
+# Build the application image
+docker build -t "$APP_IMAGE" .
+
+# Start the normal app container and verify it
+docker run -d --name springBootContainer \
+  -p ${APP_PORT}:9080 \
+  "$APP_IMAGE"
 
 sleep 40
 
-status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
-if [ "$status" == "200" ]; then
+status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:${APP_PORT}/hello")"
+if [ "$status" = "200" ]; then
   echo ENDPOINT OK
 else
   echo "$status"
   echo ENDPOINT NOT OK
-  docker exec springBootContainer cat /logs/messages.log
-  docker stop springBootContainer
+  docker logs springBootContainer
+  docker rm -f springBootContainer
   exit 1
 fi
 
-docker exec springBootContainer cat /logs/messages.log | grep product
-docker exec springBootContainer cat /logs/messages.log | grep java
-
-docker stop springBootContainer
+docker logs springBootContainer | grep product
+docker logs springBootContainer | grep java
+docker rm -f springBootContainer
 
 uname -r
 sudo add-apt-repository universe
@@ -45,15 +47,20 @@ sudo apt-get install -y criu
 sudo criu check
 criu --version
 sudo criu check --all
-capsh --print 
+capsh --print
 grep CapEff /proc/1/status
+
 cp ../instantOn/Dockerfile Dockerfile
-#****
+
 cat /proc/sys/kernel/yama/ptrace_scope
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 cat /proc/sys/kernel/yama/ptrace_scope
 
-podman run --name springBootCheckpointContainer \
+# Build the InstantOn-ready image if your Dockerfile uses checkpoint.sh
+podman build -t "$APP_IMAGE" .
+
+# Run the checkpoint container
+podman run -d --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
@@ -69,51 +76,44 @@ podman run --name springBootCheckpointContainer \
   --ipc=host \
   -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
-  springboot
+  "$APP_IMAGE"
 
 podman ps -a
 podman logs springBootCheckpointContainer
-podman commit springBootCheckpointContainer springboot-instanton
+
+podman commit springBootCheckpointContainer "$INSTANTON_IMAGE"
 podman stop springBootCheckpointContainer
 podman rm springBootCheckpointContainer
 podman images
 
-podman run --rm -d \
-  --name springBootContainer \
+# Run the committed InstantOn image
+podman run -d --name springBootContainer \
   --cap-add=CHECKPOINT_RESTORE \
   --cap-add=SETPCAP \
   --security-opt seccomp=unconfined \
-  -p 9080:9080 \
-  springboot-instanton
+  -p ${APP_PORT}:9080 \
+  "$INSTANTON_IMAGE"
 
 sleep 40
 podman ps -a
 podman logs springBootContainer
-#****
-docker images
-docker run -d --rm \
-  --name springBootContainer \
-  --cap-add=CHECKPOINT_RESTORE \
-  --cap-add=SETPCAP \
-  --security-opt seccomp=unconfined \
-  -p 9080:9080 \
-  springboot-instanton
-sleep 40
-docker ps -a
-docker logs springBootContainer
-status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
-docker stop springBootContainer
-if [ "$status" == "200" ]; then
+
+status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:${APP_PORT}/hello")"
+if [ "$status" = "200" ]; then
   echo ENDPOINT OK
 else
   echo "$status"
   echo ENDPOINT NOT OK
+  podman logs springBootContainer
+  podman rm -f springBootContainer
   exit 1
 fi
 
+podman rm -f springBootContainer
+
 ./mvnw -ntp liberty:start
-status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
-if [ "$status" == "200" ]; then
+status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:${APP_PORT}/hello")"
+if [ "$status" = "200" ]; then
   echo ENDPOINT OK
 else
   echo "$status"
@@ -128,13 +128,15 @@ if [ ! -f "target/GSSpringBootApp.jar" ]; then
   exit 1
 fi
 
-$JAVA_HOME/bin/java -jar target/GSSpringBootApp.jar &
+"$JAVA_HOME/bin/java" -jar target/GSSpringBootApp.jar &
 GSSBA_PID=$!
 echo "GSSBA_PID=$GSSBA_PID"
 sleep 30
-status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:9080/hello")"
-kill $GSSBA_PID
-if [ "$status" == "200" ]; then
+
+status="$(curl --write-out "%{http_code}\n" --silent --output /dev/null "http://localhost:${APP_PORT}/hello")"
+kill "$GSSBA_PID"
+
+if [ "$status" = "200" ]; then
   echo ENDPOINT OK
 else
   echo "$status"
