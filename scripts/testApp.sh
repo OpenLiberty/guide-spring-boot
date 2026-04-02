@@ -48,7 +48,8 @@ sudo criu check --all
 capsh --print 
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
-cat Dockerfile
+cat /proc/sys/kernel/yama/ptrace_scope
+#cat Dockerfile
 docker run -d --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
@@ -60,14 +61,16 @@ docker run -d --name springBootCheckpointContainer \
   --cap-add=CHECKPOINT_RESTORE \
   --cap-add=SYS_PTRACE \
   --cap-add=SETPCAP \
+  --pid=host \
+  --cgroupns=host \
+  --ipc=host \
   -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot
 
 docker ps -a
 sleep 40
-docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log "$GITHUB_WORKSPACE/checkpoint.log"
-cat checkpoint.log
+docker exec springBootCheckpointContainer cat /liberty/logs/checkpoint/checkpoint.log
 #docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
 docker logs springBootCheckpointContainer
 #cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
