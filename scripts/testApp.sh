@@ -58,8 +58,10 @@ docker run -d --name springBootCheckpointContainer \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot && docker inspect springBootCheckpointContainer
 docker ps -a
-docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
-cat checkpoint.log
+sleep 30
+docker logs springBootCheckpointContainer
+# docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
+# cat checkpoint.log
 docker commit springBootCheckpointContainer springboot-instanton
 docker stop springBootCheckpointContainer
 docker rm springBootCheckpointContainer
