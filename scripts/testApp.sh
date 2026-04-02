@@ -49,7 +49,7 @@ capsh --print
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
 cat Dockerfile
-docker run -d --name springBootCheckpointContainer \
+docker run --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
@@ -59,9 +59,8 @@ docker run -d --name springBootCheckpointContainer \
   --cap-add=SYS_PTRACE \
   --cap-add=SETPCAP \
   -e XDG_RUNTIME_DIR=/tmp \
-  -e WLP_CHECKPOINT=afterAppStart \
   springboot
-
+#  -e WLP_CHECKPOINT=afterAppStart \
 docker ps -a
 #docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
 docker logs springBootCheckpointContainer
