@@ -80,7 +80,7 @@ docker commit springBootCheckpointContainer springboot-instanton
 docker stop springBootCheckpointContainer
 docker rm springBootCheckpointContainer
 docker images
-docker run --rm -d \
+docker run --rm \
   --name springBootContainer \
   --cap-add=CHECKPOINT_RESTORE \
   --cap-add=SETPCAP \
