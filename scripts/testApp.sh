@@ -49,7 +49,7 @@ capsh --print
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
 cat Dockerfile
-docker run --name springBootCheckpointContainer \
+docker run -d --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
