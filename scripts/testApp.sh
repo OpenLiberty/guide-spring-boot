@@ -60,7 +60,6 @@ sudo docker run -d --name springBootCheckpointContainer \
   --security-opt apparmor=unconfined \
   --cap-add=SYS_ADMIN \
   --cap-add=NET_ADMIN \
-  --network=host \
   --cap-add=CHECKPOINT_RESTORE \
   --cap-add=SYS_PTRACE \
   --cap-add=SETPCAP \
@@ -70,15 +69,17 @@ sudo docker run -d --name springBootCheckpointContainer \
   -e XDG_RUNTIME_DIR=/tmp \
   -e JAVA_TOOL_OPTIONS="-XX:+UnlockDiagonsticVMOptions -XX:+DebugNonSafepoints" \
   -e CRIU_LOG_LEVEL=4 \
+  -e WLP_CHECKPOINT=afterAppStart \
   springboot 
 #   -e WLP_CHECKPOINT=afterAppStart \
 # --userns=host \
 #   --pid=host \
+#   --network=host \
 docker ps -a
-docker exec springBootCheckpointContainer cat /proc/sys/kernel/yama/ptrace_scope
-sudo docker exec springBootCheckpointContainer ps -ef 
-sudo docker exec springBootCheckpointContainer cat /proc/1/status
-sudo docker exec springBootCheckpointContainer capsh --print
+# docker exec springBootCheckpointContainer cat /proc/sys/kernel/yama/ptrace_scope
+#sudo docker exec springBootCheckpointContainer ps -ef 
+# sudo docker exec springBootCheckpointContainer cat /proc/1/status
+# sudo docker exec springBootCheckpointContainer capsh --print
 
 
 
