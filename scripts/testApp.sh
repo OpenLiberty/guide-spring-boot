@@ -88,8 +88,8 @@ docker ps -a
 docker logs springBootCheckpointContainer
 #cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
 
-docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
-cat checkpoint.log
+#docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
+#cat checkpoint.log
 docker commit springBootCheckpointContainer springboot-instanton
 docker stop springBootCheckpointContainer
 docker rm springBootCheckpointContainer
