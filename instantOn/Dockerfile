@@ -55,4 +55,4 @@ COPY --chown=1001:0 --from=staging /staging/thin-guide-spring-boot-0.1.0.jar \
                     /config/dropins/spring/thin-guide-spring-boot-0.1.0.jar
 # end::thinjar[]
 
-RUN configure.sh  && echo 'WLP_CHECKPOINT_CRAC=true' >> /config/server.env
+RUN configure.sh

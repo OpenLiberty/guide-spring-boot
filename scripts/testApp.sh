@@ -66,6 +66,8 @@ sudo docker run -d --name springBootCheckpointContainer \
   --cgroupns=host \
   --ipc=host \
   --cap-add=ALL \
+  --sysctl net.ipv6.conf.all.disable_ipv6=1 \
+  --sysctl net.ipv6.conf.default.disable_ipv6=1 \
   -e XDG_RUNTIME_DIR=/tmp \
   -e CRIU_LOG_LEVEL=4 \
   -e WLP_CHECKPOINT=afterAppStart \
