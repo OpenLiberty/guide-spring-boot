@@ -14,7 +14,7 @@ set -euxo pipefail
       -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
       -q clean package
 
-docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java17-openjdk-ubi
+docker pull -q icr.io/appcafe/open-liberty:kernel-slim-java17-openj9-ubi
 
 docker build -t springboot .
 docker run -d --name springBootContainer --rm -p 9080:9080 -p 9443:9443 springboot
