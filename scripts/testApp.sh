@@ -66,6 +66,7 @@ sudo docker run -d --name springBootCheckpointContainer \
   --cap-add=SETPCAP \
   --cgroupns=host \
   --ipc=host \
+  --cap-add=ALL \
   -e XDG_RUNTIME_DIR=/tmp \
   -e JAVA_TOOL_OPTIONS="-XX:+UnlockDiagonsticVMOptions -XX:+DebugNonSafepoints" \
   -e CRIU_LOG_LEVEL=4 \
