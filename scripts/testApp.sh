@@ -75,8 +75,8 @@ sudo docker run -d --name springBootCheckpointContainer \
 #   --pid=host \
 docker ps -a
 docker exec springBootCheckpointContainer cat /proc/sys/kernel/yama/ptrace_scope
-sudo docker exec springBootCheckpointContainer ps -ef | grep java
-sudo docker exec springBootCheckpointContainer cat /proc/1/status | grep CapEff
+sudo docker exec springBootCheckpointContainer ps -ef 
+sudo docker exec springBootCheckpointContainer cat /proc/1/status
 sudo docker exec springBootCheckpointContainer capsh --print
 
 
