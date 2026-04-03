@@ -54,7 +54,6 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 echo '{"experimental": true}' | sudo tee /etc/docker/daemon.json
 sudo systemctl restart docker
 #cat Dockerfile
-getenforce
 sudo docker run --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
