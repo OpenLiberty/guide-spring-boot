@@ -48,8 +48,11 @@ sudo criu check --all
 capsh --print 
 grep CapEff /proc/1/status
 cp ../instantOn/Dockerfile Dockerfile
+id 
 cat /proc/sys/kernel/yama/ptrace_scope
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+echo '{"experimental": true}' | sudo tee /etc/docker/daemon.json
+sudo systemctl restart docker
 #cat Dockerfile
 sudo docker run --name springBootCheckpointContainer \
   --privileged \
@@ -69,10 +72,12 @@ sudo docker run --name springBootCheckpointContainer \
   -e WLP_CHECKPOINT=afterAppStart \
   -e JAVA_TOOL_OPTIONS="-XX:+UnlockDiagonsticVMOptions -XX:+DebugNonSafepoints" \
   -e CRIU_LOG_LEVEL=4 \
-  springboot
+  springboot 
 
 docker ps -a
 docker exec springBootCheckpointContainer cat /proc/sys/kernel/yama/ptrace_scope
+sudo docker exec springBootCheckpointContainer ps -ef
+
 #docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
 docker logs springBootCheckpointContainer
 #cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
