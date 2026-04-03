@@ -70,8 +70,12 @@ sudo docker run --name springBootCheckpointContainer \
   --sysctl net.ipv6.conf.default.disable_ipv6=1 \
   -e XDG_RUNTIME_DIR=/tmp \
   -e CRIU_LOG_LEVEL=4 \
+  -e JAVA_TOOL_OPTIONS="-Dcom.ibm.tools.attach.enable=no -Djava.net.preferIpv4Stack=true" \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot 
+
+#   --sysctl net.ipv6.conf.all.disable_ipv6=1 \
+# --sysctl net.ipv6.conf.default.disable_ipv6=1 \
 #   -e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true" \
 #   -e WLP_CHECKPOINT=afterAppStart \
 # --userns=host \
