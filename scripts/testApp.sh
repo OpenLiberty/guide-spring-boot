@@ -67,14 +67,15 @@ sudo docker run --name springBootCheckpointContainer \
   --ipc=host \
   --cap-add=ALL \
   -e XDG_RUNTIME_DIR=/tmp \
-  -e JAVA_TOOL_OPTIONS="-XX:+UnlockDiagonsticVMOptions -XX:+DebugNonSafepoints" \
-  -e CRIU_LOG_LEVEL=4 \
   -e WLP_CHECKPOINT=afterAppStart \
+  -e CRIU_LOG_LEVEL=4 \
+  -e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true" \
   springboot 
 #   -e WLP_CHECKPOINT=afterAppStart \
 # --userns=host \
 #   --pid=host \
 #   --network=host \
+#  -e JAVA_TOOL_OPTIONS="-XX:+UnlockDiagonsticVMOptions -XX:+DebugNonSafepoints" \
 docker ps -a
 # docker exec springBootCheckpointContainer cat /proc/sys/kernel/yama/ptrace_scope
 #sudo docker exec springBootCheckpointContainer ps -ef 
