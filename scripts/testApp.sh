@@ -68,7 +68,6 @@ sudo docker run --name springBootCheckpointContainer \
   --ipc=host \
   --cap-add=ALL \
   -e XDG_RUNTIME_DIR=/tmp \
-  -e WLP_CHECKPOINT=afterAppStart \
   -e CRIU_LOG_LEVEL=4 \
   -e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true" \
   springboot 
