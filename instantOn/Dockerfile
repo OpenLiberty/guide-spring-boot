@@ -3,6 +3,13 @@
 FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi-minimal AS staging
 # end::OLimage1[]
 
+USER root
+RUN apt-get update && apt-get install -y software-properties-common \ 
+  && add-apt-repository ppa:criu/ppa \
+  && apt-get update \
+  && apt-get install -y criu \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+USER 1001
 # tag::copyJar[]
 COPY --chown=1001:0 target/guide-spring-boot-0.1.0.jar \
                     /staging/fat-guide-spring-boot-0.1.0.jar

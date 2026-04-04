@@ -70,9 +70,6 @@ sudo docker run --name springBootCheckpointContainer \
   --cgroupns=host \
   --ipc=host \
   --cap-add=ALL \
-  -v /usr/sbin/criu:/usr/sbin/criu:ro \
-  -v /usr/lib/x86_64-linux-gnu/libprotobuf-c.so.1:/usr/lib/x86_64-linux-gnu/libprotobuf-c.so.1:ro \
-  -v /usr/lib/x86_64-linux-gnu/libnet.so.1:/usr/lib/x86_64-linux-gnu/libnet.so.1:ro \
   -e XDG_RUNTIME_DIR=/tmp \
   -e CRIU_LOG_LEVEL=4 \
   -e WLP_CHECKPOINT=afterAppStart \
