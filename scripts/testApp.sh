@@ -57,22 +57,22 @@ sudo systemctl restart docker
 which criu 
 #dpkg -L | grep criu
 #ldd $(which criu)
+#   --privileged \
+#  --security-opt seccomp=unconfined \
+#  --security-opt apparmor=unconfined \
+#  --cap-add=SYS_ADMIN \
+#  --cap-add=NET_ADMIN \
+#  --cap-add=CHECKPOINT_RESTORE \
+ # --cap-add=SYS_PTRACE \
+#  --cap-add=SETPCAP \
+#  --cgroupns=host \
+#  --ipc=host \
+#  --cap-add=ALL \
+#  -e XDG_RUNTIME_DIR=/tmp \
+#  -e CRIU_LOG_LEVEL=4 \
 
 sudo docker run --name springBootCheckpointContainer \
-  --privileged \
-  --security-opt seccomp=unconfined \
-  --security-opt apparmor=unconfined \
-  --cap-add=SYS_ADMIN \
-  --cap-add=NET_ADMIN \
-  --cap-add=CHECKPOINT_RESTORE \
-  --cap-add=SYS_PTRACE \
-  --cap-add=SETPCAP \
-  --cgroupns=host \
-  --ipc=host \
-  --cap-add=ALL \
-  -e XDG_RUNTIME_DIR=/tmp \
-  -e CRIU_LOG_LEVEL=4 \
-  -e WLP_CHECKPOINT=afterAppStart \
+  -e WLP_CHECKPOINT=beforeAppStart \
   springboot 
 #  -e JAVA_TOOL_OPTIONS="-Dcom.ibm.tools.attach.enable=no -Djava.net.preferIpv4Stack=true" \
 #   --sysctl net.ipv6.conf.all.disable_ipv6=1 \
