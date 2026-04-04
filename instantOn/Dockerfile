@@ -6,9 +6,9 @@ RUN dnf install -y gcc make pkg-config \
     libaio-devel gnutls-devel python3-protobuf \
     git nftables-devel iptables-devel \
     && dnf clean all
-RUN git clone --depth 1 --branch v4.2 https://github.com/checkpoint-restore/criu.git /criu \
+RUN git clone --depth 1 --branch v4.2 https://github.com/checkpoint-restore/criu.git /criu 
 WORKDIR /criu
-RUN make "-j$(nproc)" && make install PREFIX=/usr/local
+RUN make -j"$(nproc)" && make install PREFIX=/usr/local
 # Stage: Thin the application
 FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi-minimal AS staging
 COPY --chown=1001:0 target/guide-spring-boot-0.1.0.jar \
