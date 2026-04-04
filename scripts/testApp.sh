@@ -54,6 +54,10 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 echo '{"experimental": true}' | sudo tee /etc/docker/daemon.json
 sudo systemctl restart docker
 #cat Dockerfile
+which criu 
+dpkg -L | grep criu
+ldd $(which criu)
+
 sudo docker run --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
@@ -66,14 +70,11 @@ sudo docker run --name springBootCheckpointContainer \
   --cgroupns=host \
   --ipc=host \
   --cap-add=ALL \
-  --sysctl net.ipv6.conf.all.disable_ipv6=1 \
-  --sysctl net.ipv6.conf.default.disable_ipv6=1 \
   -e XDG_RUNTIME_DIR=/tmp \
   -e CRIU_LOG_LEVEL=4 \
-  -e JAVA_TOOL_OPTIONS="-Dcom.ibm.tools.attach.enable=no -Djava.net.preferIpv4Stack=true" \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot 
-
+#  -e JAVA_TOOL_OPTIONS="-Dcom.ibm.tools.attach.enable=no -Djava.net.preferIpv4Stack=true" \
 #   --sysctl net.ipv6.conf.all.disable_ipv6=1 \
 # --sysctl net.ipv6.conf.default.disable_ipv6=1 \
 #   -e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true" \
