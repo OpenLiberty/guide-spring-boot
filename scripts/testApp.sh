@@ -72,6 +72,8 @@ which criu
 #  -e CRIU_LOG_LEVEL=4 \
 
 sudo docker run --name springBootCheckpointContainer \
+ --privileged \
+  -e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true" \
   -e WLP_CHECKPOINT=beforeAppStart \
   springboot 
 #  -e JAVA_TOOL_OPTIONS="-Dcom.ibm.tools.attach.enable=no -Djava.net.preferIpv4Stack=true" \
