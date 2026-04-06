@@ -38,26 +38,23 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 
 uname -r
-sudo add-apt-repository universe
-sudo apt update
-sudo add-apt-repository ppa:criu/ppa
-sudo apt-get install -y criu
-sudo criu check
-criu --version
-sudo criu check --all
-capsh --print 
-grep CapEff /proc/1/status
-cp ../instantOn/Dockerfile Dockerfile
-id 
-cat /proc/sys/kernel/yama/ptrace_scope
-echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-echo '{"experimental": true}' | sudo tee /etc/docker/daemon.json
-sudo systemctl restart docker
-#cat Dockerfile
-which criu 
-#dpkg -L | grep criu
-#ldd $(which criu)
+CRIU_SOCKET_COMPATIBILITY=$(python3 -c "
+import socket 
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+try:
+  s.getsockopt(1,34)
+  print('ok')
+except OSError: 
+  print('fail')
+except Exception as e:
+  print('fail with exception: ' + str(e))
+finally:
+  s.close()")
 
+if ("$CRIU_SOCKET_COMPATIBILITY" != "ok"); then
+  echo "CRIU socket compatibility check failed. Check if your kernel supports CRIU and that you have the necessary permissions."
+  exit 0
+fi
 sudo docker run --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
@@ -73,30 +70,7 @@ sudo docker run --name springBootCheckpointContainer \
   -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot 
-#   -e CRIU_LOG_LEVEL=4 \
-#  -e JAVA_TOOL_OPTIONS="-Dcom.ibm.tools.attach.enable=no -Djava.net.preferIpv4Stack=true" \
-#   --sysctl net.ipv6.conf.all.disable_ipv6=1 \
-# --sysctl net.ipv6.conf.default.disable_ipv6=1 \
-#   -e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true" \
-#   -e WLP_CHECKPOINT=afterAppStart \
-# --userns=host \
-#   --pid=host \
-#   --network=host \
-#  -e JAVA_TOOL_OPTIONS="-XX:+UnlockDiagonsticVMOptions -XX:+DebugNonSafepoints" \
-docker ps -a
-# docker exec springBootCheckpointContainer cat /proc/sys/kernel/yama/ptrace_scope
-#sudo docker exec springBootCheckpointContainer ps -ef 
-# sudo docker exec springBootCheckpointContainer cat /proc/1/status
-# sudo docker exec springBootCheckpointContainer capsh --print
 
-
-
-#docker exec springBootCheckpointContainer bash -C 'id; ls -ld /liberty/logs/checkpoint; touch /liberty/logs/checkpoint/testfile'
-docker logs springBootCheckpointContainer
-#cat "$GITHUB_WORKSPACE/checkpoint-logs/checkpoint.log"
-
-#docker cp springBootCheckpointContainer:/liberty/logs/checkpoint/checkpoint.log .
-#cat checkpoint.log
 docker commit springBootCheckpointContainer springboot-instanton
 docker stop springBootCheckpointContainer
 docker rm springBootCheckpointContainer
