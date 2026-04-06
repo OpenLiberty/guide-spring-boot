@@ -71,7 +71,6 @@ sudo docker run --name springBootCheckpointContainer \
   --ipc=host \
   --cap-add=ALL \
   -e XDG_RUNTIME_DIR=/tmp \
-  -e JAVA_TOOL_OPTIONS="-Dcom.ibm.tools.attach.enable=no -Djava.net.preferIpv4Stack=true" \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot 
 #   -e CRIU_LOG_LEVEL=4 \

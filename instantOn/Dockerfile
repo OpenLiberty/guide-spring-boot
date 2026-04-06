@@ -54,5 +54,5 @@ COPY --chown=1001:0 --from=staging /staging/lib.index.cache /lib.index.cache
 COPY --chown=1001:0 --from=staging /staging/thin-guide-spring-boot-0.1.0.jar \
                     /config/dropins/spring/thin-guide-spring-boot-0.1.0.jar
 # end::thinjar[]
-
+RUN echo '-XX:CRIURestoreNonPortableMode' >> /config/jvm.options
 RUN configure.sh
