@@ -57,25 +57,23 @@ sudo systemctl restart docker
 which criu 
 #dpkg -L | grep criu
 #ldd $(which criu)
-#   --privileged \
-#  --security-opt seccomp=unconfined \
-#  --security-opt apparmor=unconfined \
-#  --cap-add=SYS_ADMIN \
-#  --cap-add=NET_ADMIN \
-#  --cap-add=CHECKPOINT_RESTORE \
- # --cap-add=SYS_PTRACE \
-#  --cap-add=SETPCAP \
-#  --cgroupns=host \
-#  --ipc=host \
-#  --cap-add=ALL \
-#  -e XDG_RUNTIME_DIR=/tmp \
-#  -e CRIU_LOG_LEVEL=4 \
 
 sudo docker run --name springBootCheckpointContainer \
- --privileged \
-  -e JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true" \
+  --privileged \
+  --security-opt seccomp=unconfined \
+  --security-opt apparmor=unconfined \
+  --cap-add=SYS_ADMIN \
+  --cap-add=NET_ADMIN \
+  --cap-add=CHECKPOINT_RESTORE \
+  --cap-add=SYS_PTRACE \
+  --cap-add=SETPCAP \
+  --cgroupns=host \
+  --ipc=host \
+  --cap-add=ALL \
+  -e XDG_RUNTIME_DIR=/tmp \
   -e WLP_CHECKPOINT=afterAppStart \
   springboot 
+#   -e CRIU_LOG_LEVEL=4 \
 #  -e JAVA_TOOL_OPTIONS="-Dcom.ibm.tools.attach.enable=no -Djava.net.preferIpv4Stack=true" \
 #   --sysctl net.ipv6.conf.all.disable_ipv6=1 \
 # --sysctl net.ipv6.conf.default.disable_ipv6=1 \
