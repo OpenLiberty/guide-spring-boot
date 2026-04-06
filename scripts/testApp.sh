@@ -51,10 +51,11 @@ except Exception as e:
 finally:
   s.close()")
 
-if ("$CRIU_SOCKET_COMPATIBILITY" != "ok"); then
+if [ "$CRIU_SOCKET_COMPATIBILITY" != "ok" ]; then
   echo "CRIU socket compatibility check failed. Check if your kernel supports CRIU and that you have the necessary permissions."
   exit 0
 fi
+
 sudo docker run --name springBootCheckpointContainer \
   --privileged \
   --security-opt seccomp=unconfined \
