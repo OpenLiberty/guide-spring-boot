@@ -38,6 +38,25 @@ docker exec springBootContainer cat /logs/messages.log | grep java
 docker stop springBootContainer
 
 uname -r
+
+CRIU_SOCKET_COMPATIBILITY=$(python3 -c "
+import socket 
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+try:
+  s.getsockopt(1,34)
+  print('ok')
+except OSError: 
+  print('fail')
+except Exception as e:
+  print('fail with exception: ' + str(e))
+finally:
+  s.close()")
+
+if [ "$CRIU_SOCKET_COMPATIBILITY" != "ok" ]; then
+  echo "CRIU socket compatibility check failed. Check if your kernel supports CRIU and that you have the necessary permissions."
+  exit 0
+fi
+
 cp ../instantOn/Dockerfile Dockerfile
 docker run --name springBootCheckpointContainer --privileged --env WLP_CHECKPOINT=afterAppStart springboot
 docker commit springBootCheckpointContainer springboot-instanton
