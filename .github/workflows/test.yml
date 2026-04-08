@@ -61,7 +61,7 @@ jobs:
         run: |
           uname -r
           logsPath=$(sudo find . -name "console.log");
-          sudo cat "$logsPath" | sudo grep Launching
+          sudo cat "$logsPath" | sudo grep Launching || true
       - name: Archive server logs if failed
         if: failure()
         uses: actions/upload-artifact@v4
