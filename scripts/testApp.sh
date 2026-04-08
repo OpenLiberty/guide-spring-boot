@@ -39,6 +39,22 @@ docker stop springBootContainer
 
 uname -r
 
+KERNEL_SOCKET_COMPATIBILITY=$(python3 -c "
+import socket 
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+try:
+  s.getsockopt(1,34)
+  print('ok')
+except OSError: 
+  print('fail')
+except Exception as e:
+  print('fail with exception: ' + str(e))
+finally:
+  s.close()")
+
+if [ "$KERNEL_SOCKET_COMPATIBILITY" != "ok" ]; then
+  echo "Check if your kernel supports the required features and that you have the necessary permissions."
+fi
 cp ../instantOn/Dockerfile Dockerfile
 docker run --name springBootCheckpointContainer --privileged --env WLP_CHECKPOINT=afterAppStart springboot || exit 0
 docker commit springBootCheckpointContainer springboot-instanton
