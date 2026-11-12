@@ -1,6 +1,6 @@
 # Stage and thin the application 
 # tag::OLimage1[]
-FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi-minimal AS staging
+FROM icr.io/appcafe/open-liberty:full-java25-openj9-ubi-minimal AS staging
 # end::OLimage1[]
 
 # tag::copyJar[]
@@ -17,7 +17,7 @@ RUN springBootUtility thin \
 
 # Build the image
 # tag::OLimage2[]
-FROM icr.io/appcafe/open-liberty:kernel-slim-java21-openj9-ubi-minimal
+FROM icr.io/appcafe/open-liberty:kernel-slim-java25-openj9-ubi-minimal
 # end::OLimage2[]
 
 ARG VERSION=1.0
@@ -37,7 +37,7 @@ LABEL \
   description="This image contains the hello application running with the Open Liberty runtime."
 
 # tag::serverXml[]
-RUN cp /opt/ol/wlp/templates/servers/springBoot3/server.xml /config/server.xml
+RUN cp /opt/ol/wlp/templates/servers/springBoot4/server.xml /config/server.xml
 # end::serverXml[]
 
 # tag::cracXml[]

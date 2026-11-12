@@ -2,12 +2,12 @@
 <server description="new server">
 
     <featureManager>
-        <platform>jakartaee-10.0</platform>
+        <platform>jakartaee-11.0</platform>
     <!-- tag::servlet[] -->
         <feature>servlet</feature>
     <!-- end::servlet[] -->
     <!-- tag::springboot[] -->
-        <feature>springBoot-3.0</feature>
+        <feature>springBoot-4.0</feature>
     <!-- end::springboot[] -->
     </featureManager>
 
